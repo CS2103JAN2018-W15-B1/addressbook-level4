@@ -782,7 +782,8 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to keep track of a significant number of employees
+* need to assign work to employees and keep track of it
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
