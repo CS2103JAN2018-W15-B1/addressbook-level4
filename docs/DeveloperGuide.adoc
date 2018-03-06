@@ -799,37 +799,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new manager |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |add a new employee |
 
-|`* * *` |manager |add a new employee |
+|`* * *` |user |sort employee by name |locate an employee easily
 
-|`* * *` |manager |add work to employee's timetable |
+|`* * *` |user |search employees by specific criteria |
 
-|`* * *` |manager |edit an employee |update detail that may have changed
+|`* *` |user |have my own timetable |manage my own time
 
-|`* * *` |manager |delete an employee |remove entries that I no longer need
+|`*` |user |change the window scheme/theme/skin |
 
-|`* * *` |manager |find employees by name |locate details of persons without having to go through the entire list
+|`*` |user |know employees' location |search their location on the map
 
-|`* * *` |manager |filter employees by specific criteria |view employees that match the criteria
-
-|`* *` |manager |mass add work to many employees' timetable at once |
-
-|`* *` |manager |be notified for any deadline of my employees |
-
-|`* *` |manager |keep track of my employees performance |decide on my employee salary
-
-|`* *` |manager with many employees in the address book |sort employee by name |locate an employee easily
-
-|`* *` |manager |have my own timetable | keep track of my own work
-
-|`* *` |new manager |inherit the address book from previous manager |save myself from the need of inputting everything all over again
-
-|`*` |employee |know my performance |improve further
-
-|`*` |another fellow manager |give input to another employee under different manager that ever worked below me |
-
-|`*` |manager |be able to get data of my employees from the manager above me |
+|`*` |user |lock the addressbook |leave my app open while making unauthorized people cannot access it
 |=======================================================================
 
 _{More to be added}_
