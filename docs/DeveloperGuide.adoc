@@ -822,14 +822,14 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use Case: Mass adding timetable entry to many employees' timetable at once
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to list all employees
+2. AddressBook shows a list of all employees
+3. User requests to add timetable entry to many employees
+4. AddressBook add the entry to many employees
 +
 Use case ends.
 
@@ -840,12 +840,78 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The index range given is invalid.
 +
 [none]
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use Case: Write a review to an employee that has ever worked below me
+
+*MSS*
+
+1. User requests to list all employees
+2. AddressBook shows a list of all employees
+3. User requests to add review to an employee
+4. AddressBook add the review to the employee
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. 3a. The index given is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use Case: Export AddressBook
+
+*MSS*
+
+1. User requests export AddressBook into a directory
+2. AddressBook export the AddressBook data in a file to the directory specified
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The directory is invalid.
++
+[none]
+** 1a1. AddressBook shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Import AddressBook
+
+*MSS*
+
+1. User requests import AddressBook file from a directory
+2. AddressBook import the AddressBook data from the file in the directory specified
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The directory is invalid.
++
+[none]
+** 1a1. AddressBook shows an error message.
++
+Use case ends.
 
 _{More to be added}_
 
