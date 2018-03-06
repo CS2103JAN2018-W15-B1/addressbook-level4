@@ -857,6 +857,7 @@ _{More to be added}_
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Should not consume memory more than 2GB
 .  Should be able to be run easily by non-technical user
+.  The save file of the app should be cross-compatible
 
 _{More to be added}_
 
