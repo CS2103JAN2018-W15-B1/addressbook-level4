@@ -800,17 +800,18 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |user |add a new employee |
-
 |`* * *` |user |sort employee by name |locate an employee easily
-
 |`* * *` |user |search employees by specific criteria |
-
+|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |each employee has his/her dedicated timetable | trace progress of that person
+|`* * *` |user |add a timetable entry on anyone's timetable |
+|`* * *` |user |give employees a rating |evaluate their performance
+|`* * *` |user |change employees' rating |
+|`* * *` |user |sort the employees by their rating |give them bonus salaries accordingly
+|`* * *` |user |sort the employees by their salaries |see their salary conditions
 |`* *` |user |have my own timetable |manage my own time
-
 |`*` |user |change the window scheme/theme/skin |
-
 |`*` |user |know employees' location |search their location on the map
-
 |`*` |user |lock the addressbook |leave my app open while making unauthorized people cannot access it
 |=======================================================================
 
@@ -820,6 +821,91 @@ _{More to be added}_
 == Use Cases
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use case: Add a timetable entry on anyone's timetable
+
+*MSS*
+
+1. user requests to list employees
+2. AddressBook shows a list of employees
+3. user requests to add a entry to an employee's timetable
+4. AddressBook adds the entry
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Give employees a rating
+
+*MSS*
+
+1. user requests to list employees
+2. AddressBook shows a list of employees
+3. user requests to give an employee a rating
+4. AddressBook add the rating
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The given rating is not an integer.
++
+[none]
+** 3b1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 4a. The person has already been rated.
++
+[none]
+** 4a1. AddressBook updates the rating for the person with the new rating.
++
+Use case ends.
+
+[discrete]
+=== Use case: Sort the employees by their rating
+
+*MSS*
+
+1. user requests to list employees sorted by their ratings
+2. AdressBook accesses the list of all employees
+3. AddressBook sorts the employees in the list by their ratings
+4. AddressBook shows the sorted list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
 
 [discrete]
 === Use Case: Mass adding timetable entry to many employees' timetable at once
@@ -866,7 +952,7 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. 3a. The index given is invalid.
+* 3a. The index given is invalid.
 +
 [none]
 ** 3a1. AddressBook shows an error message.
@@ -921,6 +1007,10 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The app should be used only by one user.
+.  Only the owner can view the data in the app
+.  The app should be able to response the command within 500ms
+.  The app should be able to apply to people who are generally managing <=200 other people
 .  Should not consume memory more than 2GB
 .  Should be able to be run easily by non-technical user
 .  The save file of the app should be cross-compatible
