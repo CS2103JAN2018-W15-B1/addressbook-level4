@@ -91,6 +91,7 @@ public class DetailPanel extends UiPart<Region> {
         //@@author
     }
 
+    //@@author crizyli
     @Subscribe
     private void handleHideDetailPanelEvent(HideDetailPanelEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -99,6 +100,7 @@ public class DetailPanel extends UiPart<Region> {
         reviews.getChildren().clear();
         loadDefaultPage();
     }
+    //@@author
 
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {

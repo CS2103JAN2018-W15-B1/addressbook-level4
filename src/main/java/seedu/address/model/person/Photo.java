@@ -1,8 +1,8 @@
 package seedu.address.model.person;
-
+//@@author crizyli
 /**
  * Represents a Person's photo.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhotoPath(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidPhotoName(String)}
  */
 public class Photo {
 
@@ -25,8 +25,12 @@ public class Photo {
     /**
      * Returns true if a given string is a valid photo path.
      */
-    public static boolean isValidPhotoPath(String test) {
-        return true;
+    public static boolean isValidPhotoName(String test) {
+        String extension = test.substring(test.lastIndexOf(".") + 1);
+        return extension.compareToIgnoreCase("jpg") == 0
+                || extension.compareToIgnoreCase("png") == 0
+                || extension.compareToIgnoreCase("jpeg") == 0
+                || extension.compareToIgnoreCase("bmp") == 0;
     }
 
     public String getName() {

@@ -206,7 +206,25 @@ An employee can have any number of tags (including 0)
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+Adds John Doe with the information given into Employees Tracker.
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Adds Betsy Crowe with the information given into Employees Tracker.
+
+=== Adding an profile photo to an employee: `addPhoto`
+
+Adds a profile photo to an existing employee in Employees Tracker by selecting a photo file in a file chooser. +
+Format: `addPhoto INDEX`
+
+****
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`addPhoto 1` +
+Adds a photo to the 1st employee in the last employees listing. Refer to Figure 8 below.
 
 === Listing all employees : `list`
 
@@ -449,15 +467,19 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+<<<<<<< HEAD
 
 === Locking Employees Tracker: `lock`
+=======
+>>>>>>> 92a9b65d2dae40cd7232edf7f039d4ffe53f1ede
 
-Locks Employees Tracker, so that the data is protected without the need of closing the program or shutting down your computer. +
+=== Locking the Employees Tracker: `lock`
+
+Locks Employee Tracker, so that the data is protected without the need of closing the program or shutting down your computer. +
 Format: `lock`
 
 ****
-* The `Employees List Panel` and `Employee's Profile Panel` will be emptied when Employees Tracker is locked.
-* Employees Tracker will not respond to any command other than `unlock` when it is locked.
+* Employee Tracker will not respond to any command other than `unlock` when it is locked.
 ****
 
 Examples:
@@ -473,7 +495,7 @@ image::lock_screen.png[width="300"][height="400"]
 
 === Viewing my own calendar: `myCalendar`
 
-Views my own calendar in a separate pop-up web page window. +
+Views my own calendar. +
 Format: `myCalendar`
 
 Examples:
@@ -483,13 +505,13 @@ views my own calendar in a pop-up window.
 
 === Viewing my to-do-list: `todoList`
 
-Views the upcoming events on my google account main calendar in to-do-list manner in a separate window. +
+Views the upcoming events on my google account main calendar. +
 Format: `todoList`
 
 Examples:
 
 * `todoList` +
-shows the to-do-list in  a pop-up window. Refer to Figure 11 below.
+shows the to-do-list in a pop-up window. Refer to Figure 11 below.
 
 .Hididng information when Employees Tracker is locked
 image::todolist.png[width="300"][height="400"]
@@ -500,10 +522,8 @@ Sets Employees Tracker's unlock password. +
 Format: `setPassword OLD_PASSWORD NEW_PASSWORD`
 
 ****
-* Set Employees Tracker's password from OLD_PASSWORD to NEW_PASSWORD.
 * OLD_PASSWORD and NEW_PASSWORD are requiered, and OLD_PASSWORD should match current application unlock password.
-* OLD_PASSWORD and NEW_PASSWORD are of String type that can contain any character.
-* The default OLD_PASSWORD is `admin`.
+* OLD_PASSWORD and NEW_PASSWORD can contain any character.
 ****
 
 Examples:
@@ -653,21 +673,21 @@ e.g. `delete 3`
 e.g. `deleteEvent 1 event title`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Review* : `review INDEX` +
-e.g. `review 2`
 * *Find* : `find (n/NAME_KEYPHRASE | t/TAG_KEYPHRASE | r/RATING_KEYPHRASE) [n/NAME_KEYPHRASE]…​ [t/TAG_KEYPHRASE]…​ [r/RATING_KEYPHRASE]…` +
 e.g. `find n/James n/Jake Black t/Sales t/Marketing Senior r/3`
+* *Help* : `help`
+* *History* : `history`
 * *List* : `list`
 * *Lock* : `lock`
 * *MyCalendar* : `myCalendar`
-* *Help* : `help`
+* *Redo* : `redo`
+* *Review* : `review INDEX` +
+e.g. `review 2`
 * *Select* : `select INDEX` +
 e.g.`select 2`
 * *SetPassword* : `setPassword OLD_PASSWORD NEW_PASSWORD ` +
 e.g.`setPassword admin 12345`
 * *TodoList* : `todoList`
-* *History* : `history`
 * *Undo* : `undo`
 * *Unlock* : `unlock PASSWORD` +
 e.g.`unlock admin`
-* *Redo* : `redo`

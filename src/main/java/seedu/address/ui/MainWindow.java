@@ -217,6 +217,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY(), Theme.getTheme());
     }
 
+    //@@author crizyli
     /**
      * Opens calendar web page window.
      */
@@ -224,6 +225,7 @@ public class MainWindow extends UiPart<Stage> {
         MyCalendarView myCalendarView = new MyCalendarView();
         myCalendarView.start(new Stage());
     }
+    //@@author
 
     /**
      * Opens the help window.
@@ -272,6 +274,7 @@ public class MainWindow extends UiPart<Stage> {
         handleHelp();
     }
 
+    //@@author crizyli
     @Subscribe
     private void handleShowMyCalendarEvent(ShowMyCalendarEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -425,7 +428,6 @@ public class MainWindow extends UiPart<Stage> {
         ReviewDialog reviewDialog = new ReviewDialog();
         reviewDialog.show();
     }
-    //@@author
 
     //@@author crizyli
     @FXML
