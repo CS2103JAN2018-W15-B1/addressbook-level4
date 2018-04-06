@@ -172,7 +172,7 @@ Format: `unlock PASSWORD`
 
 ****
 * Unlock the EmployeeTracker with the PASSWORD which match the application's unlock password.
-* PASSWORD is requiered.
+* PASSWORD is required.
 * The PASSWORD is a string that can contain any character.
 * The default PASSWORD is `admin`.
 ****
@@ -312,8 +312,8 @@ Format: `find (n/NAME_KEYPHRASE | t/TAG_KEYPHRASE | r/RATING_KEYPHRASE)  [n/NAME
 * The search is case insensitive, e.g. `n/hANs` will match `Hans`
 * The order of the keyphrase does not matter, e.g. `n/Hans Bo` will match `Bo Hans`
 * The search does not match exactly all the words in a phrase in sequential order, but only finds any phrase that contains the specified keyphrase's words without sequential order, e.g. `n/Hans Bo` will match `Jonathan Bo Hans`
-* The search only matches full wor, e.g. `n/Han` will not match `Hans`
-* Searching by multiple criteria will yield the result of employees that match all the criterias, e.g. +
+* The search only matches full word, e.g. `n/Han` will not match `Hans`
+* Searching by multiple criteria will yield the result of employees that match all the criteria, e.g. +
 ** `n/Hans Bo t/Sales` will match `Hans Bo` with tag `Friends` but not `Hans Bo` with tag `Enemy` or `John Doe` with tag `Friends` +
 ** `n/Hans Bo n/John Doe t/Sales t/Marketing` will match only `Hans Bo | Sales` or `Hans Bo | Marketing` or `John Doe | Sales` or `John Doe | Marketing`
 ****
@@ -408,7 +408,8 @@ Examples:
 
 * `delete 1` +
 `list` +
-`undo` (reverses the `delete 1` command) +
+`undo` +
+reverses the `delete 1` command
 
 * `select 1` +
 `list` +
@@ -443,7 +444,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Locking the EmployeeTracker temporary: `lock`
+=== Locking the EmployeeTracker: `lock`
 
 Locks the Employee Tracker, so that the data is protected without the need of closing the program or shutting down your computer. +
 Format: `lock`
