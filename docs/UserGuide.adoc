@@ -511,7 +511,7 @@ Examples:
 
 * `sort name` +
 Sort the employees by name in alphabetical order (case-insensitive).
-* `lock rate` +
+* `sort rate` +
 Sort the employees by rating in descending order.
 
 === Adding an event on one employee's timetable: `addEvent`
