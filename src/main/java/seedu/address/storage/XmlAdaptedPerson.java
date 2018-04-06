@@ -14,6 +14,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Photo;
 import seedu.address.model.person.Rating;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
@@ -37,6 +38,8 @@ public class XmlAdaptedPerson {
     private String calendarId;
     @XmlElement
     private String rating;
+    @XmlElement(required = true)
+    private String photoName;
     @XmlElement
     private List<XmlAdaptedReview> reviewed = new ArrayList<>();
     @XmlElement
@@ -56,7 +59,7 @@ public class XmlAdaptedPerson {
      * To retain until XmlAdaptedPersonTest is updated.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
-                            String calendarId) {
+                            String calendarId, String photoName) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -66,6 +69,7 @@ public class XmlAdaptedPerson {
         }
         this.calendarId = calendarId;
         this.id = Person.UNINITIALISED_ID;
+        this.photoName = photoName;
     }
 
     /**
@@ -78,7 +82,8 @@ public class XmlAdaptedPerson {
                             String rating,
                             List<XmlAdaptedReview> reviewed,
                             List<XmlAdaptedTag> tagged,
-                            int id) {
+                            int id,
+                            String photoName) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -91,6 +96,7 @@ public class XmlAdaptedPerson {
             this.tagged = new ArrayList<>(tagged);
         }
         this.id = id;
+        this.photoName = photoName;
     }
 
     /**
@@ -114,6 +120,7 @@ public class XmlAdaptedPerson {
         }
         calendarId = source.getCalendarId();
         id = source.getId();
+        photoName = source.getPhotoName();
     }
 
     /**
@@ -173,18 +180,26 @@ public class XmlAdaptedPerson {
         }
 
         final Rating rating = new Rating(this.rating);
-        //@@author
+        //@@author crizyli
 
+        final Photo photo = new Photo(this.photoName);
+
+        //@@author emer7
         final Set<Review> reviews = new HashSet<>(personReviews);
+        //@@author
 
         final Set<Tag> tags = new HashSet<>(personTags);
 
+        //@@author emer7
         Person toReturn = new Person(name, phone, email, address, tags, calendarId);
         toReturn.setRating(rating);
         toReturn.setReviews(reviews);
         toReturn.setId(id);
+        toReturn.setPhotoName(photo.getName());
+        //System.out.println(toReturn.getName().fullName + "  " + toReturn.getPhotoName());
 
         return toReturn;
+        //@@author
     }
 
     @Override

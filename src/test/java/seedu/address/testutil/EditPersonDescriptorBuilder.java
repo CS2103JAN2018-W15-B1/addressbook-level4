@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -84,15 +83,17 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
+    //@@author emer7
     /**
-     * Sets the {@code Review} of the {@code EditPersonDescriptor} that we are building.
+     * Parses the {@code reviews} into a {@code Set<Review>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
      */
-    public EditPersonDescriptorBuilder withReview(String review) {
-        HashSet<Review> reviewSet = new HashSet<Review>();
-        reviewSet.add(new Review(review));
+    public EditPersonDescriptorBuilder withReviews(String... reviews) {
+        Set<Review> reviewSet = Stream.of(reviews).map(Review::new).collect(Collectors.toSet());
         descriptor.setReviews(reviewSet);
         return this;
     }
+    //@@author
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}

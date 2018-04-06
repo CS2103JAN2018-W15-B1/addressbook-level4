@@ -1,6 +1,6 @@
 = E.T. (Employees Tracker) - User Guide
 :toc:
-:toc-title:
+:toc-title: Table of Contents
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -54,7 +54,7 @@ Some example commands you can try:
 * `list` +
 lists all employees.
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` +
-adds an employee named `John Doe` to the Employees Tracker.
+adds an employee named `John Doe` to Employees Tracker.
 * `delete 3` +
 deletes the 3^rd^ contact shown in the current list.
 * `exit` +
@@ -64,9 +64,10 @@ Refer to <<Commands>> for details of each command.
 ****
 
 == Features
-This section outlines all of Employees Tracker's features in detail.
+This section lists all Employees Tracker's features in detail.
 
 === The User Interface
+The User Interface will be the application's interface that you will interact with.
 
 ==== Knowing the components
 
@@ -87,7 +88,7 @@ The result display box shows 3 types of information:
 
 * Error messages in [red]#red#, if the command you entered does not exists or does not match the pre-defined format.
 * Hints about the format and usage of the command in [green]#green#.
-* Statuses of the Employee Tracker in [white]#white#, if your command is processed successfully.
+* Statuses of Employees Tracker in [white]#white#, if your command is processed successfully.
 
 [NOTE]
 ET will intelligently provide [green]#hints# according to the words you type in the `Command Box`.
@@ -100,6 +101,8 @@ _Figure 3_ shows a notification card of ET. Each notification card contains 4 in
 
 .A notification card
 image::card_labelled.jpg[width=""]
+
+{nbsp} +
 
 ===== Two Phase notification
 
@@ -116,6 +119,8 @@ image::card_red.png[width=""]
 
 For example, suppose you have assigned a task to Alex which will due on 27^th^ May 2018 4:00 pm. When you open ET for the first time in the morning of 27^th^ May 2018, you will be notified that Alex has a task that will due on *today* in a [blue]#blue# notification card. Later at 4:00 pm of 27^th^ May 2018, you will receive the second phase notification in [red]#red#, informing you that Alex should have finished the task by *now* .
 
+{nbsp} +
+
 ===== Notification card in Operating System
 
 We understand that you as a manager lead a busy life, so we don't expect you to stare at ET at all times to catch the notification cards. Instead, ET is capable of showing notification cards in your computer's system (e.g. Windows, Mac, Linux, etc.) while you are using other software, as shown in _Figure 6_. Thus, you can feel free to minimize ET and continue working on your computer.
@@ -125,6 +130,8 @@ image::card_windows.png[width=""]
 
 [NOTE]
 This feature may not work on some computer systems.
+
+{nbsp} +
 
 ===== The Notification Center
 
@@ -142,7 +149,6 @@ Notification cards will always stay in the notification center. Even if you clos
 Employees Tracker (ET) is locked by default when it is opened in order to secure the data in ET. While ET is locked, all commands and the notification features will not work. To unlock ET, please refer to <<Logging in : `unlock`>>
 
 === Data storage
-
 Employees Tracker data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
@@ -156,23 +162,25 @@ This section lists all Employees Tracker's command.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…` after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Logging in : `unlock`
-Unlocks the Employee Tracker. +
+Unlocks Employees Tracker. +
 Format: `unlock PASSWORD`
 
 [NOTE]
 ====
-* The Employees Tracker is locked when Employee Tracker is opened.
+* Employees Tracker is locked when Employees Tracker is opened.
 * The initial default password is 'admin', refer to <<Setting the application unlock password: `setPassword` `[Since v1.3]`>> if you want to change your password.
 ====
 
 ****
-* Unlock the EmployeeTracker with the PASSWORD which match the application's unlock password.
+
+* Unlock EmployeeTracker with the PASSWORD which match the application's unlock password.
 * PASSWORD is required.
+
 * The PASSWORD is a string that can contain any character.
 * The default PASSWORD is `admin`.
 ****
@@ -180,7 +188,7 @@ Format: `unlock PASSWORD`
 Examples:
 
 * `unlock 123` +
-Unlock the Employees Tracker with password: 123 (which is also the application's unlock password)
+Unlocks Employees Tracker with password: 123 (which is also the application's unlock password)
 
 === Viewing help : `help`
 
@@ -189,7 +197,7 @@ Format: `help`
 
 === Adding an employee: `add`
 
-Adds an employee to the Employees Tracker +
+Adds an employee to Employees Tracker +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
@@ -202,7 +210,7 @@ Examples:
 
 === Listing all employees : `list`
 
-Shows a list of all employees in the Employees Tracker. +
+Shows a list of all employees in Employees Tracker. +
 Format: `list`
 
 ****
@@ -222,7 +230,7 @@ _Figure 3.3: List of employees_
 
 === Editing an employee : `edit`
 
-Edits an existing employee in the Employees Tracker. +
+Edits an existing employee in Employees Tracker. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/RATING] [t/TAG]...`
 
 ****
@@ -242,7 +250,7 @@ Edits the name of the 2^nd^ employee to be `Betsy Crower` and clears all existin
 
 === Rating an employee : `rate`
 
-Updates the rating of an existing employee in the Employees Tracker. +
+Updates the rating of an existing employee in Employees Tracker. +
 Format: `rate INDEX RATING`
 
 ****
@@ -270,21 +278,15 @@ Gives the 2^nd^ employee in the list of Alex(s) a 2-star rating.
 
 === Reviewing an employee : `review`
 
-Assigns a review to an existing employee in the Employees Tracker. +
+Assigns a review to an existing employee in Employees Tracker. +
 Format: `review INDEX`
 
 ****
-* Rate the employee at the specified `INDEX`. +
-The index refers to the index number shown in the last employees listing. +
+* The index refers to the index number shown in the last employees listing. +
 The index *must be a positive integer*, i.e. 1, 2, 3, ...
-* A pop-up dialog box will appear after user executes the command as shown in _Figure 8_ below. +
-The dialog box will prompt the user to enter the user's credential (as a reviewer) and the review.
 * The review can contain any character without length limitation.
 * A review will be tied to a single reviewer. [Implemented in V1.4]
 ****
-
-.A pop-up dialog box
-image::review_dialog.png[width=""]
 
 [NOTE]
 ====
@@ -297,11 +299,13 @@ Examples:
 * `list` +
 `review 1` +
 Gives the 1^st^ employee in the last employees listing a review. +
-The review will be based on the input in the pop-up dialog box.
+A pop-up dialog box will appear after user executes the command as shown in _Figure 8_ below. The dialog box will prompt the user to enter the user's credential (as a reviewer) and the review.
 * `find n/Alex` +
 `rate 2` +
 Gives the 2^nd^ employee in the list of Alex(s) a review. +
-The review will be based on the input in the pop-up dialog box.
+
+.A pop-up dialog box
+image::review_dialog.png[width=""]
 
 === Searching for employees: `find`
 
@@ -313,8 +317,9 @@ Format: `find (n/NAME_KEYPHRASE | t/TAG_KEYPHRASE | r/RATING_KEYPHRASE)  [n/NAME
 * The order of the keyphrase does not matter, e.g. `n/Hans Bo` will match `Bo Hans`
 * The search does not match exactly all the words in a phrase in sequential order, but only finds any phrase that contains the specified keyphrase's words without sequential order, e.g. `n/Hans Bo` will match `Jonathan Bo Hans`
 * The search only matches full word, e.g. `n/Han` will not match `Hans`
-* Searching by multiple criteria will yield the result of employees that match all the criteria, e.g. +
-** `n/Hans Bo t/Sales` will match `Hans Bo` with tag `Friends` but not `Hans Bo` with tag `Enemy` or `John Doe` with tag `Friends` +
+
+* Searching by multiple criteria will yield the result of employees that match all of them, e.g. +
+** `n/Hans Bo t/Sales` will match `Hans Bo` with tag `Sales` but not `Hans Bo` with tag `Enemy` or `John Doe` with tag `Friends` +
 ** `n/Hans Bo n/John Doe t/Sales t/Marketing` will match only `Hans Bo | Sales` or `Hans Bo | Marketing` or `John Doe | Sales` or `John Doe | Marketing`
 ****
 
@@ -338,7 +343,7 @@ e.g. `John Doe | Friends`, `John Dick| Colleagues`, `John | Friends, Colleagues`
 
 === Deleting an employee : `delete`
 
-Deletes the specified employee from the Employees Tracker whose calendar will also be deleted. +
+Deletes the specified employee from Employees Tracker whose calendar will also be deleted. +
 Format: `delete INDEX`
 
 ****
@@ -351,7 +356,7 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2^nd^ employee and his calendar in the Employees Tracker.
+Deletes the 2^nd^ employee and his calendar in Employees Tracker.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1^st^ employee and his calendar in the results of the `find` command.
@@ -371,7 +376,7 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2^nd^ employee in the Employees Tracker.
+Selects the 2^nd^ employee in Employees Tracker.
 * `find Betsy` +
 `select 1` +
 Selects the 1^st^ employee in the results of the `find` command.
@@ -396,12 +401,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the Employees Tracker to the state before the previous _undoable_ command was executed. +
+Restores Employees Tracker to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the Employees Tracker's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify Employees Tracker's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -444,30 +449,37 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Locking the EmployeeTracker: `lock`
 
-Locks the Employee Tracker, so that the data is protected without the need of closing the program or shutting down your computer. +
+=== Locking Employees Tracker: `lock`
+
+Locks Employees Tracker, so that the data is protected without the need of closing the program or shutting down your computer. +
 Format: `lock`
 
 ****
 * The `Employees List Panel` and `Employee's Profile Panel` will be emptied when Employees Tracker is locked.
-* Employee Tracker will not respond to any command other than `unlock` when it is locked.
+* Employees Tracker will not respond to any command other than `unlock` when it is locked.
 ****
 
 Examples:
 
 * `lock` +
-Lock the Employees Tracker.
+Locks Employees Tracker.
+
+[NOTE]
+After you locked Employees Tracker, you won't see any information on the User Interface. All information will be hiding when Employees Tracker is locked. Refer to Figure 10 below.
+
+.Hididng information when Employees Tracker is locked
+image::lock_screen.png[width="300"][height="400"]
 
 === Viewing my own calendar: `myCalendar`
 
-Views my own calendar in a seperate pop-up web page window. +
+Views my own calendar in a separate pop-up web page window. +
 Format: `myCalendar`
 
 Examples:
 
 * `myCalendar` +
-view my own calendar in a pop-up window.
+views my own calendar in a pop-up window.
 
 === Viewing my to-do-list: `todoList`
 
@@ -477,11 +489,14 @@ Format: `todoList`
 Examples:
 
 * `todoList` +
-show the to-do-list in  a pop-up window.
+shows the to-do-list in  a pop-up window. Refer to Figure 11 below.
+
+.Hididng information when Employees Tracker is locked
+image::todolist.png[width="300"][height="400"]
 
 === Setting the application unlock password: `setPassword`
 
-Sets Employees Tracker's password. +
+Sets Employees Tracker's unlock password. +
 Format: `setPassword OLD_PASSWORD NEW_PASSWORD`
 
 ****
@@ -494,7 +509,7 @@ Format: `setPassword OLD_PASSWORD NEW_PASSWORD`
 Examples:
 
 * `setPassword 123 qwe` +
-Set Employees Tracker's password from '123' (current application password) to 'qwe'.
+Sets Employees Tracker's password from '123' (current application password) to 'qwe'.
 
 === Sorting the employees by any existing field: `sort`
 
@@ -557,11 +572,11 @@ Examples:
 
 * `list` +
 `deleteEvent 2 some event` +
-Deletes the event with title "some event" in 2^nd^ employee's timetable in the list.
+Deletes the event with title "some event" in 2^nd^ employee's timetable.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the Employees Tracker. +
+Clears all entries from Employees Tracker. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -616,7 +631,7 @@ You will be able to add an event to many employee's timetable at once for maximu
 You will be able to jump to email with a command
 // tag::dataencryption[]
 * Encrypting data files. +
-Employee Tracker will ensure data security by encrypting data files.
+Employees Tracker will ensure data security by encrypting data files.
 
 
 == Frequently Asked Questions (FAQ)
@@ -650,6 +665,7 @@ e.g. `find n/James n/Jake Black t/Sales t/Marketing Senior r/3`
 e.g.`select 2`
 * *SetPassword* : `setPassword OLD_PASSWORD NEW_PASSWORD ` +
 e.g.`setPassword admin 12345`
+* *TodoList* : `todoList`
 * *History* : `history`
 * *Undo* : `undo`
 * *Unlock* : `unlock PASSWORD` +

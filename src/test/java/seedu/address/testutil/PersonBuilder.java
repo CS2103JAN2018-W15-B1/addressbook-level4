@@ -117,6 +117,7 @@ public class PersonBuilder {
         return this;
     }
 
+    //@@author emer7
     /**
      * Sets the {@code Review} of the {@code Person} that we are building.
      */
@@ -124,16 +125,19 @@ public class PersonBuilder {
         this.reviews = SampleDataUtil.getReviewSet(reviews);
         return this;
     }
+    //@@author
 
     /**
      * Build a person with the determined details
      * @return person to be built
      */
     public Person build() {
+        //@@author emer7
         Person toReturn = new Person(name, phone, email, address, tags, calendarId);
         toReturn.setRating(rating);
         toReturn.setReviews(reviews);
         return toReturn;
+        //@@author
     }
 
 }

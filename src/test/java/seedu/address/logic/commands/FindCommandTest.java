@@ -36,6 +36,7 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
+        //@@author emer7
         List<String> firstNamePredicateKeyphraseList = Collections.singletonList("first");
         List<String> secondNamePredicateKeyphraseList = Arrays.asList("first", "second");
         List<String> firstTagPredicateKeyphraseList = Collections.singletonList("first");
@@ -53,6 +54,7 @@ public class FindCommandTest {
                         secondNamePredicateKeyphraseList,
                         secondTagPredicateKeyphraseList,
                         secondRatingPredicateKeyphraseList);
+        //@@author
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -92,12 +94,14 @@ public class FindCommandTest {
      * Parses {@code userInput} into a {@code FindCommand}.
      */
     private FindCommand prepareCommand(String nameInput, String tagInput, String ratingInput) {
+        //@@author emer7
         FindCommand command =
                 new FindCommand(
                         new FieldContainKeyphrasesPredicate(
                                 Arrays.asList(nameInput.split("\\s+")),
                                 Arrays.asList(tagInput.split("\\s+")),
                                 Arrays.asList(ratingInput.split("\\s+"))));
+        //@@author
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }

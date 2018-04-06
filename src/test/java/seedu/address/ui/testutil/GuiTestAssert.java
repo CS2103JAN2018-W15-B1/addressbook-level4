@@ -21,7 +21,6 @@ public class GuiTestAssert {
      */
     public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
@@ -35,21 +34,18 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
         assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
         assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }
 
+    //@@author emer7
     /**
      * Asserts that {@code actualPanel} displays the details of {@code expectedPerson}.
      */
     public static void assertPanelDisplaysPerson(PersonCardHandle expectedPersonCard, DetailPanelHandle actualPanel) {
         assertEquals(expectedPersonCard.getName(), actualPanel.getName());
-        assertEquals(expectedPersonCard.getPhone(), actualPanel.getPhone());
-        assertEquals(expectedPersonCard.getEmail(), actualPanel.getEmail());
-        assertEquals(expectedPersonCard.getAddress(), actualPanel.getAddress());
-        assertEquals(expectedPersonCard.getTags(), actualPanel.getTags());
     }
+    //@@author
 
     /**
      * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and

@@ -303,13 +303,9 @@ public class RateCommand extends UndoableCommand {
 
         Rating updatedRating = editPersonDescriptor.getRating().orElse(new Rating());
 
-        Person toReturn = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getTags(), personToEdit.getCalendarId());
-        toReturn.setRating(updatedRating);
-        toReturn.setReviews(personToEdit.getReviews());
-        toReturn.setId(personToEdit.getId());
-
-        return toReturn;
+```
+###### \java\seedu\address\logic\commands\RateCommand.java
+``` java
 
     }
 
@@ -593,30 +589,6 @@ public class RateCommandParser implements Parser<RateCommand> {
     /** Gets the password */
     String getPassword();
 
-    /** Sort existing employees by any field in alphabetical order */
-    void sort(String field);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     *
-     * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
-     *      another existing person in the list.
-     * @throws PersonNotFoundException if {@code target} could not be found in the list.
-     */
-    void updatePerson(Person target, Person editedPerson)
-            throws DuplicatePersonException, PersonNotFoundException;
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-
-    void findAllSavedNotifications();
-}
 ```
 ###### \java\seedu\address\model\ModelManager.java
 ``` java
@@ -1259,74 +1231,6 @@ public class XmlAdaptedNotification {
         helpWindow.show();
     }
 
-    @FXML
-    private void handleChangeDarkTheme() {
-        EventsCenter.getInstance().post(new ChangeThemeEvent("dark"));
-    }
-
-    @FXML
-    private void handleChangeBrightTheme() {
-        EventsCenter.getInstance().post(new ChangeThemeEvent("bright"));
-    }
-
-    void show() {
-        primaryStage.show();
-    }
-
-    /**
-     * Closes the application.
-     */
-    @FXML
-    private void handleExit() {
-        raise(new ExitAppRequestEvent());
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return this.personListPanel;
-    }
-
-    void releaseResources() {
-        detailPanel.freeResources();
-    }
-
-    @Subscribe
-    private void handleShowHelpEvent(ShowHelpRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        handleHelp();
-    }
-
-    @Subscribe
-    private void handleShowMyCalendarEvent(ShowMyCalendarEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        handleShowMyCalendar();
-    }
-
-    @Subscribe
-    private void handleChangeThemeEvent (ChangeThemeEvent changeThemeEvent) {
-        Scene scene = primaryStage.getScene();
-        // Clear the original theme
-        scene.getStylesheets().clear();
-
-        String newTheme = changeThemeEvent.getTheme();
-        String cssFileName = null;
-
-        // Get the associate CSS file path for theme
-        switch (newTheme) {
-        case "dark":
-            cssFileName = DARK_THEME_CSS_FILE_NAME;
-            break;
-        case "bright":
-            cssFileName = BRIGHT_THEME_CSS_FILE_NAME;
-            break;
-        default:
-            cssFileName = DARK_THEME_CSS_FILE_NAME;
-            //Theme.changeTheme(primaryStage, changeThemeEvent.getTheme());
-        }
-
-        scene.getStylesheets().add(cssFileName);
-        primaryStage.setScene(scene);
-    }
-
 ```
 ###### \java\seedu\address\ui\MainWindow.java
 ``` java
@@ -1710,57 +1614,6 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Person person, int displayedIndex) {
-        super(FXML);
-        this.person = person;
-        id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        rating.setText(person.getRatingDisplay());
-        rating.setTextFill(Color.RED);
-        initTags(person);
-    }
-
-    /**
-     * Creates the tag labels for {@code person}.
-     */
-    private void initTags(Person person) {
-        person.getTags().forEach(tag -> {
-            Label tagLabel = new Label(tag.tagName);
-            tagLabel.getStyleClass().add(getTagColorStyleFor(tag.tagName));
-            tags.getChildren().add(tagLabel);
-        });
-    }
-
-    /**
-     * Returns the color style for {@code tagName}'s label.
-     */
-    private String getTagColorStyleFor(String tagName) {
-        // we use the hash code of the tag name to generate a random color, so that the color remain consistent
-        // between different runs of the program while still making it random enough between tags.
-        return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
-            return false;
-        }
-
-        // state check
-        PersonCard card = (PersonCard) other;
-        return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
-    }
-}
 ```
 ###### \java\seedu\address\ui\ResultDisplay.java
 ``` java

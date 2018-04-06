@@ -27,12 +27,15 @@ public class FindCommandParser implements Parser<FindCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG, PREFIX_RATING);
 
         if (!(arePrefixesPresent(argMultimap, PREFIX_NAME)
+                //@@author emer7
                 || arePrefixesPresent(argMultimap, PREFIX_TAG)
                 || arePrefixesPresent(argMultimap, PREFIX_RATING))
                 || !argMultimap.getPreamble().isEmpty()) {
+            //@@author
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
+        //@@author emer7
         List<String> nameKeyphrases = argMultimap.getAllValues(PREFIX_NAME);
         List<String> tagKeyphrases = argMultimap.getAllValues(PREFIX_TAG);
         List<String> ratingKeyphrases = argMultimap.getAllValues(PREFIX_RATING);
@@ -42,6 +45,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         return new FindCommand(new FieldContainKeyphrasesPredicate(nameKeyphrases, tagKeyphrases, ratingKeyphrases));
+        //@@author
     }
 
     /**

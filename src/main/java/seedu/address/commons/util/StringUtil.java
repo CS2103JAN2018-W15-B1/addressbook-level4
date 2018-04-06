@@ -26,13 +26,16 @@ public class StringUtil {
         requireNonNull(sentence);
         requireNonNull(words);
 
+        //@@author emer7
         String preppedWords = words.trim();
         String[] wordsInPreppedWords = preppedWords.split("\\s+");
         checkArgument(!preppedWords.isEmpty(), "Word parameter cannot be empty");
+        //@@author
 
         String preppedSentence = sentence;
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
+        //@@author emer7
         int howManyMatches = 0;
 
         for (String wordInWords: wordsInPreppedWords) {
@@ -44,6 +47,7 @@ public class StringUtil {
         }
 
         return howManyMatches >= wordsInPreppedWords.length;
+        //@@author
     }
 
     /**

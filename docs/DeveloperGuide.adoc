@@ -1,6 +1,6 @@
 = E.T. (Employees Tracker) - Developer Guide
 :toc:
-:toc-title:
+:toc-title: Table of Contents
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -15,7 +15,13 @@ endif::[]
 
 By: `Team W15-B1`      Since: `Feb 2018`      Licence: `MIT`
 
+== Introduction
+
+This developer guide serves to guide you so that you are able to develop Employees Tracker further and contribute to it.
+
 == Setting up
+
+Make sure you follow this section carefully so that you get to work on Employees Tracker right away!
 
 === Prerequisites
 
@@ -35,21 +41,21 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 === Instructions for setting up the project in your computer
 
-. Fork this repo, and clone the fork to your computer
-. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
-. Set up the correct JDK version for Gradle
-.. Click `Configure` > `Project Defaults` > `Project Structure`
-.. Click `New...` and find the directory of the JDK
-. Click `Import Project`
-. Locate the `build.gradle` file and select it. Click `OK`
-. Click `Open as Project`
-. Click `OK` to accept the default settings
+. Fork this repo, and clone the fork to your computer.
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
+. Set up the correct JDK version for Gradle.
+.. Click `Configure` > `Project Defaults` > `Project Structure`.
+.. Click `New...` and find the directory of the JDK.
+. Click `Import Project`.
+. Locate the `build.gradle` file and select it. Click `OK`.
+. Click `Open as Project`.
+. Click `OK` to accept the default settings.
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
 
 === Verification of the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.address.MainApp` and try a few commands.
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -58,12 +64,12 @@ This will generate all resources required by the application and tests.
 
 This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
 
-. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
-. Select `Editor` > `Code Style` > `Java`
-. Click on the `Imports` tab to set the order
+. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS).
+. Select `Editor` > `Code Style` > `Java`.
+. Click on the `Imports` tab to set the order.
 
-* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
-* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements.
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`.
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
@@ -94,6 +100,8 @@ When you are ready to start coding,
 
 == Design
 
+This section outlines the design of Employees Tracker.
+
 [[Design-Architecture]]
 === Architecture
 
@@ -112,7 +120,7 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
 
-* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design).
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of four components.
@@ -321,10 +329,10 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: Implementation of `UndoableCommand`
 
-* **Alternative 1 (current choice):** Add a new abstract method `executeUndoableCommand()`
+* **Alternative 1 (current choice):** Add a new abstract method `executeUndoableCommand()`.
 ** Pros: We will not lose any undone/redone functionality as it is now part of the default behaviour. Classes that deal with `Command` do not have to know that `executeUndoableCommand()` exist.
 ** Cons: Hard for new developers to understand the template pattern.
-* **Alternative 2:** Just override `execute()`
+* **Alternative 2:** Just override `execute()`.
 ** Pros: Does not involve the template pattern, easier for new developers to understand.
 ** Cons: Classes that inherit from `UndoableCommand` must remember to call `super.execute()`, or lose the ability to undo/redo.
 
@@ -351,10 +359,10 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use separate stack for undo and redo
+* **Alternative 1 (current choice):** Use separate stack for undo and redo.
 ** Pros: Easy to understand for new Computer Science student undergraduates to understand, who are likely to be * the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update * both `HistoryManager` and `UndoRedoStack`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
+* **Alternative 2:** Use `HistoryManager` for undo/redo.
 ** Pros: We do not need to maintain a separate stack, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
@@ -371,19 +379,19 @@ The `Rating` field can be manipulated by user through `edit` or `rate` command. 
 
 The implementation of `edit` and `rate` command in the Logic component involves 4 objects: +
 
-. Person toEdit
-. Person edited
-. Parser: EditCommandParser or RateCommandParser
-. EditPersonDescriptor
+. Person toEdit.
+. Person edited.
+. Parser: EditCommandParser or RateCommandParser.
+. EditPersonDescriptor.
 
-Since all fields of the `Person` class are immutable, we need to use `edited` Person to replace the `toEdit` Person
+Since all fields of the `Person` class are immutable, we need to use `edited` Person to replace the `toEdit` Person.
 
 The details of implementation are as follow:
 
 . `Parser` extracts the new information for each field from user input.
 . `EditPersonDescriptor` is used to record which field(s) will be changed and the respective new value.
 . `edited` Person will be created, by obtaining the new value for modified fields from `EditPersonDescriptor`. The value of unmodified field(s) are obtained from `toEdit` Person.
-. `edited` Person is used to replace `toEdit` Person in `AddressBook`
+. `edited` Person is used to replace `toEdit` Person in `AddressBook`.
 
 === Review system
 
@@ -401,12 +409,12 @@ The implementation basically mirrors what has already been documented in `3.3. E
 
 The implementation of `edit` and `review` command in the Logic component involves 4 objects: +
 
-. `Person` personToEdit
-. `Person` editedPerson
-. `Parser` ReviewCommandParser
-. `EditPersonDescriptor`
+. `Person` personToEdit.
+. `Person` editedPerson.
+. `Parser` ReviewCommandParser.
+. `EditPersonDescriptor`.
 
-Since all fields of the `Person` class are immutable, we need to use `Person` _editedPerson_ to replace the `Person` _personToEdit_
+Since all fields of the `Person` class are immutable, we need to use `Person` _editedPerson_ to replace the `Person` _personToEdit_.
 
 The details of implementation are as follow:
 
@@ -414,7 +422,7 @@ The details of implementation are as follow:
 . `EditPersonDescriptor` is used to record which field(s) will be changed and the respective new value.
 . `Person` _editedPerson_ will be created, by obtaining the new `Review` value from `EditPersonDescriptor` together with the old `Review` value. +
 The old `Review` value is obtained from `Person` _personToEdit_.
-. `Person` _editedPerson_ is used to replace `Person` _personToEdit_ in `AddressBook`
+. `Person` _editedPerson_ is used to replace `Person` _personToEdit_ in `AddressBook`.
 
 `Review` uses JavaFX's `Dialog` to get the review input from the user instead of from command box.
 
@@ -424,11 +432,11 @@ The old `Review` value is obtained from `Person` _personToEdit_.
 
 The implementation of `lock` and `unlock` command in the Logic component involves 5 objects: +
 
-. Command: LockCommand
-. Command: UnlockCommand
-. CommandParser: LockCommandParser or UnlockCommandParser
-. AddressBookParser
-. LogicManager
+. Command: LockCommand.
+. Command: UnlockCommand.
+. CommandParser: LockCommandParser or UnlockCommandParser.
+. AddressBookParser.
+. LogicManager.
 
 The details of implementation of `lock` command are as follow:
 
@@ -448,24 +456,24 @@ if they are the same, unlock the application, otherwise, inform incorrect passwo
 === Assign a timetable to every employee
 
 To implement the timetables for employees, we use a third party source which is Google Calendar API. With this API, we
-can integrate the application with Google Calendar, and achieve things liking creating events as what we usually do on
-Google Calendar website through the command. The import of Google Calendar API is simple: just add the necessary
+can integrate the application with Google Calendar, and achieve things liking creating events through application commands as what we usually do on
+Google Calendar website. The import of Google Calendar API is simple: just add the necessary
 dependencies in Build.gradle and which will import the external libraries after building.
 
 After we have the API, what we need to do is just automatically creating a new timetable (calendar) for every employee
-at the time this employee was added to the application. And this is what the CreateNewCalendar class for.
+at the time this employee was added to Employees Tracker.
 
 Additionally, as everyone has their own unique timetables, a new field called `CalendarId` will be created for each
-employee, to indicate the associated timetables.
+employee, to indicate their associated timetables.
 
 === Add events on anyone's timetable
 
 `addEvent` command is used to add an event on one employee's timetable. The implementation mainly touches 3 objects in
 the logic component: +
 
-. Command: TestAddEventCommand
-. CommandParser: TestAddEventCommandParser
-. AddressBookParser
+. Command: TestAddEventCommand.
+. CommandParser: TestAddEventCommandParser.
+. AddressBookParser.
 
 The details of implementation of `addEvent` command are as follow:
 
@@ -517,63 +525,63 @@ In order to support `email` and `whatsapp` command, as well as displaying the `o
 There are a couple of aspects with regards to `Notification` that can be implemented in alternative designs.
 
 ===== Aspect: extracting a Person's information
-* **Alternative1 (current choice)**: `searchEmployeeById` mechanism
+* **Alternative1 (current choice)**: `searchEmployeeById` mechanism.
 ** Pros: provides the latest information even if the `Person` is edited after the `Notification` is created.
-** Cons: requires `id` field to be implemented in `Person` and `AddressBook` class, provides wrong information if `id` is not implemented correctly (e.g. repeated id)
-* ** Alternative2**: storing the Person's Information in `Notification` class
-** Pros: has a simpler implementation
-** Cons: provides wrong information if `Person` 's information is edited after `Notification` is created, requires to update `Notification` when `Person` is edited, increases coupling
+** Cons: requires `id` field to be implemented in `Person` and `AddressBook` class, provides wrong information if `id` is not implemented correctly (e.g. repeated id).
+* ** Alternative2**: storing the Person's Information in `Notification` class.
+** Pros: has a simpler implementation.
+** Cons: provides wrong information if `Person` 's information is edited after `Notification` is created, requires to update `Notification` when `Person` is edited, increases coupling.
 
 ===== Aspect: storing `Event` locally
-* **Alternative1 (current choice)**: stores a list of `Notifications` in `AddressBook`
-** Pros: ensures that notification feature remains working when there's no internet access, saves storage space as only essential information is saved
-** Cons: has a complicated implementation (creation of `Notification` class and edit of `Person` and `AddressBook` class for `searchEmployeeById` mechanism)
-* **Alternative2** : stores a list of `Event` in `AddressBook`
-** Pros: has a simpler implementation (doesn't need to implement `Notification` class)
-** Cons: requires another mechanism for extracting `ownerName` because `Event` class does not store `ownerName`, waste of storage space because `Event` class contains a lot of information unnecessary for notification feature
-* **Alternative3** : stores a list of `Notifications` in `Person`
-** Pros: has a simpler implementation (doesn't need to implement `searchEmployeeById` mechanism)
-** Cons: compromises performance, especially when there are a lot of employees and only a few `Notification`
-* **Alternative4** : does not store `Event` locally (relies on Google calendar service)
-** Pros: has the simplest implementation (only need to pull data from Google, does not need to create local class), saves storage space as nothing is stored locally
-** Cons: compromises notification feature if there's no internet access, requires another mechanism for extracting `ownerName` because `Event` class does not store `ownerName`, compromises performance if internet speed is slow)
+* **Alternative1 (current choice)**: stores a list of `Notifications` in `AddressBook`.
+** Pros: ensures that notification feature remains working when there's no internet access, saves storage space as only essential information is saved.
+** Cons: has a complicated implementation (creation of `Notification` class and edit of `Person` and `AddressBook` class for `searchEmployeeById` mechanism).
+* **Alternative2** : stores a list of `Event` in `AddressBook`.
+** Pros: has a simpler implementation (doesn't need to implement `Notification` class).
+** Cons: requires another mechanism for extracting `ownerName` because `Event` class does not store `ownerName`, waste of storage space because `Event` class contains a lot of information unnecessary for notification feature.
+* **Alternative3** : stores a list of `Notifications` in `Person`.
+** Pros: has a simpler implementation (doesn't need to implement `searchEmployeeById` mechanism).
+** Cons: compromises performance, especially when there are a lot of employees and only a few `Notification`.
+* **Alternative4** : does not store `Event` locally (relies on Google calendar service).
+** Pros: has the simplest implementation (only need to pull data from Google, does not need to create local class), saves storage space as nothing is stored locally.
+** Cons: compromises notification feature if there's no internet access, requires another mechanism for extracting `ownerName` because `Event` class does not store `ownerName`, compromises performance if internet speed is slow).
 
 === Sort existing employees
 The implementation of `sort` command involves following objects: +
 
-. Command: SortCommand
-. Parser: SortCommandParser, AddressBookParser
-. AddressBook, UniqueEmployeeList
+. Command: SortCommand.
+. Parser: SortCommandParser, AddressBookParser.
+. AddressBook, UniqueEmployeeList.
 
 The details of implementation of `sort` command are as follow:
 
 . `SortCommandParser` guarantees Employees Tracker to accept `sort` command.
 . `SortCommandParser` extracts the sorting field from user input.
 . `ModelManager` and `UniqueEmployeeList` provide sorting algorithm, called by `AddressBook`.
-. `UniqueEmployeeList` will sort the units by giving field
+. `UniqueEmployeeList` will sort the units by giving field.
 
 
 === Change theme of Employees Tracker
 
-`changeTheme` command is used to change the theme to `dark` or `bright`
+`changeTheme` command is used to change the theme to `dark` or `bright`.
 
-* `changeTheme` is achieved by handling `changeThemeEvent` in `MainWindow`
-* a new "theme" field is added in GuiSettings
+* `changeTheme` is achieved by handling `changeThemeEvent` in `MainWindow`.
+* a new "theme" field is added in GuiSettings.
 
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>).
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level.
 * Currently log messages are output through: `Console` and to a `.log` file.
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application.
+* `WARNING` : Can continue, but with caution.
+* `INFO` : Information showing the noteworthy actions by the App.
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size.
 
 [[Implementation-Configuration]]
 === Configuration
@@ -581,6 +589,8 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
+
+This section outlines how to do the documentation for Employees Tracker.
 
 We use asciidoc for writing documentation.
 
@@ -613,6 +623,8 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Testing]]
 == Testing
 
+This section outlines the testing procedure of Employees Tracker.
+
 === Running Tests
 
 There are three ways to run tests.
@@ -622,12 +634,12 @@ The most reliable way to run tests is the 3^rd^ one. The first two methods might
 
 *Method 1: Using IntelliJ JUnit test runner*
 
-* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`.
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`.
 
 *Method 2: Using Gradle*
 
-* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`).
 
 [NOTE]
 See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
@@ -636,7 +648,7 @@ See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using G
 
 Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
 
-To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
+To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`).
 
 === Types of tests
 
@@ -647,11 +659,11 @@ We have two types of tests:
 .. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.address.commons.StringUtilTest`.
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.address.storage.StorageManagerTest`.
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.address.logic.LogicManagerTest`.
 
 
 === Troubleshooting Testing
@@ -661,6 +673,8 @@ e.g. `seedu.address.logic.LogicManagerTest`
 * Solution: Execute Gradle task `processResources`.
 
 == Dev Ops
+
+This section outlines the development and operation of Employees Tracker.
 
 === Build Automation
 
@@ -683,14 +697,14 @@ Here are the steps to create a new release.
 
 .  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
-.  Tag the repo with the version number. e.g. `v0.1`
+.  Tag the repo with the version number. e.g. `v0.1`.
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
-a. Include those libraries in the repo (this bloats the repo size) +
-b. Require developers to download those libraries manually (this creates extra work for developers)
+a. Include those libraries in the repo (this bloats the repo size). +
+b. Require developers to download those libraries manually (this creates extra work for developers).
 
 [[GetStartedProgramming]]
 [appendix]
@@ -980,7 +994,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * is a manger
 * has a need to keep track of a significant number of subordinate employees
 * need to assign work to employees and keep track of it
-* prefer desktop apps over mobile apps
+* prefers desktop apps over mobile apps
 * can type fast, i.e. >45 words per minute
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps

@@ -1,12 +1,11 @@
-//@@author emer7
 package seedu.address.commons.events.ui;
-
+//@@author crizyli
 import seedu.address.commons.events.BaseEvent;
 
 /**
- * An event requesting to show the review dialog.
+ * An event requesting to show the file chooser.
  */
-public class ShowReviewDialogEvent extends BaseEvent {
+public class ShowFileChooserEvent extends BaseEvent {
 
     @Override
     public String toString() {

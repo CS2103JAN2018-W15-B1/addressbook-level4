@@ -89,6 +89,7 @@ public class RateCommand extends UndoableCommand {
 
         Rating updatedRating = editPersonDescriptor.getRating().orElse(new Rating());
 
+        //@@author emer7
         Person toReturn = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getTags(), personToEdit.getCalendarId());
         toReturn.setRating(updatedRating);
@@ -96,6 +97,7 @@ public class RateCommand extends UndoableCommand {
         toReturn.setId(personToEdit.getId());
 
         return toReturn;
+        //@@author IzHoBX
 
     }
 

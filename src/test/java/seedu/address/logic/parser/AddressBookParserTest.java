@@ -62,6 +62,7 @@ public class AddressBookParserTest {
                 FindCommand.COMMAND_WORD
                         + " n/"
                         + nameKeyphrases.stream().collect(Collectors.joining(" n/"))
+                        //@@author emer7
                         + " t/"
                         + tagKeyphrases.stream().collect(Collectors.joining(" t/"))
                         + " r/"
@@ -70,6 +71,7 @@ public class AddressBookParserTest {
                 new FieldContainKeyphrasesPredicate(
                         nameKeyphrases, tagKeyphrases, ratingKeyphrases)),
                         command);
+        //@@author
     }
 
     @Test

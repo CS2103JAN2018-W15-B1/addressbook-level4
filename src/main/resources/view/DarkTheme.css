@@ -377,6 +377,10 @@
     -fx-background-radius: 0;
 }
 
+#reviews {
+    -fx-vgap: 10;
+}
+
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;

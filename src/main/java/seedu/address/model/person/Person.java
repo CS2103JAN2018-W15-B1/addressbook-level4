@@ -19,6 +19,7 @@ import seedu.address.model.tag.UniqueTagList;
 public class Person {
 
     public static final int UNINITIALISED_ID = -1;
+    public static final String DEFAULT_PHOTO = "DefaultPerson.png";
 
     private final Name name;
     private final Phone phone;
@@ -26,6 +27,7 @@ public class Person {
     private final Address address;
     private Rating rating;
     private int id;
+    private String photoName;
 
     private UniqueReviewList reviews;
     private final UniqueTagList tags;
@@ -46,6 +48,7 @@ public class Person {
 
         this.calendarId = calendarId;
         this.rating = new Rating();
+        this.photoName = DEFAULT_PHOTO;
         this.id = UNINITIALISED_ID;
     }
 
@@ -83,6 +86,9 @@ public class Person {
         return calendarId;
     }
 
+    public String getPhotoName() {
+        return photoName;
+    }
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -91,6 +97,7 @@ public class Person {
         return Collections.unmodifiableSet(tags.toSet());
     }
 
+    //@@author emer7
     /**
      * Returns an immutable review set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -108,9 +115,17 @@ public class Person {
                 + calendarId.replaceAll("@", "%40") + "&ctz=Asia%2FSingapore";
     }
 
+    /**
+     * Set the photo field which is the path to the photo.
+     */
+    public void setPhotoName(String photoName) {
+        this.photoName = photoName;
+    }
+
     public void setRating(Rating rating) {
         this.rating = rating;
     }
+    //@@author
 
     public void setId(int id) {
         this.id = id;

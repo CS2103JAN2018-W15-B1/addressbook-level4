@@ -1,3 +1,4 @@
+//@@author emer7
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
@@ -42,27 +43,19 @@ public class ReviewCommandTest {
                 .withReviews("supervisor@example.com\nLazy")
                 .build();
         EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(reviewedPerson)
-                .withReview("supervisor@example.com\nLazy").build();
+                .withReviews("sales@example.com\nLazy").build();
 
         ReviewCommand reviewCommand = prepareCommand(INDEX_FIRST_PERSON, descriptor);
+
+        HashSet<Review> newReviews = new HashSet<>();
+        newReviews.add(new Review("supervisor@example.com\nLazy"));
+        newReviews.add(new Review("sales@example.com\nLazy"));
+        reviewedPerson.setReviews(newReviews);
 
         String expectedMessage = String.format(ReviewCommand.MESSAGE_REVIEW_PERSON_SUCCESS, reviewedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(model.getFilteredPersonList().get(0), reviewedPerson);
-
-        assertCommandSuccess(reviewCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        ReviewCommand reviewCommand = prepareCommand(INDEX_FIRST_PERSON, new EditCommand.EditPersonDescriptor());
-        Person reviewedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        reviewedPerson.setReviews(new HashSet<Review>());
-
-        String expectedMessage = String.format(ReviewCommand.MESSAGE_REVIEW_PERSON_SUCCESS, reviewedPerson);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         assertCommandSuccess(reviewCommand, model, expectedMessage, expectedModel);
     }
@@ -76,7 +69,12 @@ public class ReviewCommandTest {
                 .withReviews("supervisor@example.com\nLazy")
                 .build();
         ReviewCommand reviewCommand = prepareCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withReview("supervisor@example.com\nLazy").build());
+                new EditPersonDescriptorBuilder().withReviews("sales@example.com\nLazy").build());
+
+        HashSet<Review> newReviews = new HashSet<>();
+        newReviews.add(new Review("supervisor@example.com\nLazy"));
+        newReviews.add(new Review("sales@example.com\nLazy"));
+        reviewedPerson.setReviews(newReviews);
 
         String expectedMessage = String.format(ReviewCommand.MESSAGE_REVIEW_PERSON_SUCCESS,
                 reviewedPerson);
@@ -126,7 +124,7 @@ public class ReviewCommandTest {
                 .build();
         Person personToReview = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(reviewedPerson)
-                .withReview("supervisor@example.com\nLazy")
+                .withReviews("sales@example.com\nLazy")
                 .build();
         ReviewCommand reviewCommand = prepareCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -182,7 +180,7 @@ public class ReviewCommandTest {
                 .withReviews("supervisor@example.com\nLazy")
                 .build();
         EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(reviewedPerson)
-                .withReview("supervisor@example.com\nLazy")
+                .withReviews("sales@example.com\nLazy")
                 .build();
         ReviewCommand reviewCommand = prepareCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());

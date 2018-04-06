@@ -5,6 +5,7 @@ import static seedu.address.logic.commands.ChangeThemeCommand.DARK_THEME_CSS_FIL
 import static seedu.address.ui.NotificationCard.NOTIFICATION_CARD_HEIGHT;
 import static seedu.address.ui.NotificationCard.NOTIFICATION_CARD_WIDTH;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,14 +27,17 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.logic.FileChoosedEvent;
 import seedu.address.commons.events.ui.ChangeThemeEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.ShowFileChooserEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ShowMyCalendarEvent;
 import seedu.address.commons.events.ui.ShowNotificationEvent;
@@ -414,10 +418,28 @@ public class MainWindow extends UiPart<Stage> {
     }
     //@@author
 
+    //@@author emer7
     @Subscribe
     private void showDialogPane(ShowReviewDialogEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         ReviewDialog reviewDialog = new ReviewDialog();
         reviewDialog.show();
+    }
+    //@@author
+
+    //@@author crizyli
+    @FXML
+    @Subscribe
+    protected void showFileChooser(ShowFileChooserEvent event) {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Choose a Photo");
+        File file = chooser.showOpenDialog(new Stage());
+        String filePath;
+        if (file != null) {
+            filePath = file.getPath();
+        } else {
+            filePath = "NoFileChoosed";
+        }
+        raise(new FileChoosedEvent(filePath));
     }
 }

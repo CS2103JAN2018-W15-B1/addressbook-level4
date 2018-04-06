@@ -50,6 +50,7 @@ public class DetailPanelTest extends GuiUnitTest {
         waitUntilBrowserLoaded(detailPanelHandle);
         assertEquals(expectedPersonUrl, detailPanelHandle.getLoadedUrl());
 
+        //@@author emer7
         detailPanelHandle = new DetailPanelHandle(detailPanel.getRoot());
         assertPanelDisplay(new PersonCardHandle(selectionChangedPersonCardStub.getRoot()), detailPanelHandle);
     }
@@ -61,5 +62,6 @@ public class DetailPanelTest extends GuiUnitTest {
     private void assertPanelDisplay(PersonCardHandle expectedPersonCard, DetailPanelHandle detailPanelHandle) {
         guiRobot.pauseForHuman();
         assertPanelDisplaysPerson(expectedPersonCard, detailPanelHandle);
+        //@@author
     }
 }

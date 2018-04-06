@@ -1,11 +1,14 @@
+//@@author emer7
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
@@ -33,7 +36,7 @@ public class ReviewCommand extends UndoableCommand {
 
     public static final String MESSAGE_REVIEW_PERSON_SUCCESS = "Reviewed Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "Both INDEX and REVIEW must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_REVIEW = "Review must be different.";
 
     private final Index index;
     private final EditCommand.EditPersonDescriptor editPersonDescriptor;
@@ -58,7 +61,7 @@ public class ReviewCommand extends UndoableCommand {
         try {
             model.updatePerson(personToEdit, editedPerson);
         } catch (DuplicatePersonException dpe) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_REVIEW);
         } catch (PersonNotFoundException pnfe) {
             throw new AssertionError("The target person cannot be missing");
         }
@@ -84,20 +87,38 @@ public class ReviewCommand extends UndoableCommand {
      * edited with {@code editPersonDescriptor}.
      */
     private static Person createEditedPerson(Person personToEdit,
-                                             EditCommand.EditPersonDescriptor editPersonDescriptor) {
+                                             EditCommand.EditPersonDescriptor editPersonDescriptor
+    ) throws CommandException {
         assert personToEdit != null;
+        assert editPersonDescriptor.getReviews().isPresent();
 
+        Set<Review> oldReviews = personToEdit.getReviews();
+        Set<Review> newReviews = editPersonDescriptor.getReviews().get();
         HashSet<Review> updatedReviews = new HashSet<Review>();
 
-        updatedReviews.addAll(editPersonDescriptor.getReviews().orElse(new HashSet<Review>()));
-        updatedReviews.addAll(personToEdit.getReviews());
+        Review newReview = newReviews.iterator().next();
+        String newReviewer = newReview.reviewer;
+        String newValue = newReview.value;
+        Iterator<Review> iterator = oldReviews.iterator();
+        while (iterator.hasNext()) {
+            Review oldReview = iterator.next();
+            String oldReviewer = oldReview.reviewer;
+            String oldValue = oldReview.value;
+            if (oldReviewer.equals(newReviewer) && oldValue.equals(newValue)) {
+                throw new CommandException(MESSAGE_DUPLICATE_REVIEW);
+            } else if (oldReviewer.equals(newReviewer)) {
+            } else {
+                updatedReviews.add(oldReview);
+            }
+        }
+        updatedReviews.add(newReview);
 
         Person toReturn = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getTags(), personToEdit.getCalendarId());
         toReturn.setRating(personToEdit.getRating());
         toReturn.setReviews(updatedReviews);
         toReturn.setId(personToEdit.getId());
-
+        toReturn.setPhotoName(personToEdit.getPhotoName());
         return toReturn;
     }
 

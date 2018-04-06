@@ -27,6 +27,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Photo;
 import seedu.address.model.person.Rating;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -117,14 +118,15 @@ public class EditCommand extends UndoableCommand {
         Set<Review> updatedReviews = editPersonDescriptor.getReviews().orElse(personToEdit.getReviews());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-
+        //@@author emer7
         Person toReturn = new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
                 personToEdit.getCalendarId());
         toReturn.setRating(updatedRating);
         toReturn.setReviews(updatedReviews);
         toReturn.setId(personToEdit.getId());
-
+        toReturn.setPhotoName(personToEdit.getPhotoName());
         return toReturn;
+        //@@author
     }
 
     @Override
@@ -158,6 +160,7 @@ public class EditCommand extends UndoableCommand {
         private Set<Tag> tags;
         private Set<Review> reviews;
         private Rating rating;
+        private Photo photo;
 
         public EditPersonDescriptor() {}
 
@@ -173,6 +176,7 @@ public class EditCommand extends UndoableCommand {
             setRating(toCopy.rating);
             setTags(toCopy.tags);
             setReviews(toCopy.reviews);
+            setPhoto(toCopy.photo);
         }
 
         /**
@@ -215,6 +219,14 @@ public class EditCommand extends UndoableCommand {
             return Optional.ofNullable(address);
         }
 
+        public void setPhoto(Photo photo) {
+            this.photo = photo;
+        }
+
+        public Optional<Photo> getPhoto() {
+            return Optional.ofNullable(photo);
+        }
+
         //@@author IzHoBX
         public void setRating(Rating rating) {
             this.rating = rating;
@@ -243,6 +255,7 @@ public class EditCommand extends UndoableCommand {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
+        //@@author emer7
         /**
          * Sets {@code reviews} to this object's {@code reviews}.
          * A defensive copy of {@code reviews} is used internally.
@@ -259,8 +272,7 @@ public class EditCommand extends UndoableCommand {
         public Optional<Set<Review>> getReviews() {
             return (reviews != null) ? Optional.of(Collections.unmodifiableSet(reviews)) : Optional.empty();
         }
-
-
+        //@@author
 
         @Override
         public boolean equals(Object other) {

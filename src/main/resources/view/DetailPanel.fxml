@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -20,12 +21,8 @@
         <rowConstraints>
           <RowConstraints maxHeight="20.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="20.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="20.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="20.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="20.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="20.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Name">
@@ -36,7 +33,7 @@
                   <Insets left="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Phone" GridPane.rowIndex="2">
+            <Label layoutX="10.0" layoutY="75.0" text="Address" GridPane.rowIndex="1">
                <font>
                   <Font size="15.0" />
                </font>
@@ -44,7 +41,7 @@
                   <Insets left="5.0" />
                </padding>
             </Label>
-            <Label text="Email" GridPane.rowIndex="3">
+            <Label text="Reviews" GridPane.rowIndex="3">
                <font>
                   <Font size="15.0" />
                </font>
@@ -52,39 +49,7 @@
                   <Insets left="5.0" />
                </padding>
             </Label>
-            <Label layoutX="10.0" layoutY="75.0" text="Address" GridPane.rowIndex="4">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </Label>
-            <Label text="Rating" GridPane.rowIndex="5">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </Label>
-            <Label text="Reviews" GridPane.rowIndex="6">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </Label>
-            <Label text="Tag" GridPane.rowIndex="1">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </Label>
-            <Label text="Calendar" GridPane.rowIndex="7">
+            <Label text="Calendar" GridPane.rowIndex="2">
                <font>
                   <Font size="15.0" />
                </font>
@@ -96,28 +61,16 @@
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin></Label>
-            <Label fx:id="phone" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label fx:id="address" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin></Label>
-            <Label fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets left="5.0" />
-               </GridPane.margin></Label>
-            <Label fx:id="address" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets left="5.0" />
-               </GridPane.margin></Label>
-            <Label fx:id="rating" GridPane.columnIndex="1" GridPane.rowIndex="5">
-               <GridPane.margin>
-                  <Insets left="5.0" />
-               </GridPane.margin></Label>
-            <FlowPane fx:id="reviews" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <FlowPane fx:id="tags" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="5.0" />
-               </GridPane.margin></FlowPane>
-            <WebView fx:id="browser" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <content>
+                  <FlowPane fx:id="reviews" maxHeight="1.7976931348623157E308" orientation="VERTICAL" />
+               </content>
+            </ScrollPane>
+            <WebView fx:id="browser" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

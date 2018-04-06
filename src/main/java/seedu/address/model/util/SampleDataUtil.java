@@ -65,6 +65,7 @@ public class SampleDataUtil {
         return tags;
     }
 
+    //@@author emer7
     /**
      * Returns a tag set containing the list of strings given.
      */
@@ -76,5 +77,6 @@ public class SampleDataUtil {
 
         return reviews;
     }
+    //@@author
 
 }
