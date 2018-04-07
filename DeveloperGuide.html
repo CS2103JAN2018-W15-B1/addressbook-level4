@@ -46,17 +46,17 @@
 <li><a href="#implementation">4. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">4.1. Undo/Redo feature</a></li>
-<li><a href="#manipulating-the-rating-field">4.2. Manipulating the Rating field</a></li>
+<li><a href="#manipulate-the-rating-field">4.2. Manipulate the Rating field</a></li>
 <li><a href="#edit-and-rate-a-person">4.3. Edit and rate a person</a></li>
 <li><a href="#review-system">4.4. Review system</a></li>
 <li><a href="#review-a-person">4.5. Review a person</a></li>
-<li><a href="#lock-and-unlock-the-application">4.6. Lock and unlock the application</a></li>
+<li><a href="#lock-and-unlock-employees-tracker">4.6. Lock and unlock Employees Tracker</a></li>
 <li><a href="#assign-a-timetable-to-every-employee">4.7. Assign a timetable to every employee</a></li>
 <li><a href="#add-events-on-anyone-s-timetable">4.8. Add events on anyone&#8217;s timetable</a></li>
 <li><a href="#show-notifications-about-expired-events">4.9. Show notifications about expired events</a></li>
 <li><a href="#sort-existing-employees">4.10. Sort existing employees</a></li>
 <li><a href="#change-theme-of-employees-tracker">4.11. Change theme of Employees Tracker</a></li>
-<li><a href="#logging">4.12. Logging</a></li>
+<li><a href="#login">4.12. Login</a></li>
 <li><a href="#Implementation-Configuration">4.13. Configuration</a></li>
 </ul>
 </li>
@@ -122,6 +122,9 @@
 </div>
 <div class="sect2">
 <h3 id="prerequisites"><a class="link" href="#prerequisites">2.1. Prerequisites</a></h3>
+<div class="paragraph">
+<p>To develop Employees Tracker, you are supposed to have following preparations.<br></p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -370,16 +373,16 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#Design-Ui"><strong><code>UI</code></strong></a>: The UI of the App.</p>
+<p><a href="#Design-Ui"><strong><code>UI</code></strong></a>: the UI of the App</p>
 </li>
 <li>
-<p><a href="#Design-Logic"><strong><code>Logic</code></strong></a>: The command executor.</p>
+<p><a href="#Design-Logic"><strong><code>Logic</code></strong></a>: the command executor</p>
 </li>
 <li>
-<p><a href="#Design-Model"><strong><code>Model</code></strong></a>: Holds the data of the App in-memory.</p>
+<p><a href="#Design-Model"><strong><code>Model</code></strong></a>: the holder of Employees Tracker&#8217;s data in-memory</p>
 </li>
 <li>
-<p><a href="#Design-Storage"><strong><code>Storage</code></strong></a>: Reads data from, and writes data to, the hard disk.</p>
+<p><a href="#Design-Storage"><strong><code>Storage</code></strong></a>: the communicator between Employees Tracker and hard disk to read and write data</p>
 </li>
 </ul>
 </div>
@@ -422,7 +425,7 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Note how the <code>Model</code> simply raises a <code>AddressBookChangedEvent</code> when the Address Book data are changed, instead of asking the <code>Storage</code> to save the updates to the hard disk.
+Note how the <code>Model</code> simply raises a <code>AddressBookChangedEvent</code> when Employees Tracker&#8217;s data are changed, instead of asking the <code>Storage</code> to save the updates to the hard disk.
 </td>
 </tr>
 </table>
@@ -550,7 +553,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>stores a <code>UserPref</code> object that represents the user&#8217;s preferences.</p>
 </li>
 <li>
-<p>stores the Address Book data.</p>
+<p>stores Employees Tracker&#8217;s data.</p>
 </li>
 <li>
 <p>exposes an unmodifiable <code>ObservableList&lt;Person&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
@@ -581,7 +584,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>can save <code>UserPref</code> objects in json format and read it back.</p>
 </li>
 <li>
-<p>can save the Address Book data in xml format and read it back.</p>
+<p>can save Employees Tracker data in xml format and read it back.</p>
 </li>
 </ul>
 </div>
@@ -605,7 +608,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">4.1.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The undo/redo mechanism is facilitated by an <code>UndoRedoStack</code>, which resides inside <code>LogicManager</code>. It supports undoing and redoing of commands that modifies the state of the address book (e.g. <code>add</code>, <code>edit</code>). Such commands will inherit from <code>UndoableCommand</code>.</p>
+<p>The undo/redo mechanism is facilitated by an <code>UndoRedoStack</code>, which resides inside <code>LogicManager</code>. It supports undoing and redoing of commands that modifies the state of Employees Tracker (e.g. <code>add</code>, <code>edit</code>). Such commands will inherit from <code>UndoableCommand</code>.</p>
 </div>
 <div class="paragraph">
 <p><code>UndoRedoStack</code> only deals with <code>UndoableCommands</code>. Commands that cannot be undone will inherit from <code>Command</code> instead. The following diagram shows the inheritance diagram for commands:</p>
@@ -616,7 +619,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="paragraph">
-<p>As you can see from the diagram, <code>UndoableCommand</code> adds an extra layer between the abstract <code>Command</code> class and concrete commands that can be undone, such as the <code>DeleteCommand</code>. Note that extra tasks need to be done when executing a command in an <em>undoable</em> way, such as saving the state of the address book before execution. <code>UndoableCommand</code> contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the <a href="https://www.tutorialspoint.com/design_pattern/template_pattern.htm">template pattern</a>.</p>
+<p>As you can see from the diagram, <code>UndoableCommand</code> adds an extra layer between the abstract <code>Command</code> class and concrete commands that can be undone, such as the <code>DeleteCommand</code>. Note that extra tasks need to be done when executing a command in an <em>undoable</em> way, such as saving the state of Employees Tracker before execution. <code>UndoableCommand</code> contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the <a href="https://www.tutorialspoint.com/design_pattern/template_pattern.htm">template pattern</a>.</p>
 </div>
 <div class="paragraph">
 <p>Commands that are not undoable are implemented this way:</p>
@@ -657,7 +660,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>Suppose that the user has just launched the application. The <code>UndoRedoStack</code> will be empty at the beginning.</p>
 </div>
 <div class="paragraph">
-<p>The user executes a new <code>UndoableCommand</code>, <code>delete 5</code>, to delete the 5<sup>th</sup> person in the address book. The current state of the address book is saved before the <code>delete 5</code> command executes. The <code>delete 5</code> command will then be pushed onto the <code>undoStack</code> (the current state is saved together with the command).</p>
+<p>The user executes a new <code>UndoableCommand</code>, <code>delete 5</code>, to delete the 5<sup>th</sup> person in Employees Tracker. The current state of Employees Tracker is saved before the <code>delete 5</code> command executes. The <code>delete 5</code> command will then be pushed onto the <code>undoStack</code> (the current state is saved together with the command).</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -688,7 +691,7 @@ If a command fails its execution, it will not be pushed to the <code>UndoRedoSta
 <p>The user now decides that adding the person was a mistake, and decides to undo that action using <code>undo</code>.</p>
 </div>
 <div class="paragraph">
-<p>We will pop the most recent command out of the <code>undoStack</code> and push it back to the <code>redoStack</code>. We will restore the address book to the state before the <code>add</code> command executed.</p>
+<p>We will pop the most recent command out of the <code>undoStack</code> and push it back to the <code>redoStack</code>. We will restore Employees Tracker to the state before the <code>add</code> command executed.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -716,7 +719,7 @@ If the <code>undoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="paragraph">
-<p>The redo does the exact opposite (pops from <code>redoStack</code>, push to <code>undoStack</code>, and restores the address book to the state after the command is executed).</p>
+<p>The redo does the exact opposite (pops from <code>redoStack</code>, push to <code>undoStack</code>, and restores Employees Tracker to the state after the command is executed).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -779,7 +782,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Does not involve the template pattern, easier for new developers to understand.</p>
+<p>Pros: Template pattern is not involved when developing, so it is easier for new developers to understand.</p>
 </li>
 <li>
 <p>Cons: Classes that inherit from <code>UndoableCommand</code> must remember to call <code>super.execute()</code>, or lose the ability to undo/redo.</p>
@@ -795,7 +798,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Saves the entire address book.</p>
+<p><strong>Alternative 1 (current choice):</strong> Saves entire Employees Tracker.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -828,7 +831,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Only include commands that modifies the address book (<code>add</code>, <code>clear</code>, <code>edit</code>).</p>
+<p><strong>Alternative 1 (current choice):</strong> Only include commands that modifies Employees Tracker (<code>add</code>, <code>clear</code>, <code>edit</code>).</p>
 <div class="ulist">
 <ul>
 <li>
@@ -848,7 +851,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <p>Pros: Might be more intuitive for the user.</p>
 </li>
 <li>
-<p>Cons: User have no way of skipping such commands if he or she just want to reset the state of the address * book and not the view.
+<p>Cons: User have no way of skipping such commands if he or she just want to reset the state of Employees Tracker and not the view.
 <strong>Additional Info:</strong> See our discussion  <a href="https://github.com/se-edu/addressbook-level4/issues/390#issuecomment-298936672">here</a>.</p>
 </li>
 </ul>
@@ -893,7 +896,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="manipulating-the-rating-field"><a class="link" href="#manipulating-the-rating-field">4.2. Manipulating the Rating field</a></h3>
+<h3 id="manipulate-the-rating-field"><a class="link" href="#manipulate-the-rating-field">4.2. Manipulate the Rating field</a></h3>
 <div class="paragraph">
 <p>If a <code>Person</code> is instantiated without specifying <code>Rating</code> value, he will be assigned a <code>null rating</code> (indicated by -1 currently) by default. This will be displayed as <code>-</code> to user, indicating that this Person is yet to be rated.</p>
 </div>
@@ -1015,7 +1018,7 @@ The old <code>Review</code> value is obtained from <code>Person</code> <em>perso
 </div>
 </div>
 <div class="sect2">
-<h3 id="lock-and-unlock-the-application"><a class="link" href="#lock-and-unlock-the-application">4.6. Lock and unlock the application</a></h3>
+<h3 id="lock-and-unlock-employees-tracker"><a class="link" href="#lock-and-unlock-employees-tracker">4.6. Lock and unlock Employees Tracker</a></h3>
 <div class="paragraph">
 <p><code>lock</code> command and <code>unlock</code> command are implemented in a similar manner. Both have the same command format.</p>
 </div>
@@ -1137,7 +1140,7 @@ the logic component:<br></p>
 <div class="sect2">
 <h3 id="show-notifications-about-expired-events"><a class="link" href="#show-notifications-about-expired-events">4.9. Show notifications about expired events</a></h3>
 <div class="paragraph">
-<p>This section discusses about the implementation of the notification feature of Employee Tracker.</p>
+<p>This section discusses about the implementation of the notification feature of Employees Tracker.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1401,7 +1404,7 @@ Each <code>Event</code> is assigned (and thus) to an employee. In the following 
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">4.12. Logging</a></h3>
+<h3 id="login"><a class="link" href="#login">4.12. Login</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
@@ -1696,7 +1699,7 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code>.</p>
 <div class="sect2">
 <h3 id="managing-dependencies"><a class="link" href="#managing-dependencies">7.6. Managing Dependencies</a></h3>
 <div class="paragraph">
-<p>A project often depends on third-party libraries. For example, Address Book depends on the <a href="http://wiki.fasterxml.com/JacksonHome">Jackson library</a> for XML parsing. Managing these <em>dependencies</em> can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.<br>
+<p>A project often depends on third-party libraries. For example, Employees Tracker depends on the <a href="http://wiki.fasterxml.com/JacksonHome">Jackson library</a> for XML parsing. Managing these <em>dependencies</em> can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size).<br>
 b. Require developers to download those libraries manually (this creates extra work for developers).</p>
 </div>
@@ -1789,7 +1792,7 @@ Do take a look at <a href="#Design-Logic">Section 3.3, &#8220;Logic component&#8
 </div>
 <h4 id="code-model-code-component" class="discrete"><code>Model</code> component</h4>
 <div class="paragraph">
-<p><strong>Scenario:</strong> You are in charge of <code>model</code>. One day, the <code>logic</code>-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.</p>
+<p><strong>Scenario:</strong> You are in charge of <code>model</code>. One day, the <code>logic</code>-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in Employees Tracker, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1806,7 +1809,7 @@ Do take a look at <a href="#Design-Model">Section 3.4, &#8220;Model component&#8
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Add a <code>removeTag(Tag)</code> method. The specified tag will be removed from everyone in the address book.</p>
+<p>Add a <code>removeTag(Tag)</code> method. The specified tag will be removed from everyone in Employees Tracker.</p>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
@@ -1865,7 +1868,7 @@ Do take a look at <a href="#Design-Model">Section 3.4, &#8220;Model component&#8
 </div>
 <h4 id="code-ui-code-component" class="discrete"><code>Ui</code> component</h4>
 <div class="paragraph">
-<p><strong>Scenario:</strong> You are in charge of <code>ui</code>. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn&#8217;t prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.</p>
+<p><strong>Scenario:</strong> You are in charge of <code>ui</code>. During a beta testing session, your team is observing how the users use your Employees Tracker application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn&#8217;t prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -2021,7 +2024,7 @@ Do take a look at <a href="#Design-Ui">Section 3.2, &#8220;UI component&#8221;</
 </div>
 </li>
 <li>
-<p>Modify the <a href="https://github.com/CS2103JAN2018-W15-B1/main/tree/master/src/main/java/seedu/address/ui/StatusBarFooter.java"><code>StatusBarFooter</code></a> to show the total number of people in the address book.</p>
+<p>Modify the <a href="https://github.com/CS2103JAN2018-W15-B1/main/tree/master/src/main/java/seedu/address/ui/StatusBarFooter.java"><code>StatusBarFooter</code></a> to show the total number of people in Employees Tracker.</p>
 <div class="paragraph">
 <p><strong>Before</strong></p>
 </div>
@@ -2050,7 +2053,7 @@ Do take a look at <a href="#Design-Ui">Section 3.2, &#8220;UI component&#8221;</
 <p><a href="https://github.com/CS2103JAN2018-W15-B1/main/tree/master/src/main/resources/view/StatusBarFooter.fxml"><code>StatusBarFooter.fxml</code></a> will need a new <code>StatusBar</code>. Be sure to set the <code>GridPane.columnIndex</code> properly for each <code>StatusBar</code> to avoid misalignment!</p>
 </li>
 <li>
-<p><a href="https://github.com/CS2103JAN2018-W15-B1/main/tree/master/src/main/java/seedu/address/ui/StatusBarFooter.java"><code>StatusBarFooter</code></a> needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.</p>
+<p><a href="https://github.com/CS2103JAN2018-W15-B1/main/tree/master/src/main/java/seedu/address/ui/StatusBarFooter.java"><code>StatusBarFooter</code></a> needs to initialize the status bar on application start, and to update it accordingly whenever Employees Tracker is updated.</p>
 </li>
 </ul>
 </div>
@@ -2086,7 +2089,7 @@ Do take a look at <a href="#Design-Ui">Section 3.2, &#8220;UI component&#8221;</
 </div>
 <h4 id="code-storage-code-component" class="discrete"><code>Storage</code> component</h4>
 <div class="paragraph">
-<p><strong>Scenario:</strong> You are in charge of <code>storage</code>. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.</p>
+<p><strong>Scenario:</strong> You are in charge of <code>storage</code>. For your next project milestone, your team plans to implement a new feature of saving Employees Tracker to the cloud. However, the current implementation of the application constantly saves Employees Tracker after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for Employees Tracker storage.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -2103,7 +2106,7 @@ Do take a look at <a href="#Design-Storage">Section 3.5, &#8220;Storage componen
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Add a new method <code>backupAddressBook(ReadOnlyAddressBook)</code>, so that the address book can be saved in a fixed temporary location.</p>
+<p>Add a new method <code>backupAddressBook(ReadOnlyAddressBook)</code>, so that Employees Tracker can be saved in a fixed temporary location.</p>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
@@ -2711,13 +2714,13 @@ for <code>RemarkCommandParser</code>.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">lock the employees tracker</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lock employees tracker</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">leave my app open while making unauthorized people cannot access it</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">unlock the employees tracker</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unlock employees tracker</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">continue to use the app after leaving it locked</p></td>
 </tr>
 <tr>
@@ -3004,7 +3007,7 @@ for <code>RemarkCommandParser</code>.</p>
 <p>User requests export Employees Tracker into a directory</p>
 </li>
 <li>
-<p>Employees Tracker export the Employees Tracker data in a file to the directory specified</p>
+<p>Employees Tracker export Employees Tracker data in a file to the directory specified</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -3041,7 +3044,7 @@ for <code>RemarkCommandParser</code>.</p>
 <p>User requests import Employees Tracker file from a directory</p>
 </li>
 <li>
-<p>Employees Tracker import the Employees Tracker data from the file in the directory specified</p>
+<p>Employees Tracker import Employees Tracker data from the file in the directory specified</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -3383,7 +3386,7 @@ for <code>RemarkCommandParser</code>.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User starts the Employees Tracker program.</p>
+<p>User starts Employees Tracker program.</p>
 </li>
 <li>
 <p>Employees Tracker requests user to enter username and password.</p>
@@ -3419,21 +3422,21 @@ for <code>RemarkCommandParser</code>.</p>
 </li>
 </ul>
 </div>
-<h3 id="use-case-lock-the-employees-tracker" class="discrete">Use case: Lock the employees tracker</h3>
+<h3 id="use-case-lock-employees-tracker" class="discrete">Use case: Lock Employees Tracker</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to lock the employees tracker by entering "lock" and password</p>
+<p>User requests to lock Employees Tracker by entering "lock" and password</p>
 </li>
 <li>
 <p>Employees Tracker is locked unless user unlocks it.</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>2a. When employees tracker is locked, user are required to unlock the employees tracker before any instruction.</p>
+<p>2a. When employees tracker is locked, user are required to unlock Employees Tracker before any instruction.</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -3443,14 +3446,14 @@ for <code>RemarkCommandParser</code>.</p>
 </li>
 </ol>
 </div>
-<h3 id="use-case-unlock-the-employees-tracker" class="discrete">Use case: Unlock the employees tracker</h3>
+<h3 id="use-case-unlock-employees-tracker" class="discrete">Use case: Unlock Employees Tracker</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to unlock the employees tracker by entering "unlock" and the password set earlier</p>
+<p>User requests to unlock Employees Tracker by entering "unlock" and the password set earlier</p>
 </li>
 <li>
 <p>Employees Tracker unlocked. Use case ends.</p>
@@ -3797,7 +3800,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-07 07:39:50 UTC
+Last updated 2018-04-07 08:12:41 UTC
 </div>
 </div>
 </body>
