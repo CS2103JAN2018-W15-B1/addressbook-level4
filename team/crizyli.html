@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>Li Yufei - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Li Yufei - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-employees-tracker"><a class="link" href="#project-employees-tracker">PROJECT: Employees Tracker</a></h2>
+<div class="sectionbody">
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Employees Tracker (E.T.) is a <strong>Human Resource Manager</strong> application that helps managers to manage their subordinates. Its
+has 2 main functionalities: providing information about employees, as well as helping in tracking the tasks assigned to
+each employee.</p>
+</div>
+<div class="paragraph">
+<p>Its User Interface (UI) is a hybrid of Command Line Interface (CLI) while still having the benefits of a Graphical User
+Interface (GUI). That said, ET will suit you better if you can type fast and are familiar with CLI.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Ui.png" alt="Ui" width="600">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103JAN2018-W15-B1/main/blob/master/collated/functional/crizyli.md">Functional code</a>] [<a href="https://github.com/CS2103JAN2018-W15-B1/main/blob/master/collated/test/crizyli.md">Test code</a>] {links to collated code files}</p>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-lock-and-unlock-command"><a class="link" href="#enhancement-added-lock-and-unlock-command">Enhancement Added: Lock and Unlock Command</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging-in-code-unlock-code"><a class="link" href="#logging-in-code-unlock-code">Logging in : <code>unlock</code></a></h3>
+<div class="paragraph">
+<p>Unlocks Employees Tracker.<br>
+Format: <code>unlock</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Employees Tracker is locked when Employees Tracker is opened.</p>
+</li>
+<li>
+<p>You need to enter the password in a pop-up dialog and it must match the application&#8217;s unlock password.</p>
+</li>
+<li>
+<p>The initial default unlock password is 'admin', refer to <a href="#Setting the application unlock password: <code>setPassword</code> <code>[Since v1.3]</code>">[Setting the application unlock password: <code>setPassword</code> <code>[Since v1.3]</code>]</a> if you want to change your password.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>unlock</code><br>
+A dialog will pop up like below in <em>Figure 9</em>.<br>
+Fill in the input box with matching unlock password to unlock ET.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/unlock_dialog.png" alt="unlock dialog" width="][height="200"">
+</div>
+<div class="title">Figure 1. Pop-up unlock dialog.</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="locking-employees-tracker-code-lock-code"><a class="link" href="#locking-employees-tracker-code-lock-code">Locking Employees Tracker: <code>lock</code></a></h3>
+<div class="paragraph">
+<p>Locks Employees Tracker, so that the data is protected without the need of closing the program or shutting down your computer.<br>
+Format: <code>lock</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Employees Tracker will not respond to any command other than <code>unlock</code> when it is locked.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>lock</code><br>
+Locks Employees Tracker.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+After you locked Employees Tracker, you won&#8217;t see any information on the User Interface. All information will be hiding when Employees Tracker is locked. Refer to <em>Figure 13</em> below.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/lock_screen.png" alt="lock screen" width="][height="400"">
+</div>
+<div class="title">Figure 2. Hiding information when Employees Tracker is locked.</div>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="paragraph">
+<p>Employees Tracker is a locked by default application in order to prevent the data from unauthorized access. With the lock-unlock system, only the application owner(typically, the manager) can access the application with a unlock password only known to him.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<div class="paragraph">
+<p>(Pull requests <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/6">#6</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/102">#102</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/110">#110</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/192">#192</a>)</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="lock-and-unlock-employees-tracker"><a class="link" href="#lock-and-unlock-employees-tracker">Lock and unlock Employees Tracker</a></h3>
+<div class="paragraph">
+<p><code>lock</code> command is used to lock the application and hide information.</p>
+</div>
+<div class="paragraph">
+<p>The details of implementation of <code>lock</code> command are as follow:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>AddressBookParser</code> is used to let the application accept <code>lock</code> command.</p>
+</li>
+<li>
+<p><code>LockCommand</code> is used to set the state of the application to be locked, and post an event to indicate the application is locked and should not
+show any information now.</p>
+</li>
+<li>
+<p><code>LogicManager</code> is used to decide whether the application is locked or not, and decide the logic flow accordingly.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><code>unlock</code> command is used to unlock the application.</p>
+</div>
+<div class="paragraph">
+<p>The details of implementation of <code>unlock</code> command are as follow:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>AddressBookParser</code> is used to let the application accept <code>unlock</code> command.</p>
+</li>
+<li>
+<p><code>UnlockCommand</code> is used to post an event to pop up a password input dialog, get the password entered by user, and
+compare it with the application&#8217;s unlock password to decide whether the unlock process is successful.</p>
+</li>
+<li>
+<p><code>LogicManager</code> is used to decide whether the application is locked or not, and decide the logic flow accordingly.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-add-calendars-for-each-employee"><a class="link" href="#enhancement-added-add-calendars-for-each-employee">Enhancement Added: Add Calendars for Each Employee</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-2"><a class="link" href="#external-behavior-2">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="justification-2"><a class="link" href="#justification-2">Justification</a></h4>
+<div class="paragraph">
+<p>Each employee who exists in ET will have his or her owm calendar. Manager can manage all the calendars through some commands
+that will be covered next.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
+<div class="paragraph">
+<p>(Pull requests <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/61">#61</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/122">#122</a>)</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assign-a-timetable-to-every-employee"><a class="link" href="#assign-a-timetable-to-every-employee">Assign a timetable to every employee</a></h3>
+<div class="paragraph">
+<p>To implement the timetables for employees, we use a third party source which is Google Calendar API. With this API, we
+can integrate the application with Google Calendar, and achieve things liking creating events through application commands as what we usually do on
+Google Calendar website. The import of Google Calendar API is simple: just add the necessary
+dependencies in Build.gradle and which will import the external libraries after building.</p>
+</div>
+<div class="paragraph">
+<p>After we have the API, what we need to do is just automatically creating a new timetable (calendar) for every employee
+at the time this employee was added to Employees Tracker.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, as everyone has their own unique timetables, a new field called <code>CalendarId</code> will be created for each
+employee, to indicate their associated timetables.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-add-and-delete-event-on-calendars"><a class="link" href="#enhancement-added-add-and-delete-event-on-calendars">Enhancement Added: Add and Delete Event on Calendars</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-3"><a class="link" href="#external-behavior-3">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-an-event-on-one-employee-s-timetable-code-addevent-code"><a class="link" href="#adding-an-event-on-one-employee-s-timetable-code-addevent-code">Adding an event on one employee&#8217;s timetable: <code>addEvent</code></a></h3>
+<div class="paragraph">
+<p>Adds an event to the employee identified by the index number used in the last employees listing.<br>
+Format: <code>addEvent INDEX title/TITLE loca/LOCATION stime/STRATTIME etime/ENDTIME descrip/DESCRIPTION</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>STARTTIME</code> and <code>ENDTIME</code> <strong>must be in the format <code>YYYY-MM-DDTHH-MM-SS</code></strong>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer 1, 2, 3,</strong> …​</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>addEvent 2 title/Test Event loca/NUS, Singapore stime/2017-04-09T19:00:00 etime/2018-04-09T21:00:00 descrip/A Test Event</code><br>
+Adds the event to 2<sup>nd</sup> employee&#8217;s timetable in the list.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you are using Employees Tracker (ET) for the first time, you will be directed to a web page that requires you to sign in to Google account. Please sign in to your <strong>Google work account</strong>. Then, you will be directed to a web page similar to <em>Figure 9</em>. Please click <code>allow</code>. You can return to ET once you see a message as shown in <em>Figure 10</em>.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/login_prompt.png" alt="login prompt" width="][height="200"">
+</div>
+<div class="title">Figure 3. Process of signing in to Google account for the first time</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/login_done.png" alt="login done" width="][height="200"">
+</div>
+<div class="title">Figure 4. Done signing in</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-an-event-in-one-employee-s-timetable-code-deleteevent-code"><a class="link" href="#deleting-an-event-in-one-employee-s-timetable-code-deleteevent-code">Deleting an event in one employee&#8217;s timetable: <code>deleteEvent</code></a></h3>
+<div class="paragraph">
+<p>Deletes an event with specified title which is the first occurrence in the timetable of employee identified by the index number used in the last employees listing.<br>
+Format: <code>deleteEvent INDEX TITLE</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>TITLE</code> is a String.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer 1, 2, 3,</strong> …​</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>deleteEvent 2 some event</code><br>
+Deletes the event with title "some event" in 2<sup>nd</sup> employee&#8217;s timetable.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-3"><a class="link" href="#justification-3">Justification</a></h4>
+<div class="paragraph">
+<p>As stated, manager can manage employees' calendars through these commands.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-3"><a class="link" href="#implementation-3">Implementation</a></h4>
+<div class="paragraph">
+<p>(Pull request <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/61">#61</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/133">#133</a>)</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-my-calendar-and-todo-list"><a class="link" href="#enhancement-added-my-calendar-and-todo-list">Enhancement Added: My Calendar and Todo List</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-4"><a class="link" href="#external-behavior-4">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="viewing-my-own-calendar-code-mycalendar-code"><a class="link" href="#viewing-my-own-calendar-code-mycalendar-code">Viewing my own calendar: <code>myCalendar</code></a></h3>
+<div class="paragraph">
+<p>Views my own calendar.<br>
+Format: <code>myCalendar</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>myCalendar</code><br>
+Views my own calendar in a pop-up window.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="viewing-my-to-do-list-code-todolist-code"><a class="link" href="#viewing-my-to-do-list-code-todolist-code">Viewing my to-do-list: <code>todoList</code></a></h3>
+<div class="paragraph">
+<p>Views the upcoming events on my google account main calendar.<br>
+Format: <code>todoList</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>todoList</code><br>
+Shows the to-do-list in a pop-up window. Refer to <em>Figure 14</em> below.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/todolist.png" alt="todolist" width="][height="400"">
+</div>
+<div class="title">Figure 5. To-do list window.</div>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-4"><a class="link" href="#justification-4">Justification</a></h4>
+<div class="paragraph">
+<p>Manager can have his own calendar too, and can view the events on his calendar.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-4"><a class="link" href="#implementation-4">Implementation</a></h4>
+<div class="paragraph">
+<p>(Pull requests <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/136">#136</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/143">#143</a>)</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-addphotocommand"><a class="link" href="#enhancement-added-addphotocommand">Enhancement Added: AddPhotoCommand</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-5"><a class="link" href="#external-behavior-5">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-an-profile-photo-to-an-employee-code-addphoto-code"><a class="link" href="#adding-an-profile-photo-to-an-employee-code-addphoto-code">Adding an profile photo to an employee: <code>addPhoto</code></a></h3>
+<div class="paragraph">
+<p>Adds a profile photo to an existing employee in Employees Tracker by selecting a photo file in a file chooser.<br>
+Format: <code>addPhoto INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The index refers to the index number shown in the most recent listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>addPhoto 1</code><br>
+Adds a photo to the 1st employee in the last employees listing.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This command will automatically copy the file you chosed to the application&#8217;s resource folder if it does not exist. Once
+the photo is copied, you should not delete it from that folder manually.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-5"><a class="link" href="#justification-5">Justification</a></h4>
+<div class="paragraph">
+<p>Employees have a photo field, and manager can update this field for every employee.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-5"><a class="link" href="#implementation-5">Implementation</a></h4>
+<div class="paragraph">
+<p>(Pull request <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/165">#165</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/166">#166</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/169">#169</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/173">#173</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/197">#197</a>,)</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-export-employees-data"><a class="link" href="#enhancement-added-export-employees-data">Enhancement Added: Export Employees Data</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-6"><a class="link" href="#external-behavior-6">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exporting-the-employees-code-export-code"><a class="link" href="#exporting-the-employees-code-export-code">Exporting the employees : <code>export</code></a></h3>
+<div class="paragraph">
+<p>Exports current employees in ET to a csv(Excel) file named "employees.csv" inside data folder.<br>
+Format: <code>export</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure that the employees.csv is not open in your computer before excute <code>export</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>export</code><br>
+Current employees in ET will be exported.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-6"><a class="link" href="#justification-6">Justification</a></h4>
+<div class="paragraph">
+<p>Manager can export the information of employees to an excel file.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-6"><a class="link" href="#implementation-6">Implementation</a></h4>
+<div class="paragraph">
+<p>(Pull request )</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-proposed-edit-events-on-calendars"><a class="link" href="#enhancement-proposed-edit-events-on-calendars">Enhancement Proposed: Edit Events on Calendars</a></h3>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="other-enhancements-and-contributions"><a class="link" href="#other-enhancements-and-contributions">Other enhancements and contributions</a></h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">PROJECT: PowerPointLabs</a></h2>
+<div class="sectionbody">
+<hr>
+<div class="paragraph">
+<p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2018-04-11 17:16:07 UTC
+</div>
+</div>
+</body>
+</html>

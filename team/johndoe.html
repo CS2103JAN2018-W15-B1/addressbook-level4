@@ -180,7 +180,7 @@ Format: <code>undo</code></p>
 <p><code>delete 1</code><br>
 <code>list</code><br>
 <code>undo</code><br>
-reverses the <code>delete 1</code> command</p>
+Reverses the <code>delete 1</code> command.</p>
 </li>
 <li>
 <p><code>select 1</code><br>
@@ -191,8 +191,10 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 <li>
 <p><code>delete 1</code><br>
 <code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+<code>undo</code><br>
+Reverses the <code>clear</code> command.<br>
+<code>undo</code><br>
+Reverses the <code>delete 1</code> command.</p>
 </li>
 </ul>
 </div>
@@ -210,8 +212,10 @@ Format: <code>redo</code></p>
 <ul>
 <li>
 <p><code>delete 1</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
+<code>undo</code><br>
+Reverses the <code>delete 1</code> command.<br>
+<code>redo</code><br>
+Reapplies the <code>delete 1</code> command.</p>
 </li>
 <li>
 <p><code>delete 1</code><br>
@@ -221,10 +225,14 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 <li>
 <p><code>delete 1</code><br>
 <code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
+<code>undo</code><br>
+Reverses the <code>clear</code> command.<br>
+<code>undo</code><br>
+Reverses the <code>delete 1</code> command.<br>
+<code>redo</code><br>
+Reapplies the <code>delete 1</code> command.<br>
+<code>redo</code><br>
+Reapplies the <code>clear</code> command.</p>
 </li>
 </ul>
 </div>
@@ -550,7 +558,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-10 14:21:01 UTC
+Last updated 2018-04-11 17:16:07 UTC
 </div>
 </div>
 </body>
