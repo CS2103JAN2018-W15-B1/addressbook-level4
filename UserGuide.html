@@ -42,7 +42,7 @@
 <li><a href="#logging-in-code-unlock-code">4.1. Logging in : <code>unlock</code></a></li>
 <li><a href="#viewing-help-code-help-code">4.2. Viewing help : <code>help</code></a></li>
 <li><a href="#adding-an-employee-code-add-code">4.3. Adding an employee: <code>add</code></a></li>
-<li><a href="#adding-an-profile-photo-to-an-employee-code-addphoto-code">4.4. Adding an profile photo to an employee: <code>addPhoto</code></a></li>
+<li><a href="#adding-a-profile-photo-to-an-employee-code-addphoto-code">4.4. Adding a profile photo to an employee: <code>addPhoto</code></a></li>
 <li><a href="#authorizes-employees-tracker-code-authenet-code">4.5. Authorizes Employees Tracker : <code>authenET</code></a></li>
 <li><a href="#listing-all-employees-code-list-code">4.6. Listing all employees : <code>list</code></a></li>
 <li><a href="#editing-an-employee-code-edit-code">4.7. Editing an employee : <code>edit</code></a></li>
@@ -130,7 +130,7 @@ This app will not work with earlier versions of Java 8.
 <p>Double-click the file to start the app. The GUI should appear in a few seconds, as shown in <em>Figure 1</em>.</p>
 <div class="imageblock">
 <div class="content">
-<img src="images/Ui.png" alt="Ui" width="790">
+<img src="images/Ui_locked.png" alt="Ui locked" width="790">
 </div>
 <div class="title">Figure 1. Graphical User Interface (GUI)</div>
 </div>
@@ -139,7 +139,7 @@ This app will not work with earlier versions of Java 8.
 <p>To use ET, you have to unlock it with the default password "admin". Type command <code>unlock</code>, enter the password in the pop-up dialog and press <kbd>Enter</kbd> on keyboard.</p>
 </li>
 <li>
-<p>If it is your first time to use ET, you are supposed to authorize ET to access your Google Calendar. Type command <code>authenET</code>, a web page will be opened in your default browser,
+<p>If it is your first time to use ET, you are supposed to authorize ET to access your Google Calendar. Type this command <code>authenET</code>, a web page will be opened in your default browser,
 and you need to log in with your working google account and give the permission. Refer to Figure 2 below.</p>
 <div class="imageblock">
 <div class="content">
@@ -430,9 +430,6 @@ Format: <code>unlock</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>Employees Tracker is locked when Employees Tracker is opened.</p>
-</li>
-<li>
 <p>You need to enter the password in a pop-up dialog and it must match the application&#8217;s unlock password.</p>
 </li>
 <li>
@@ -505,9 +502,9 @@ Adds Betsy Crowe with the information given into Employees Tracker.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-an-profile-photo-to-an-employee-code-addphoto-code"><a class="link" href="#adding-an-profile-photo-to-an-employee-code-addphoto-code">4.4. Adding an profile photo to an employee: <code>addPhoto</code></a></h3>
+<h3 id="adding-a-profile-photo-to-an-employee-code-addphoto-code"><a class="link" href="#adding-a-profile-photo-to-an-employee-code-addphoto-code">4.4. Adding a profile photo to an employee: <code>addPhoto</code></a></h3>
 <div class="paragraph">
-<p>Adds a profile photo to an existing employee in Employees Tracker by selecting a photo file in a file chooser.<br>
+<p>Adds a profile photo to an existing employee in E.T..<br>
 Format: <code>addPhoto INDEX</code></p>
 </div>
 <div class="sidebarblock">
@@ -519,6 +516,12 @@ Format: <code>addPhoto INDEX</code></p>
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>You will need to select a photo in a pop-up file chooser.</p>
+</li>
+<li>
+<p>The acceptable photo types are .jpg, .jpeg, .png and .bmp.</p>
 </li>
 </ul>
 </div>
@@ -544,7 +547,7 @@ Adds a photo to the 1st employee in the last employees listing.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>This command will automatically copy the file you chosed to the application&#8217;s resource folder if it does not exist. Once
+<p>This command will automatically copy the file you chosed to the application&#8217;s data folder if it does not exist. Once
 the photo is copied, you should not delete it from that folder manually.</p>
 </div>
 </td>
@@ -555,8 +558,10 @@ the photo is copied, you should not delete it from that folder manually.</p>
 <div class="sect2">
 <h3 id="authorizes-employees-tracker-code-authenet-code"><a class="link" href="#authorizes-employees-tracker-code-authenet-code">4.5. Authorizes Employees Tracker : <code>authenET</code></a></h3>
 <div class="paragraph">
-<p>Get the permission to allow Employees Tracker to access your google calendar.<br>
-Format: <code>authenET</code></p>
+<p>Get the permission to allow E.T. to access your google calendar.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>authenET</code></p>
 </div>
 </div>
 <div class="sect2">
@@ -645,7 +650,7 @@ Format: <code>export</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>Make sure that the employees.csv is not open in your computer before excute <code>export</code>.</p>
+<p>Make sure that the employees.csv is not open in your computer before execute <code>export</code>.</p>
 </li>
 </ul>
 </div>
@@ -945,7 +950,7 @@ Selects the 1<sup>st</sup> employee in the results of the <code>find</code> comm
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If <code>Calendar</code> in <code>Employee&#8217;s Profile Panel</code> looks something similar to <em>Figure 8</em>, it means you will have to sign in to your <strong>Google work account</strong> from there. This is because for security purposes, you will be required to sign in once for every time you close Employees Tracker and open it again,
+If <code>Calendar</code> in <code>Employee&#8217;s Profile Panel</code> looks something similar to <em>Figure 8</em>, it means you will have to sign in to your <strong>Google work account</strong> from there. This is for security purposes, you will be required to sign in once for every time you close Employees Tracker and open it again,
 </td>
 </tr>
 </table>
@@ -1124,7 +1129,7 @@ Format: <code>myCalendar</code></p>
 <ul>
 <li>
 <p><code>myCalendar</code><br>
-Views my own calendar in a pop-up window.</p>
+Your calendar will be displayed on a pop-up window.</p>
 </li>
 </ul>
 </div>
@@ -1148,7 +1153,7 @@ Shows the to-do-list in a pop-up window. Refer to <em>Figure 14</em> below.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/todolist.png" alt="todolist" width="][height="400"">
+<img src="images/todoList.png" alt="todoList" width="][height="400"">
 </div>
 <div class="title">Figure 14. To-do list window.</div>
 </div>
@@ -1156,7 +1161,7 @@ Shows the to-do-list in a pop-up window. Refer to <em>Figure 14</em> below.</p>
 <div class="sect2">
 <h3 id="setting-the-application-unlock-password-code-setpassword-code"><a class="link" href="#setting-the-application-unlock-password-code-setpassword-code">4.20. Setting the application unlock password: <code>setPassword</code></a></h3>
 <div class="paragraph">
-<p>Sets Employees Tracker&#8217;s unlock password.<br>
+<p>Sets E.T.'s unlock password.<br>
 Format: <code>setPassword</code></p>
 </div>
 <div class="admonitionblock note">
@@ -1169,7 +1174,7 @@ Format: <code>setPassword</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>You need to enter both old and new password in a pop-up dialog, and old password must match the application&#8217;s unlock password.</p>
+<p>You need to enter both old and new password in a pop-up dialog, and old password must match current application&#8217;s unlock password.</p>
 </li>
 <li>
 <p>The new password can contain any character EXCEPT comma(,).</p>
@@ -1187,7 +1192,7 @@ Format: <code>setPassword</code></p>
 <ul>
 <li>
 <p><code>setPassword</code><br>
-A dialog will pop up like below in <em>Figure 15</em>. Fill in the input boxes with matched old password and new password to set it as new password.</p>
+A dialog will pop up like below in <em>Figure 15</em>. Fill in the input boxes with matched old password and new password.</p>
 </li>
 </ul>
 </div>
@@ -1251,7 +1256,7 @@ Format: <code>addEvent INDEX title/TITLE loca/LOCATION stime/STRATTIME etime/END
 <div class="ulist">
 <ul>
 <li>
-<p><code>STARTTIME</code> and <code>ENDTIME</code> <strong>must be in the format <code>YYYY-MM-DDTHH-MM-SS</code></strong>.</p>
+<p><code>STARTTIME</code> and <code>ENDTIME</code> <strong>must be in the format <code>YYYY-MM-DDTHH-MM-SS</code></strong>, which corresponds to year, month, day, hour, minute and second.</p>
 </li>
 <li>
 <p>The index refers to the index number shown in the most recent listing.</p>
@@ -1271,33 +1276,9 @@ Format: <code>addEvent INDEX title/TITLE loca/LOCATION stime/STRATTIME etime/END
 <li>
 <p><code>list</code><br>
 <code>addEvent 2 title/Test Event loca/NUS, Singapore stime/2017-04-09T19:00:00 etime/2018-04-09T21:00:00 descrip/A Test Event</code><br>
-Adds the event to 2<sup>nd</sup> employee&#8217;s timetable in the list.</p>
+Adds the event to 2<sup>nd</sup> employee&#8217;s calendar in the list.</p>
 </li>
 </ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If you are using Employees Tracker (ET) for the first time, you will be directed to a web page that requires you to sign in to Google account. Please sign in to your <strong>Google work account</strong>. Then, you will be directed to a web page similar to <em>Figure 9</em>. Please click <code>allow</code>. You can return to ET once you see a message as shown in <em>Figure 10</em>.
-</td>
-</tr>
-</table>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/login_prompt.png" alt="login prompt" width="][height="200"">
-</div>
-<div class="title">Figure 16. Process of signing in to Google account for the first time</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/login_done.png" alt="login done" width="][height="200"">
-</div>
-<div class="title">Figure 17. Done signing in</div>
 </div>
 </div>
 <div class="sect2">
@@ -1330,8 +1311,8 @@ Format: <code>deleteEvent INDEX TITLE</code></p>
 <ul>
 <li>
 <p><code>list</code><br>
-<code>deleteEvent 2 some event</code><br>
-Deletes the event with title "some event" in 2<sup>nd</sup> employee&#8217;s timetable.</p>
+<code>deleteEvent 2 Test Event</code><br>
+Deletes the event with title "Test Event" in 2<sup>nd</sup> employee&#8217;s timetable.</p>
 </li>
 </ul>
 </div>
@@ -1530,6 +1511,11 @@ Employees Tracker will ensure data security by encrypting data files.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>addEvent 2 title/Test Event loca/NUS, Singapore stime/2017-04-09T19:00:00 etime/2018-04-09T21:00:00 descrip/A Test Event</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>AddPhoto</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>addPhoto INDEX</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Authentication</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>authenET</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1553,6 +1539,11 @@ Employees Tracker will ensure data security by encrypting data files.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Edit</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>edit 2 n/James Lee e/jameslee@example.com</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Export</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Find</strong></p></td>
@@ -1626,7 +1617,7 @@ Employees Tracker will ensure data security by encrypting data files.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-12 08:08:53 UTC
+Last updated 2018-04-12 10:18:11 UTC
 </div>
 </div>
 </body>
