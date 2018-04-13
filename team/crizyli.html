@@ -37,6 +37,7 @@ Interface (GUI). That said, ET will suit you better if you can type fast and are
 <div class="content">
 <img src="../images/Ui.png" alt="Ui" width="600">
 </div>
+<div class="title">Figure 1. UI page</div>
 </div>
 </div>
 </div>
@@ -47,7 +48,7 @@ Interface (GUI). That said, ET will suit you better if you can type fast and are
 <p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103JAN2018-W15-B1/main/blob/master/collated/functional/crizyli.md">Functional code</a>] [<a href="https://github.com/CS2103JAN2018-W15-B1/main/blob/master/collated/test/crizyli.md">Test code</a>] {links to collated code files}</p>
 </div>
 <div class="sect2">
-<h3 id="enhancement-added-lock-and-unlock-command"><a class="link" href="#enhancement-added-lock-and-unlock-command">Enhancement Added: Lock and Unlock Command</a></h3>
+<h3 id="enhancement-added-lock-and-unlock-system"><a class="link" href="#enhancement-added-lock-and-unlock-system">Enhancement Added: Lock and Unlock System</a></h3>
 <div class="sect3">
 <h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
 <hr>
@@ -99,7 +100,7 @@ Fill in the input box with matching unlock password to unlock ET.</p>
 <div class="content">
 <img src="../images/unlock_dialog.png" alt="unlock dialog" width="][height="200"">
 </div>
-<div class="title">Figure 1. Pop-up unlock dialog.</div>
+<div class="title">Figure 2. Pop-up unlock dialog.</div>
 </div>
 </div>
 <div class="sect2">
@@ -146,7 +147,7 @@ After you locked Employees Tracker, you won&#8217;t see any information on the U
 <div class="content">
 <img src="../images/lock_screen.png" alt="lock screen" width="][height="400"">
 </div>
-<div class="title">Figure 2. Hiding information when Employees Tracker is locked.</div>
+<div class="title">Figure 3. Hiding information when Employees Tracker is locked.</div>
 </div>
 <div class="paragraph">
 <p><mark>End of Extract</mark></p>
@@ -173,12 +174,31 @@ After you locked Employees Tracker, you won&#8217;t see any information on the U
 </div>
 </div>
 <div class="sect2">
-<h3 id="lock-and-unlock-employees-tracker"><a class="link" href="#lock-and-unlock-employees-tracker">Lock and unlock Employees Tracker</a></h3>
+<h3 id="lock-and-unlock-system"><a class="link" href="#lock-and-unlock-system">Lock and Unlock system</a></h3>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
-<p><code>lock</code> command is used to lock the application and hide information.</p>
+<p>The Lock and Unlock system is facilitated by maintaining a password inside <code>LogicManager</code> at runtime, and also maintaining
+the password in storage when application is closed. It allows to lock the application (hiding information) while keeping the application
+open, and unlock it to resume at anytime.</p>
 </div>
 <div class="paragraph">
-<p>The details of implementation of <code>lock</code> command are as follow:</p>
+<p>The password is stored in storage as a field annotated as <code>@XmlElement</code> in <code>XmlSerializableAddressBook</code>, and is been read and converted to model type when the application
+is launched and kept at <code>LogicManager</code> in which the password can be handled at runtime.</p>
+</div>
+<div class="paragraph">
+<p>Below is the overall design of Lock and Unlock system. Arrows are representing logic flow and lines in blue, red and green are for event posting and handling.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/lockunlocksystem.png" alt="lockunlocksystem" width="800">
+</div>
+<div class="title">Figure 4. Overall design of lock and unlock system</div>
+</div>
+<div class="sect4">
+<h5 id="implementation-of-code-lock-code-command"><a class="link" href="#implementation-of-code-lock-code-command">Implementation of <code>lock</code> command</a></h5>
+<div class="paragraph">
+<p>The logic flow of <code>lock</code> command is:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -186,19 +206,77 @@ After you locked Employees Tracker, you won&#8217;t see any information on the U
 <p><code>AddressBookParser</code> is used to let the application accept <code>lock</code> command.</p>
 </li>
 <li>
-<p><code>LockCommand</code> is used to set the state of the application to be locked, and post an event to indicate the application is locked and should not
-show any information now.</p>
+<p><code>LockCommandParser</code> is to make sure no other extra inputs are entered besides the command word <code>lock</code>.</p>
 </li>
 <li>
-<p><code>LogicManager</code> is used to decide whether the application is locked or not, and decide the logic flow accordingly.</p>
+<p><code>LockCommand</code> is used to set the state of the application to be locked, and post an event to indicate the application is locked such that
+no information should be shown now. Note the <code>DetailPanel</code> is the handler of the event. There are mainly two parts that need to be hidden: <code>PersonList</code> and <code>DetailPanel</code>. Refer to the first code snippet below.</p>
+</li>
+<li>
+<p><code>LogicManager</code> is used to check the state and decide whether the application is locked or not, and decide the logic flow accordingly. Refer to the second code snippet below.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p><code>unlock</code> command is used to unlock the application.</p>
+<p>Below is the execution logic of <code>LockCommand</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> CommandResult execute() {
+    model.updateFilteredPersonList(predicate);
+    EventsCenter.getInstance().post(<span class="keyword">new</span> HideDetailPanelEvent());
+    LogicManager.lock();
+    <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(MESSAGE_SUCCESS);
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>The details of implementation of <code>unlock</code> command are as follow:</p>
+<p>Below is the logic flow in <code>LogicManger</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="keyword">if</span> (isLocked &amp;&amp; !(command <span class="keyword">instanceof</span> HelpCommand)) { <span class="comment">//check if locked</span>
+        command.setData(model, history, undoRedoStack);
+        <span class="keyword">if</span> (command <span class="keyword">instanceof</span> UnlockCommand) { <span class="comment">//check unlock command</span>
+            UnlockCommand unlockCommand = (UnlockCommand) command;
+            result = unlockCommand.execute();
+        } <span class="keyword">else</span> {
+            result = <span class="keyword">new</span> CommandResult(<span class="string"><span class="delimiter">&quot;</span><span class="content">Addressbook has been locked, please unlock it first!</span><span class="delimiter">&quot;</span></span>);
+        }
+    } <span class="keyword">else</span> { <span class="comment">//unlocked case</span>
+        command.setData(model, history, undoRedoStack);
+        result = command.execute();
+        undoRedoStack.push(command);
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how <code>lock</code> command works:</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The event posted by LockCommand should firstly be reacted by <code>EventsCenter</code> and then handled by <code>DetailPanel</code>,
+this step is removed for clearer viewing and without messing up the diagram.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/lock_seq.jpg" alt="lock seq" width="800">
+</div>
+<div class="title">Figure 5. Sequence Diagram for Lock Command</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="implementation-of-code-unlock-code-command"><a class="link" href="#implementation-of-code-unlock-code-command">Implementation of <code>unlock</code> command</a></h5>
+<div class="paragraph">
+<p>The logic flow of <code>unlock</code> command is:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -206,8 +284,16 @@ show any information now.</p>
 <p><code>AddressBookParser</code> is used to let the application accept <code>unlock</code> command.</p>
 </li>
 <li>
-<p><code>UnlockCommand</code> is used to post an event to pop up a password input dialog, get the password entered by user, and
-compare it with the application&#8217;s unlock password to decide whether the unlock process is successful.</p>
+<p><code>UnlockCommandParser</code> is to make sure no other extra inputs are entered besides the command word <code>unlock</code>. Similar to <code>LockCommandParser</code>.</p>
+</li>
+<li>
+<p><code>UnlockCommand</code> is used to post an event requesting <code>MainWindow</code> to pop up a password input dialog.</p>
+</li>
+<li>
+<p><code>MainWindow</code> will handle the event posted by <code>UnlockCommand</code> and show the password input dialog. Then it will post an event containing user entered password.</p>
+</li>
+<li>
+<p><code>UnlockCommand</code> will then handle the event and get the password from the event, and compare it with the application&#8217;s unlock password to decide whether the unlock process is successful. Refer to the code snippet below.</p>
 </li>
 <li>
 <p><code>LogicManager</code> is used to decide whether the application is locked or not, and decide the logic flow accordingly.</p>
@@ -215,67 +301,226 @@ compare it with the application&#8217;s unlock password to decide whether the un
 </ol>
 </div>
 <div class="paragraph">
+<p>Below is the execution logic of <code>UnlockCommand</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="directive">public</span> CommandResult execute() {
+        <span class="keyword">if</span> (!LogicManager.isLocked()) {
+            <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(<span class="string"><span class="delimiter">&quot;</span><span class="content">Employees Tracker is already unlocked!</span><span class="delimiter">&quot;</span></span>);
+        }
+        <span class="comment">//post a event to show password input dialog.</span>
+        EventsCenter.getInstance().post(<span class="keyword">new</span> ShowPasswordFieldEvent());
+
+        <span class="comment">// if the password is set to &quot;nopassword&quot;, means no input got from user.</span>
+        <span class="keyword">if</span> (<span class="local-variable">this</span>.password.equals(<span class="string"><span class="delimiter">&quot;</span><span class="content">nopassword</span><span class="delimiter">&quot;</span></span>)) {
+            <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(MESSAGE_MISSING_PASSWORD);
+        }
+        <span class="comment">//check if the entered password match the unlock password.</span>
+        <span class="keyword">if</span> (<span class="local-variable">this</span>.password.compareTo(LogicManager.getPassword()) == <span class="integer">0</span>) {
+            LogicManager.unLock();
+            EventsCenter.getInstance().post(<span class="keyword">new</span> AddressBookUnlockedEvent());
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(MESSAGE_SUCCESS);
+        } <span class="keyword">else</span> {
+            <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(MESSAGE_INCORRECT_PASSWORD);
+        }
+    }
+
+    <span class="comment">/**
+    * handle the event to get the input password.
+    */</span>
+    <span class="annotation">@Subscribe</span>
+    <span class="directive">private</span> <span class="type">void</span> handlePasswordEnteredEvent(PasswordEnteredEvent event) {
+        <span class="local-variable">this</span>.password = event.getPassword();
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how <code>unlock</code> command works:</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The detail of the instantiation of <code>UnlockCommand</code> is removed, because it is similar to that of
+<code>LockCommand</code>. Note that both <code>MainWindow</code> and <code>UnlockCommand</code> are event handler, which is indicated by the two post method and the
+blue activation bar in the diagram, and the interaction with <code>EventsCenter</code> is also omitted like before.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/unlock_seq.jpg" alt="unlock seq" width="800">
+</div>
+<div class="title">Figure 6. Sequence Diagram for Unlock Command</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="implementation-of-code-setpassword-code-command"><a class="link" href="#implementation-of-code-setpassword-code-command">Implementation of <code>setPassword</code> command</a></h5>
+<div class="paragraph">
+<p>This command is used to set new unlock password of the application, which is also part of
+the Lock and Unlock system. The implementation of <code>setPassword</code> command is similar to that of <code>unlock</code> command, but additionally,
+<code>setPassword</code> command requires to update the password in both model and storage.</p>
+</div>
+<div class="paragraph">
+<p>The logic flow of <code>setPassword</code> command is:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>AddressBookParser</code> is used to let the application accept <code>setPassword</code> command.</p>
+</li>
+<li>
+<p><code>SetPasswordCommandParser</code> is to make sure no other extra inputs are entered besides the command word <code>setPassword</code>. Similar to <code>LockCommandParser</code>.</p>
+</li>
+<li>
+<p><code>SetPasswordCommand</code> is used to post an event requesting <code>MainWindow</code> to pop up a password input dialog, get the passwords (old password and new password) entered by user, and
+compare the old password with the application&#8217;s current unlock password to decide whether they match. If match, then update the password in both <code>LogicManager</code> and storage. Refer to the code snippet below.</p>
+</li>
+<li>
+<p><code>MainWindow</code> will handle the event and post another event containing user inputs, which is similar to that in <code>Unlock</code> command.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="directive">public</span> CommandResult execute() {
+        EventsCenter.getInstance().post(<span class="keyword">new</span> ShowSetPasswordDialogEvent());
+        <span class="comment">//check if all password input fields are inputed by user.</span>
+        <span class="keyword">if</span> (!isComplete) {
+            <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(MESSAGE_INCOMPLETE_FIELD);
+        }
+        <span class="comment">//check if the old password match the current one.</span>
+        <span class="keyword">if</span> (<span class="local-variable">this</span>.oldPassword.compareTo(LogicManager.getPassword()) == <span class="integer">0</span>) {
+            LogicManager.setPassword(<span class="local-variable">this</span>.newPassword);
+            model.setPassword(<span class="local-variable">this</span>.newPassword);
+            <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(MESSAGE_SUCCESS);
+        } <span class="keyword">else</span> {
+            <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(MESSAGE_INCORRECT_OLDPASSWORD);
+        }
+    }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-to-input-password-values"><a class="link" href="#aspect-how-to-input-password-values">Aspect: How to input password values</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Input all password in dialogs.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: It is more secure as all password inputs in dialogs can be invisible.</p>
+</li>
+<li>
+<p>Cons: Need the cooperation with UI to pop up the dialogs, which makes it harder to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (old version):</strong> Just let the passwords be the command parameters.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to achieve as only need to parse the inputs in command parser to get the passwords.</p>
+</li>
+<li>
+<p>Cons: Not so secure, because the password inputs are all visible like the command word, and someone else may accidentally see them.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-way-of-showing-the-password-input-dialog"><a class="link" href="#aspect-way-of-showing-the-password-input-dialog">Aspect: Way of showing the password input dialog</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Post an event to request MainWindow to show the Dialog.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: It is good to comply with the Events-Driven nature of the application&#8217;s design, making the design more cohesive and less coupling.</p>
+</li>
+<li>
+<p>Cons: Events-Driven design is routine-less. Need to put extra effort to control the events. As the application grows, there are more events posted
+and it is necessary to control these events well to prevent events messing up.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Just add a static method in MainWindow that will show the Dialog.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Simpler implementation than current one, no need extra effort for event controlling.</p>
+</li>
+<li>
+<p>Cons: The static method could not use the non-static attributes in MainWindow, as a result, need extra effort to deal with referencing non-static variables.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-how-to-store-the-password-in-storage"><a class="link" href="#aspect-how-to-store-the-password-in-storage">Aspect: How to store the password in storage</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Password is a visible field in storage in plaintext.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to retrieve and update the password in storage.</p>
+</li>
+<li>
+<p>Cons: Not secure because password is visible in plaintext.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Password is still visible but encrypted.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Though password is visible, it it encrypted and one can only get the correct password by getting the encryption key. It is more secure.</p>
+</li>
+<li>
+<p>Cons: Every time load the password from data, need to decrypt it and every time update it in storage, need to encrypt it.
+Also need to keep the encryption key somewhere secret.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
 <p><mark>End of Extract</mark></p>
 </div>
 <hr>
 </div>
+</div>
+</div>
 <div class="sect2">
-<h3 id="enhancement-added-add-calendars-for-each-employee"><a class="link" href="#enhancement-added-add-calendars-for-each-employee">Enhancement Added: Add Calendars for Each Employee</a></h3>
+<h3 id="enhancement-added-calendars-and-operations-on-calendars"><a class="link" href="#enhancement-added-calendars-and-operations-on-calendars">Enhancement Added: Calendars and Operations on Calendars</a></h3>
 <div class="sect3">
 <h4 id="external-behavior-2"><a class="link" href="#external-behavior-2">External behavior</a></h4>
-<hr>
-<div class="paragraph">
-<p><mark>Start of Extract [from: User Guide]</mark></p>
-</div>
-<div class="paragraph">
-<p><mark>End of Extract</mark></p>
-</div>
-<hr>
-</div>
-<div class="sect3">
-<h4 id="justification-2"><a class="link" href="#justification-2">Justification</a></h4>
-<div class="paragraph">
-<p>Each employee who exists in ET will have his or her owm calendar. Manager can manage all the calendars through some commands
-that will be covered next.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
-<div class="paragraph">
-<p>(Pull requests <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/61">#61</a>,
-<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/122">#122</a>)</p>
-</div>
-<hr>
-<div class="paragraph">
-<p><mark>Start of Extract [from: Developer Guide]</mark></p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="assign-a-timetable-to-every-employee"><a class="link" href="#assign-a-timetable-to-every-employee">Assign a timetable to every employee</a></h3>
-<div class="paragraph">
-<p>To implement the timetables for employees, we use a third party source which is Google Calendar API. With this API, we
-can integrate the application with Google Calendar, and achieve things liking creating events through application commands as what we usually do on
-Google Calendar website. The import of Google Calendar API is simple: just add the necessary
-dependencies in Build.gradle and which will import the external libraries after building.</p>
-</div>
-<div class="paragraph">
-<p>After we have the API, what we need to do is just automatically creating a new timetable (calendar) for every employee
-at the time this employee was added to Employees Tracker.</p>
-</div>
-<div class="paragraph">
-<p>Additionally, as everyone has their own unique timetables, a new field called <code>CalendarId</code> will be created for each
-employee, to indicate their associated timetables.</p>
-</div>
-<div class="paragraph">
-<p><mark>End of Extract</mark></p>
-</div>
-<hr>
-</div>
-<div class="sect2">
-<h3 id="enhancement-added-add-and-delete-event-on-calendars"><a class="link" href="#enhancement-added-add-and-delete-event-on-calendars">Enhancement Added: Add and Delete Event on Calendars</a></h3>
-<div class="sect3">
-<h4 id="external-behavior-3"><a class="link" href="#external-behavior-3">External behavior</a></h4>
 <hr>
 <div class="paragraph">
 <p><mark>Start of Extract [from: User Guide]</mark></p>
@@ -349,41 +594,11 @@ Format: <code>deleteEvent INDEX TITLE</code></p>
 <li>
 <p><code>list</code><br>
 <code>deleteEvent 2 Test Event</code><br>
-Deletes the event with title "Test Event" in 2<sup>nd</sup> employee&#8217;s timetable.</p>
+Deletes the event with title "Test Event" in 2<sup>nd</sup> employee&#8217;s timetable.
+=== Viewing my own calendar: <code>myCalendar</code></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p><mark>End of Extract</mark></p>
-</div>
-<hr>
-<div class="sect3">
-<h4 id="justification-3"><a class="link" href="#justification-3">Justification</a></h4>
-<div class="paragraph">
-<p>As stated, manager can manage employees' calendars through these commands.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="implementation-3"><a class="link" href="#implementation-3">Implementation</a></h4>
-<div class="paragraph">
-<p>(Pull request <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/61">#61</a>,
-<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/133">#133</a>)</p>
-</div>
-<hr>
-</div>
-</div>
-<div class="sect2">
-<h3 id="enhancement-added-my-calendar-and-todo-list"><a class="link" href="#enhancement-added-my-calendar-and-todo-list">Enhancement Added: My Calendar and Todo List</a></h3>
-<div class="sect3">
-<h4 id="external-behavior-4"><a class="link" href="#external-behavior-4">External behavior</a></h4>
-<hr>
-<div class="paragraph">
-<p><mark>Start of Extract [from: User Guide]</mark></p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="viewing-my-own-calendar-code-mycalendar-code"><a class="link" href="#viewing-my-own-calendar-code-mycalendar-code">Viewing my own calendar: <code>myCalendar</code></a></h3>
 <div class="paragraph">
 <p>Views my own calendar.<br>
 Format: <code>myCalendar</code></p>
@@ -421,30 +636,229 @@ Shows the to-do-list in a pop-up window. Refer to <em>Figure 14</em> below.</p>
 <div class="content">
 <img src="../images/todoList.png" alt="todoList" width="][height="400"">
 </div>
-<div class="title">Figure 3. To-do list window.</div>
+<div class="title">Figure 7. To-do list window.</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="authorizes-employees-tracker-code-authenet-code"><a class="link" href="#authorizes-employees-tracker-code-authenet-code">Authorizes Employees Tracker : <code>authenET</code></a></h3>
+<div class="paragraph">
+<p>Get the permission to allow E.T. to access your google calendar.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>authenET</code></p>
 </div>
 <div class="paragraph">
 <p><mark>End of Extract</mark></p>
 </div>
 <hr>
 <div class="sect3">
-<h4 id="justification-4"><a class="link" href="#justification-4">Justification</a></h4>
+<h4 id="justification-2"><a class="link" href="#justification-2">Justification</a></h4>
 <div class="paragraph">
-<p>Manager can have his own calendar too, and can view the events on his calendar.</p>
+<p>Each employee who exists in ET will have his or her owm calendar. Manager can manage all the calendars through some commands
+that will be covered next.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="implementation-4"><a class="link" href="#implementation-4">Implementation</a></h4>
+<h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
 <div class="paragraph">
-<p>(Pull requests <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/136">#136</a>,
-<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/143">#143</a>)</p>
+<p>(Pull requests <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/61">#61</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/122">#122</a>)</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="calendars-and-operations-on-calendars"><a class="link" href="#calendars-and-operations-on-calendars">Calendars and Operations on Calendars</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current Implementation</a></h4>
+<div class="paragraph">
+<p>To implement the calendars for employees, a third party source has been used which is Google Calendar API, it allows to manage google
+calendars on desktop applications. The commands that relating to calendars are <code>addEvent</code>, <code>deleteEvent</code>, <code>todoList</code> and <code>authenET</code>.
+Below is the overall design:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/calendarsystem.png" alt="calendarsystem" width="800">
+</div>
+<div class="title">Figure 8. Overall design relating to calendars</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Command <code>authenET</code> should be executed before all other commands if it is the first time to use E.T., because only when E.T. is authorized
+with one working google account, all other commands can be executed correctly.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect4">
+<h5 id="implementation-of-code-todolist-code-command"><a class="link" href="#implementation-of-code-todolist-code-command">Implementation of <code>todoList</code> command</a></h5>
+<div class="paragraph">
+<p>The logic flow of <code>todoList</code> command is:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>AddressBookParser</code> is used to let the application accept <code>todoList</code> command.</p>
+</li>
+<li>
+<p><code>TodoListCommand</code> will firstly get the google calendar service through <code>Authentication</code>, then it will request google calendar service to retrieve all the events
+on the main calendar. After that, it will post an event to request to open a todo-list window. And post another event containing all the retrieved events that are to be displayed.</p>
+</li>
+<li>
+<p><code>UiManager</code> will handle the first event posted by <code>TodoListCommand</code> and show the <code>TodoListWindow</code>.</p>
+</li>
+<li>
+<p><code>TodoListWindow</code> will handle the second event posted by <code>TodoListCommand</code> and display all the events.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Here is the code snippet of how <code>todoList</code> command executes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> CommandResult execute() {
+        <span class="comment">// Build a new authorized API client service.</span>
+        com.google.api.services.calendar.Calendar service =
+                <span class="predefined-constant">null</span>;
+        <span class="keyword">try</span> {
+            service = Authentication.getCalendarService();
+        } <span class="keyword">catch</span> (<span class="exception">IOException</span> e) {
+            e.printStackTrace();
+        }
+        <span class="comment">//retrieve events from the main calendar</span>
+        <span class="predefined-type">String</span> calendarId = <span class="string"><span class="delimiter">&quot;</span><span class="content">primary</span><span class="delimiter">&quot;</span></span>;
+        <span class="predefined-type">String</span> pageToken = <span class="predefined-constant">null</span>;
+        <span class="keyword">do</span> {
+            Events events = <span class="predefined-constant">null</span>;
+            <span class="keyword">try</span> {
+                events = service.events().list(calendarId).setPageToken(pageToken).execute();
+            } <span class="keyword">catch</span> (<span class="exception">IOException</span> e) {
+                e.printStackTrace();
+            }
+            <span class="predefined-type">List</span>&lt;<span class="predefined-type">Event</span>&gt; items = events.getItems();
+            <span class="keyword">for</span> (<span class="predefined-type">Event</span> event : items) {
+                eventList.add(<span class="keyword">new</span> ListEvent(event.getSummary(), event.getLocation(), event.getStart().getDateTime()));
+            }
+            pageToken = events.getNextPageToken();
+        } <span class="keyword">while</span> (pageToken != <span class="predefined-constant">null</span>);
+        <span class="comment">//post events</span>
+        EventsCenter.getInstance().post(<span class="keyword">new</span> ShowTodoListEvent());
+        EventsCenter.getInstance().post(<span class="keyword">new</span> ShowTodoListDisplayContentEvent(eventList));
+        <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(MESSAGE_SUCCESS);
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Below is the sequence diagram for the execution of <code>todoList</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/todolist_seq.png" alt="todolist seq" width="800">
+</div>
+<div class="title">Figure 9. Sequence diagram of <code>todoList</code></div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="implementation-of-code-addevent-code-code-deleteevent-code-and-code-authenet-code-commands"><a class="link" href="#implementation-of-code-addevent-code-code-deleteevent-code-and-code-authenet-code-commands">Implementation of <code>addEvent</code>, <code>deleteEvent</code> and <code>authenET</code> commands</a></h5>
+<div class="paragraph">
+<p>As stated, <code>authenET</code> command is to be executed at the very beginning, and what it does is to sent a HTTP request through <code>Authentication</code> in order
+to authorize E.T.. It will then receive a status code and a content page which will be opened by the default browser to ask the permission of authorizing E.T..</p>
+</div>
+<div class="paragraph">
+<p>The implementation of  <code>addEvent</code> and <code>deleteEvent</code> commands are similar to <code>todoList</code> command, both require to first build a new authorized API calendar service.
+Then they will just sent request through the API service and all other things will be done at google service side. Finally, they will do updates according to the request results.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-where-to-place-the-todo-list-window"><a class="link" href="#aspect-where-to-place-the-todo-list-window">Aspect: Where to place the todo-list window</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Make it as a pop-up window.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to manage, it is relatively independent to main window as it is created at a new javaFX stage.</p>
+</li>
+<li>
+<p>Cons: Cannot update information in pop-up windows, that is, if leave the todo-list window open and execute another <code>todoList</code> command, another todo-list
+window will pop up which contains the most up-to-date information, then the two windows may cause confusion.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> create a field called todo-list panel in <code>MainWindow</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Every time execute <code>todoList</code> command, the information can be updated, without creating new windows.</p>
+</li>
+<li>
+<p>Cons: Need to re-structure the layout of MainWindow.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-when-and-how-to-authorize-e-t"><a class="link" href="#aspect-when-and-how-to-authorize-e-t">Aspect: When and how to authorize E.T.</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> A dedicated command <code>authenET</code> to authorize E.T..</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Make the logic more clear and systematic.</p>
+</li>
+<li>
+<p>Cons: Single point of failure: if not execute <code>authenET</code> ahead, all other commands relating to calendars will not work.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (old version):</strong> Every command goes through the authorization step to check if authorized.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No need extra command ahead, each command can execute independently.</p>
+</li>
+<li>
+<p>Cons: A lot of unnecessary authorization processes, because this step is supposed to be run only once and all are set. The
+response time per command will be longer.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="enhancement-added-addphotocommand"><a class="link" href="#enhancement-added-addphotocommand">Enhancement Added: AddPhotoCommand</a></h3>
 <div class="sect3">
-<h4 id="external-behavior-5"><a class="link" href="#external-behavior-5">External behavior</a></h4>
+<h4 id="external-behavior-3"><a class="link" href="#external-behavior-3">External behavior</a></h4>
 <hr>
 <div class="paragraph">
 <p><mark>Start of Extract [from: User Guide]</mark></p>
@@ -509,26 +923,111 @@ the photo is copied, you should not delete it from that folder manually.</p>
 </div>
 <hr>
 <div class="sect3">
-<h4 id="justification-5"><a class="link" href="#justification-5">Justification</a></h4>
+<h4 id="justification-3"><a class="link" href="#justification-3">Justification</a></h4>
 <div class="paragraph">
 <p>Employees have a photo field, and manager can update this field for every employee.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="implementation-5"><a class="link" href="#implementation-5">Implementation</a></h4>
+<h4 id="implementation-3"><a class="link" href="#implementation-3">Implementation</a></h4>
 <div class="paragraph">
 <p>(Pull request <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/165">#165</a>,
 <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/166">#166</a>,
 <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/169">#169</a>,
 <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/173">#173</a>,
-<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/197">#197</a>,)</p>
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/197">#197</a>)</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-photo-to-employees"><a class="link" href="#add-photo-to-employees">Add photo to employees</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">Current Implementation</a></h4>
+<div class="paragraph">
+<p>Command <code>addPhoto</code> mainly copy the local photo files chosen by users to the data folder of E.T., and employees will be assigned with these
+photos which matches to their fields for photo.</p>
+</div>
+<div class="paragraph">
+<p>The logic flow of <code>addPhoto</code> command is:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>AddressBookParser</code> is used to let the application accept <code>addPhoto</code> command.</p>
+</li>
+<li>
+<p><code>AddPhotoCommandParser</code> is to make sure the user inputs are correct and extract the parameter.</p>
+</li>
+<li>
+<p><code>AddPhotoCommand</code> is will first post an event requesting <code>MainWindow</code> to pop up a file chooser, get the photo file chose by user,
+and check its validation. It will then copy this photo to the data folder if this photo does not exist there. Finally, it will update
+person and pass to <code>ModelManager</code>.</p>
+</li>
+<li>
+<p><code>ModelManager</code> will update the person list and the photo list accordingly.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Here is the class diagram of <code>addPhoto</code> command:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/addphotoclassdia.png" alt="addphotoclassdia" width="800">
+</div>
+<div class="title">Figure 10. Class diagram of <code>addPhoto</code> command</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-to-maintain-the-photos"><a class="link" href="#aspect-how-to-maintain-the-photos">Aspect: How to maintain the photos</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Store them at application&#8217;s data folder which can be retrieved at runtime.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to manage, as the photos are all in application&#8217;s data folder.</p>
+</li>
+<li>
+<p>Cons: Need to maintain an extra list in runtime storage to manage the photos in data folder.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> No need to store photos at application&#8217;s data folder, load them directly from local disk.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No need to maintain the list of photos in application.</p>
+</li>
+<li>
+<p>Cons: The change of photos' paths in local disk will cause loading error at runtime, need mechanisms to ensure person photo paths are
+dynamically referenced.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="enhancement-added-export-employees-data"><a class="link" href="#enhancement-added-export-employees-data">Enhancement Added: Export Employees Data</a></h3>
 <div class="sect3">
-<h4 id="external-behavior-6"><a class="link" href="#external-behavior-6">External behavior</a></h4>
+<h4 id="external-behavior-4"><a class="link" href="#external-behavior-4">External behavior</a></h4>
 <hr>
 <div class="paragraph">
 <p><mark>Start of Extract [from: User Guide]</mark></p>
@@ -568,53 +1067,129 @@ Current employees in ET will be exported.</p>
 </div>
 <hr>
 <div class="sect3">
-<h4 id="justification-6"><a class="link" href="#justification-6">Justification</a></h4>
+<h4 id="justification-4"><a class="link" href="#justification-4">Justification</a></h4>
 <div class="paragraph">
 <p>Manager can export the information of employees to an excel file.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="implementation-6"><a class="link" href="#implementation-6">Implementation</a></h4>
+<h4 id="implementation-4"><a class="link" href="#implementation-4">Implementation</a></h4>
 <div class="paragraph">
-<p>(Pull request )</p>
+<p>(Pull request <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/208">#208</a>)</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="enhancement-proposed-edit-events-on-calendars"><a class="link" href="#enhancement-proposed-edit-events-on-calendars">Enhancement Proposed: Edit Events on Calendars</a></h3>
+<h3 id="export-employees-data"><a class="link" href="#export-employees-data">Export employees data</a></h3>
+<div class="paragraph">
+<p>Command <code>export</code> will export employees data as a .csv file into data folder.</p>
+</div>
+<div class="paragraph">
+<p>The logic flow of <code>addPhoto</code> command is:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>AddressBookParser</code> is used to let the application accept <code>export</code> command.</p>
+</li>
+<li>
+<p><code>ExportEmployeesCommand</code> is will first post an event to get the current employee list in <code>ModelManager</code>, and then create a .csv file
+at data folder. It will finally write the employees' information to that file.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Here is the code snippet of the execution of <code>export</code> command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="directive">public</span> CommandResult execute() {
+        EventsCenter.getInstance().post(<span class="keyword">new</span> GetEmployeesRequestEvent());
+        <span class="predefined-type">File</span> csv = <span class="keyword">new</span> <span class="predefined-type">File</span>(EXPORT_FILE_PATH);
+        <span class="predefined-type">BufferedWriter</span> bw = <span class="predefined-constant">null</span>;
+        <span class="keyword">try</span> {
+            bw = <span class="keyword">new</span> <span class="predefined-type">BufferedWriter</span>(<span class="keyword">new</span> <span class="predefined-type">FileWriter</span>(csv));
+            bw.write(<span class="string"><span class="delimiter">&quot;</span><span class="content">Name,Phone,Email,Address,Tags</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>);
+            <span class="keyword">for</span> (Person p : employees) {
+                <span class="predefined-type">String</span> temp = p.getName().fullName + <span class="string"><span class="delimiter">&quot;</span><span class="content">,</span><span class="delimiter">&quot;</span></span> + p.getPhone().value + <span class="string"><span class="delimiter">&quot;</span><span class="content">,</span><span class="delimiter">&quot;</span></span> + p.getEmail().value + <span class="string"><span class="delimiter">&quot;</span><span class="content">,</span><span class="delimiter">&quot;</span></span>
+                        + p.getAddress().value.replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content">,</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>);
+                <span class="keyword">if</span> (!p.getTags().isEmpty()) {
+                    temp = temp + <span class="string"><span class="delimiter">&quot;</span><span class="content">,</span><span class="delimiter">&quot;</span></span> + p.getTags().toString()
+                            .replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content">, </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content"> | </span><span class="delimiter">&quot;</span></span>);
+                }
+                temp = temp + <span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;
+                bw.write(temp);
+            }
+        } <span class="keyword">catch</span> (<span class="exception">IOException</span> e) {
+            e.printStackTrace();
+            <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(MESSAGE_FAIL);
+        }
+        <span class="keyword">try</span> {
+            bw.close();
+        } <span class="keyword">catch</span> (<span class="exception">IOException</span> e) {
+            e.printStackTrace();
+        }
+        <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(MESSAGE_SUCCESS);
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="enhancement-proposed-data-encryption"><a class="link" href="#enhancement-proposed-data-encryption">Enhancement Proposed: Data Encryption</a></h3>
+<div class="paragraph">
+<p>For now, the application&#8217;s password and employees' information are in plaintext and visible to others besides the user. It is crucial to
+to do data encryption to secure the data from leaking. I am proposing to add a new class <code>Crypto</code> which is used to encrypt and decrypt the
+data. Refer to the diagram below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/dataencrypt.png" alt="dataencrypt" width="600">
+</div>
+<div class="title">Figure 11. Data encryption precess</div>
+</div>
 <hr>
 </div>
 <div class="sect2">
 <h3 id="other-enhancements-and-contributions"><a class="link" href="#other-enhancements-and-contributions">Other enhancements and contributions</a></h3>
-
+<div class="ulist">
+<ul>
+<li>
+<p>Bugs found and fixed: (<a href="https://github.com/CS2103JAN2018-W15-B1/main/issues/171">#171</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/issues/118">#118</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/issues/22">#22</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/222">#222</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/197">#197</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/187">#187</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/127">#127</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/122">#122</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/112">#112</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/60">#60</a>,
+<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/43">#43</a>)</p>
+</li>
+<li>
+<p>Bugs found or suggestions during acceptance testing for other group: (<a href="https://github.com/CS2103JAN2018-F11-B1/main/issues/167">#167</a>,
+<a href="https://github.com/CS2103JAN2018-F11-B1/main/issues/172">#172</a>,
+<a href="https://github.com/CS2103JAN2018-F11-B1/main/issues/174">#174</a>,
+<a href="https://github.com/CS2103JAN2018-F11-B1/main/issues/183">#183</a>,
+<a href="https://github.com/CS2103JAN2018-F11-B1/main/issues/191">#191</a>)</p>
+</li>
+</ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">PROJECT: PowerPointLabs</a></h2>
-<div class="sectionbody">
-<hr>
-<div class="paragraph">
-<p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-12 16:34:09 UTC
+Last updated 2018-04-13 16:15:22 UTC
 </div>
 </div>
 </body>
