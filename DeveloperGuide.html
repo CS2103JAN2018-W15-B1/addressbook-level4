@@ -100,8 +100,11 @@
 <li><a href="#instructions-for-manual-testing">Appendix H: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">H.1. Launch and Shutdown</a></li>
-<li><a href="#deleting-a-person">H.2. Deleting a person</a></li>
-<li><a href="#saving-data">H.3. Saving data</a></li>
+<li><a href="#make-sure-you-have-access-to-internet">H.2. Make sure you have access to Internet</a></li>
+<li><a href="#unlock-e-t">H.3. Unlock E.T.</a></li>
+<li><a href="#add-some-sample-employees">H.4. Add some sample employees</a></li>
+<li><a href="#see-user-guide-for-more-commands">H.5. See user guide for more commands</a></li>
+<li><a href="#saving-data">H.6. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -4273,44 +4276,80 @@ Expected: The most recent window size and location is retained.</p>
 </li>
 </ol>
 </div>
+</div>
+<div class="sect2">
+<h3 id="make-sure-you-have-access-to-internet"><a class="link" href="#make-sure-you-have-access-to-internet">H.2. Make sure you have access to Internet</a></h3>
 <div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
+<p>Some commands will not work without the access to Internet.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-person"><a class="link" href="#deleting-a-person">H.2. Deleting a person</a></h3>
+<h3 id="unlock-e-t"><a class="link" href="#unlock-e-t">H.3. Unlock E.T.</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Deleting a person while all persons are listed</p>
+<p>E.T. is initially locked by default</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: List all persons using the <code>list</code> command. Multiple persons in the list.</p>
+<p>type <code>unlock</code>, key in <code>admin</code> (default password) and press <kbd>Enter</kbd>.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
-<p>Test case: <code>delete 1</code><br>
-Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.</p>
+<p>Change password</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>type <code>setPassword</code>, key in old and new password and press <kbd>Enter</kbd>. You can press <kbd>Tab</kbd> to switch between
+the input fields.</p>
 </li>
 <li>
-<p>Test case: <code>delete 0</code><br>
-Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.</p>
+<p>type <code>lock</code> to lock E.T..</p>
 </li>
 <li>
-<p>Other incorrect delete commands to try: <code>delete</code>, <code>delete x</code> (where x is larger than the list size) <em>{give more}</em><br>
-Expected: Similar to previous.</p>
+<p>type <code>unlock</code>, key in the new password you just set. E.T. will be unlocked.</p>
 </li>
 </ol>
 </div>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">H.3. Saving data</a></h3>
+<h3 id="add-some-sample-employees"><a class="link" href="#add-some-sample-employees">H.4. Add some sample employees</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>There are no sample employees at the beginning, need to manually add some, here is some sample employees that can add.
+Copy and paste it in the command box and execute</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>add n/Carl Smith p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/tester</p>
+</li>
+<li>
+<p>add n/Betsy Crowe t/tester e/betsycrowe@example.com a/Besty Street p/1234567</p>
+</li>
+<li>
+<p>add n/John Daniel e/johnda@example.com a/Newgate Prison p/00002222 t/developer</p>
+</li>
+<li>
+<p>add n/David Li e/davidli@example.com a/David Street p/88881111 t/teamleader</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="see-user-guide-for-more-commands"><a class="link" href="#see-user-guide-for-more-commands">H.5. See user guide for more commands</a></h3>
+
+</div>
+<div class="sect2">
+<h3 id="saving-data"><a class="link" href="#saving-data">H.6. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4334,7 +4373,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 06:07:23 UTC
+Last updated 2018-04-15 06:56:35 UTC
 </div>
 </div>
 </body>
