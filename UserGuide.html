@@ -1166,7 +1166,7 @@ Format: <code>sort FIELD</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>Sort the employees by any existing field in alphabetical order, note that rate field will be sorted in descending order.</p>
+<p>Employees are sorted by existing field in alphabetical order, note that rate field will be sorted in descending order.</p>
 </li>
 <li>
 <p>The field entered must be one of the following: <code>name</code>, <code>phone</code>, <code>email</code>, <code>address</code>, <code>rate</code>, <code>tag</code>.</p>
@@ -1175,7 +1175,7 @@ Format: <code>sort FIELD</code></p>
 <p>Sorting is case-insensitive.</p>
 </li>
 <li>
-<p>The sorted results is stored permanently. If you want to revert to the previous ordering, please refer to <a href="#undoing-previous-command-code-undo-code">Section 3.15, &#8220;Undoing previous command : <code>undo</code>&#8221;</a></p>
+<p>Sorted results are stored permanently. If you want to revert to the previous ordering, please refer to <a href="#undoing-previous-command-code-undo-code">Section 3.15, &#8220;Undoing previous command : <code>undo</code>&#8221;</a></p>
 </li>
 </ul>
 </div>
@@ -1280,10 +1280,13 @@ Format: <code>changeTheme THEME</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>The change of theme will be effective immediately.</p>
+<p><code>changeTheme</code> command is not undoable.</p>
 </li>
 <li>
-<p>the <code>THEME</code> parameter must be one of the following: bright, dark.</p>
+<p>Change of theme will be effective immediately.</p>
+</li>
+<li>
+<p>The <code>THEME</code> parameter must be one of the following in current version: bright, dark.</p>
 </li>
 </ul>
 </div>
@@ -1485,6 +1488,11 @@ Employees Tracker will ensure data security by encrypting data files.</p>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>ChangeTheme</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>changeTheme THEME</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>changeTheme dark</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Clear</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>clear</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1580,6 +1588,11 @@ Employees Tracker will ensure data security by encrypting data files.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>setPassword admin 12345</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Sort</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sort FIELD</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sort name</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>TodoList</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>todoList</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1601,7 +1614,7 @@ Employees Tracker will ensure data security by encrypting data files.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 06:56:35 UTC
+Last updated 2018-04-15 07:15:08 UTC
 </div>
 </div>
 </body>

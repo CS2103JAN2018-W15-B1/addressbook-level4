@@ -418,7 +418,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: We will not lose any undone/redone functionality as it is now part of the default behaviour. Classes that deal with <code>Command</code> do not have to know that <code>executeUndoableCommand()</code> exist.</p>
+<p>Pros: Will not lose any undone/redone functionality as it is now part of the default behaviour. Classes that deal with <code>Command</code> do not have to know that <code>executeUndoableCommand()</code> exist.</p>
 </li>
 <li>
 <p>Cons: Hard for new developers to understand the template pattern.</p>
@@ -484,7 +484,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: We only revert changes that are hard to change back (the view can easily be re-modified as no data are * lost).</p>
+<p>Pros: Only revert changes that are hard to change back (the view can easily be re-modified as no data are * lost).</p>
 </li>
 <li>
 <p>Cons: User might think that undo also applies when the list is modified (undoing filtering for example), * only to realize that it does not do that, after executing <code>undo</code>.</p>
@@ -531,7 +531,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: We do not need to maintain a separate stack, and just reuse what is already in the codebase.</p>
+<p>Pros: Do not need to maintain a separate stack, and just reuse what is already in the codebase.</p>
 </li>
 <li>
 <p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two * different things.</p>
@@ -558,7 +558,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 06:56:35 UTC
+Last updated 2018-04-15 07:15:08 UTC
 </div>
 </div>
 </body>

@@ -773,7 +773,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: We will not lose any undone/redone functionality as it is now part of the default behaviour. Classes that deal with <code>Command</code> do not have to know that <code>executeUndoableCommand()</code> exist.</p>
+<p>Pros: Will not lose any undone/redone functionality as it is now part of the default behaviour. Classes that deal with <code>Command</code> do not have to know that <code>executeUndoableCommand()</code> exist.</p>
 </li>
 <li>
 <p>Cons: Hard for new developers to understand the template pattern.</p>
@@ -839,7 +839,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: We only revert changes that are hard to change back (the view can easily be re-modified as no data are * lost).</p>
+<p>Pros: Only revert changes that are hard to change back (the view can easily be re-modified as no data are * lost).</p>
 </li>
 <li>
 <p>Cons: User might think that undo also applies when the list is modified (undoing filtering for example), * only to realize that it does not do that, after executing <code>undo</code>.</p>
@@ -886,7 +886,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: We do not need to maintain a separate stack, and just reuse what is already in the codebase.</p>
+<p>Pros: Do not need to maintain a separate stack, and just reuse what is already in the codebase.</p>
 </li>
 <li>
 <p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two * different things.</p>
@@ -1481,7 +1481,7 @@ compare the old password with the application&#8217;s current unlock password to
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: It is good to comply with the Events-Driven nature of the application&#8217;s design, making the design more cohesive and less coupling.</p>
+<p>Pros: Good to comply with the Events-Driven nature of the application&#8217;s design, making the design more cohesive and less coupling.</p>
 </li>
 <li>
 <p>Cons: Events-Driven design is routine-less. Need to put extra effort to control the events. As the application grows, there are more events posted
@@ -1923,6 +1923,82 @@ Each <code>Event</code> is assigned (and thus) to an employee. In the following 
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p>Here is the sequence diagram of <code>sort</code> command:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/SortCommandSeqDia.png" alt="SortCommandSeqDia" width="800">
+</div>
+<div class="title">Figure 17. Sequence diagram of <code>sort</code> command</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">4.11.1. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-implementation-of-code-sortcomand-code"><a class="link" href="#aspect-implementation-of-code-sortcomand-code">Aspect: Implementation of <code>SortComand</code></a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative1(current choice)</strong>: Sort the employees in <code>UniqueEmployeeList</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to understand for new developers, and it is the most intuitive way of implementing.</p>
+</li>
+<li>
+<p>Cons: Will create different levels of abstraction of the same sort method in Model for sorting, which results to slightly more work.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative2:</strong> Create multiple <code>SortBy&#8230;&#8203;</code> commands, use different comparators in these <code>SortBy&#8230;&#8203;</code> commands.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easier for developer to implement, because sorting by different fields will be executed by different commands separately.</p>
+</li>
+<li>
+<p>Cons: Will raise a lot of redundant codes which can be extracted by Alternative1, and it is not user-friendly to let user treat "sorting by different fields" as different commands.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Here is the code snippet of the execution of <code>sort</code> command in <code>UniqueEmployeeList</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="directive">public</span> <span class="type">void</span> sort(<span class="predefined-type">String</span> field) {
+            <span class="keyword">switch</span> (field) {
+            <span class="keyword">case</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>:
+                sortByName();
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">phone</span><span class="delimiter">&quot;</span></span>:
+                sortByPhone();
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">email</span><span class="delimiter">&quot;</span></span>:
+                sortByEmail();
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">address</span><span class="delimiter">&quot;</span></span>:
+                sortByAddress();
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">tag</span><span class="delimiter">&quot;</span></span>:
+                sortByTag();
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">rate</span><span class="delimiter">&quot;</span></span>:
+                sortByRate();
+                <span class="keyword">break</span>;
+            <span class="keyword">default</span>:
+                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">AssertionError</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">Sort field should be name, phone, email, tag, address or rate.</span><span class="delimiter">&quot;</span></span>);
+            }
+        }</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="change-theme-of-employees-tracker"><a class="link" href="#change-theme-of-employees-tracker">4.12. Change theme of Employees Tracker</a></h3>
@@ -1935,7 +2011,7 @@ Each <code>Event</code> is assigned (and thus) to an employee. In the following 
 <p><code>changeTheme</code> is achieved by handling <code>changeThemeEvent</code> in <code>MainWindow</code>.</p>
 </li>
 <li>
-<p>a new "theme" field is added in GuiSettings.</p>
+<p>a new "theme" field is added in <code>GuiSetting</code>.</p>
 </li>
 </ul>
 </div>
@@ -2048,7 +2124,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 17. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 18. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 </div>
@@ -4373,7 +4449,7 @@ Copy and paste it in the command box and execute</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 06:56:35 UTC
+Last updated 2018-04-15 07:15:08 UTC
 </div>
 </div>
 </body>
