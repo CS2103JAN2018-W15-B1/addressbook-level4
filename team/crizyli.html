@@ -58,9 +58,9 @@ Interface (GUI). That said, ET will suit you better if you can type fast and are
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging-in-code-unlock-code"><a class="link" href="#logging-in-code-unlock-code">Logging in : <code>unlock</code></a></h3>
+<h3 id="unlocking-e-t-code-unlock-code"><a class="link" href="#unlocking-e-t-code-unlock-code">Unlocking E.T. : <code>unlock</code></a></h3>
 <div class="paragraph">
-<p>Unlocks Employees Tracker.<br>
+<p>Unlocks E.T.<br>
 Format: <code>unlock</code></p>
 </div>
 <div class="admonitionblock note">
@@ -73,10 +73,10 @@ Format: <code>unlock</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>You need to enter the password in a pop-up dialog and it must match the application&#8217;s unlock password.</p>
+<p>You need to enter the password in a pop-up window and it must match the application&#8217;s password.</p>
 </li>
 <li>
-<p>The initial default unlock password is 'admin', refer to <a href="#Setting the application unlock password: <code>setPassword</code> <code>[Since v1.3]</code>">[Setting the application unlock password: <code>setPassword</code> <code>[Since v1.3]</code>]</a> if you want to change your password.</p>
+<p>The initial default password is 'admin'.</p>
 </li>
 </ul>
 </div>
@@ -91,8 +91,8 @@ Format: <code>unlock</code></p>
 <ul>
 <li>
 <p><code>unlock</code><br>
-A dialog will pop up like below in <em>Figure 9</em>.<br>
-Fill in the input box with matching unlock password to unlock ET.</p>
+A pop-up window will appear as shown in <em>Figure 9</em>.<br>
+Fill in the input box with matching password to unlock E.T.</p>
 </li>
 </ul>
 </div>
@@ -100,25 +100,14 @@ Fill in the input box with matching unlock password to unlock ET.</p>
 <div class="content">
 <img src="../images/unlock_dialog.png" alt="unlock dialog" width="][height="200"">
 </div>
-<div class="title">Figure 2. Pop-up unlock dialog.</div>
+<div class="title">Figure 2. Unlock pop-up window.</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="locking-employees-tracker-code-lock-code"><a class="link" href="#locking-employees-tracker-code-lock-code">Locking Employees Tracker: <code>lock</code></a></h3>
+<h3 id="locking-e-t-code-lock-code"><a class="link" href="#locking-e-t-code-lock-code">Locking E.T.: <code>lock</code></a></h3>
 <div class="paragraph">
-<p>Locks Employees Tracker, so that the data is protected without the need of closing the program or shutting down your computer.<br>
+<p>Locks E.T., so that the data is protected without the need of closing the program or shutting down your computer.<br>
 Format: <code>lock</code></p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>lock</code><br>
-Locks Employees Tracker.</p>
-</li>
-</ul>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -127,25 +116,30 @@ Locks Employees Tracker.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Employees Tracker will not respond to any command other than <code>unlock</code> when it is locked.</p>
-</li>
-<li>
-<p>After you locked Employees Tracker, you won&#8217;t see any information on the User Interface. All information will be hiding when Employees Tracker is locked. Refer to <em>Figure 14</em> below.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>E.T. will not respond to any command other than <code>unlock</code> when it is locked.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>lock</code><br>
+Locks E.T.<br>
+All information in E.T. will be hidden when it is locked as shown in <em>Figure 14</em> below.</p>
+</li>
+</ul>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/lock_screen.png" alt="lock screen" width="][height="400"">
 </div>
-<div class="title">Figure 3. Hiding information when Employees Tracker is locked.</div>
+<div class="title">Figure 3. Information is hidden when E.T. is locked.</div>
 </div>
 <div class="paragraph">
 <p><mark>End of Extract</mark></p>
@@ -526,10 +520,10 @@ Also need to keep the encryption key somewhere secret.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-an-event-on-one-employee-s-timetable-code-addevent-code"><a class="link" href="#adding-an-event-on-one-employee-s-timetable-code-addevent-code">Adding an event on one employee&#8217;s timetable: <code>addEvent</code></a></h3>
+<h3 id="adding-an-event-to-an-employee-s-calendar-code-addevent-code"><a class="link" href="#adding-an-event-to-an-employee-s-calendar-code-addevent-code">Adding an event to an employee&#8217;s calendar: <code>addEvent</code></a></h3>
 <div class="paragraph">
 <p>Adds an event to the employee identified by the index number used in the last employees listing.<br>
-Format: <code>addEvent INDEX title/TITLE loca/LOCATION stime/STRATTIME etime/ENDTIME descrip/DESCRIPTION</code></p>
+Format: <code>addEvent INDEX title/TITLE loca/LOCATION stime/STARTTIME etime/ENDTIME descrip/DESCRIPTION</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -556,15 +550,15 @@ Format: <code>addEvent INDEX title/TITLE loca/LOCATION stime/STRATTIME etime/END
 <li>
 <p><code>list</code><br>
 <code>addEvent 2 title/Test Event loca/NUS, Singapore stime/2017-04-09T19:00:00 etime/2018-04-09T21:00:00 descrip/A Test Event</code><br>
-Adds the event to 2<sup>nd</sup> employee&#8217;s calendar in the list.</p>
+Adds the event to 2<sup>nd</sup> employee in the list calendar.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-an-event-in-one-employee-s-timetable-code-deleteevent-code"><a class="link" href="#deleting-an-event-in-one-employee-s-timetable-code-deleteevent-code">Deleting an event in one employee&#8217;s timetable: <code>deleteEvent</code></a></h3>
+<h3 id="deleting-an-event-in-an-employee-s-calendar-code-deleteevent-code"><a class="link" href="#deleting-an-event-in-an-employee-s-calendar-code-deleteevent-code">Deleting an event in an employee&#8217;s calendar: <code>deleteEvent</code></a></h3>
 <div class="paragraph">
-<p>Deletes an event with specified title which is the first occurrence in the timetable of employee identified by the index number used in the last employees listing.<br>
+<p>Deletes an event with specified title which is the first occurrence in the calendar of employee identified by the index number used in the last employees listing.<br>
 Format: <code>deleteEvent INDEX TITLE</code></p>
 </div>
 <div class="sidebarblock">
@@ -591,8 +585,8 @@ Format: <code>deleteEvent INDEX TITLE</code></p>
 <ul>
 <li>
 <p><code>list</code><br>
-<code>deleteEvent 2 Test Event</code><br>
-Deletes the event with title "Test Event" in 2<sup>nd</sup> employee&#8217;s timetable.
+<code>deleteEvent 2 Project Meeting</code><br>
+Deletes the event with title "Project Meeting" in 2<sup>nd</sup> employee in the list calendar.
 === Viewing my own calendar: <code>myCalendar</code></p>
 </li>
 </ul>
@@ -626,7 +620,7 @@ Format: <code>todoList</code></p>
 <ul>
 <li>
 <p><code>todoList</code><br>
-Shows the to-do-list in a pop-up window. Refer to <em>Figure 15</em> below.</p>
+A pop-up window will appear as shown in <em>Figure 15</em>.</p>
 </li>
 </ul>
 </div>
@@ -634,16 +628,14 @@ Shows the to-do-list in a pop-up window. Refer to <em>Figure 15</em> below.</p>
 <div class="content">
 <img src="../images/todoList.png" alt="todoList" width="][height="400"">
 </div>
-<div class="title">Figure 7. To-do list window.</div>
+<div class="title">Figure 7. To-do list pop-up window.</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="authorizing-employees-tracker-code-authenet-code"><a class="link" href="#authorizing-employees-tracker-code-authenet-code">Authorizing Employees Tracker : <code>authenET</code></a></h3>
+<h3 id="authorizing-e-t-code-authenet-code"><a class="link" href="#authorizing-e-t-code-authenet-code">Authorizing E.T. : <code>authenET</code></a></h3>
 <div class="paragraph">
-<p>Get the permission to allow E.T. to access your google calendar.<br></p>
-</div>
-<div class="paragraph">
-<p>Format: <code>authenET</code></p>
+<p>Gets the permission to allow E.T. to access your Google calendar.<br>
+Format: <code>authenET</code></p>
 </div>
 <div class="paragraph">
 <p><mark>End of Extract</mark></p>
@@ -866,7 +858,7 @@ response time per command will be longer.</p>
 <div class="sect2">
 <h3 id="adding-a-profile-photo-to-an-employee-code-addphoto-code"><a class="link" href="#adding-a-profile-photo-to-an-employee-code-addphoto-code">Adding a profile photo to an employee: <code>addPhoto</code></a></h3>
 <div class="paragraph">
-<p>Adds a profile photo to an existing employee in E.T..<br>
+<p>Adds a profile photo to an existing employee in E.T.<br>
 Format: <code>addPhoto INDEX</code></p>
 </div>
 <div class="sidebarblock">
@@ -889,18 +881,6 @@ Format: <code>addPhoto INDEX</code></p>
 </div>
 </div>
 </div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-<code>addPhoto 1</code><br>
-Adds a photo to the 1st employee in the last employees listing.</p>
-</li>
-</ul>
-</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -915,6 +895,18 @@ the photo is copied, you should not delete it from that folder manually.</p>
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>addPhoto 1</code><br>
+Adds a photo to the 1st employee in the last employees listing.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><mark>End of Extract</mark></p>
@@ -1035,19 +1027,22 @@ dynamically referenced.</p>
 <div class="sect2">
 <h3 id="exporting-the-employees-code-export-code"><a class="link" href="#exporting-the-employees-code-export-code">Exporting the employees : <code>export</code></a></h3>
 <div class="paragraph">
-<p>Exports current employees in ET to a csv(Excel) file named "employees.csv" inside data folder.<br>
+<p>Exports current employees in E.T. to a .csv (Excel) file named "employees.csv" inside data folder.<br>
 Format: <code>export</code></p>
 </div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Make sure that the employees.csv is not open in your computer before execute <code>export</code>.</p>
-</li>
-</ul>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Make sure that the employees.csv is not open in your computer before executing <code>export</code>.</p>
 </div>
-</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -1056,7 +1051,7 @@ Format: <code>export</code></p>
 <ul>
 <li>
 <p><code>export</code><br>
-Current employees in ET will be exported.</p>
+Current employees in E.T. will be exported.</p>
 </li>
 </ul>
 </div>
@@ -1187,7 +1182,7 @@ data. Refer to the diagram below:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 07:15:08 UTC
+Last updated 2018-04-15 08:28:36 UTC
 </div>
 </div>
 </body>
