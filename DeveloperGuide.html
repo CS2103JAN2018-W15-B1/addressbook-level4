@@ -54,11 +54,10 @@
 <li><a href="#lock-and-unlock-system">4.7. Lock and Unlock system</a></li>
 <li><a href="#add-photo-to-employees">4.8. Add photo to employees</a></li>
 <li><a href="#export-employees-data">4.9. Export employees data</a></li>
-<li><a href="#show-notifications-about-expired-events">4.10. Show notifications about expired events</a></li>
+<li><a href="#notification-system">4.10. Notification System</a></li>
 <li><a href="#sort-existing-employees">4.11. Sort existing employees</a></li>
 <li><a href="#change-theme-of-employees-tracker">4.12. Change theme of Employees Tracker</a></li>
 <li><a href="#login">4.13. Login</a></li>
-<li><a href="#Implementation-Configuration">4.14. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">5. Documentation</a>
@@ -910,49 +909,133 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 <div class="sect2">
 <h3 id="edit-and-rate-a-person"><a class="link" href="#edit-and-rate-a-person">4.3. Edit and rate a person</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">4.3.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p><code>edit</code> command and <code>rate</code> command are implemented in a similar manner. They both involve modifying the field(s) of a person. The only difference is that <code>rate</code> can only change the <code>Rating</code> field, but <code>edit</code> can be used to change any field.</p>
+<p><code>Edit</code> command and <code>rate</code> command are implemented in a similar manner. The only difference is that <code>rate</code> can only change the <code>Rating</code> field, but <code>edit</code> can be used to change any field.</p>
 </div>
 <div class="paragraph">
-<p>The implementation of <code>edit</code> and <code>rate</code> command in the Logic component involves 4 objects:<br></p>
+<p>4 objects will be created during the execution of <code>rate</code> and <code>edit</code> command, and they play a vital role in the execution. They are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Person edited</p>
+</li>
+<li>
+<p>EditCommandParser or RateCommandParser</p>
+</li>
+<li>
+<p>EditPersonDescriptor</p>
+</li>
+<li>
+<p>EditCommand</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following code snippet shows the fields of the <code>EditPersonDescriptor</code> class, which is an internal class of <code>EditCommand</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">  <span class="directive">public</span> <span class="directive">static</span> <span class="type">class</span> <span class="class">EditPersonDescriptor</span> {
+        <span class="directive">private</span> <span class="predefined-type">Name</span> name;
+        <span class="directive">private</span> Phone phone;
+        <span class="directive">private</span> Email email;
+        <span class="directive">private</span> Address address;
+        <span class="directive">private</span> <span class="predefined-type">Set</span>&lt;Tag&gt; tags;
+        <span class="directive">private</span> <span class="predefined-type">Set</span>&lt;Review&gt; reviews;
+        <span class="directive">private</span> Rating rating;
+        <span class="directive">private</span> Photo photo;
+  }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that the <code>EditPersonDescriptor</code> has the exact same fields as the <code>Person</code> class.
+Each of the fields is used to contain the corresponding <strong>new</strong> value of the field. For example, suppose the user wants to edit the name from "Alek" to "Alex", "Alex" will be stored in the <code>name</code> field of <code>EditPersonDescriptor</code>.<br></p>
+</div>
+<div class="paragraph">
+<p><em>Figure 11</em> below shows the sequence diagram of the execution of <code>rate</code> command. <code>Edit</code> command has an exactly same execution, <code>RateCommandParser</code> will be replaced with <code>EditCommandParser</code> while <code>RateCommand</code> will be replaced with <code>EditCommand</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Rate%20Command%20Sequence%20Diagram.png" alt="Rate Command Sequence Diagram" width="800">
+</div>
+<div class="title">Figure 11. Sequence diagram of Rate Command execution</div>
+</div>
+<div class="paragraph">
+<p>The important method calls during the execution of <code>edit</code> and <code>rate</code> command includes:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Person toEdit.</p>
+<p>parse(args): <code>EditCommandParser</code> extracts the new information for each field from user input.</p>
 </li>
 <li>
-<p>Person edited.</p>
+<p>EditPersonDescriptor(): <code>EditPersonDescriptor</code> is used to record which field(s) will be changed and the respective new value.</p>
 </li>
 <li>
-<p>Parser: EditCommandParser or RateCommandParser.</p>
+<p>getFilteredPersonList(): The original Person, <code>toEdit</code> is obtained from <code>Model</code>.</p>
 </li>
 <li>
-<p>EditPersonDescriptor.</p>
+<p>person(): <code>edited</code> Person will be created, by obtaining the new value for modified fields from <code>EditPersonDescriptor</code>. The value of unmodified field(s) are obtained from <code>toEdit</code>.</p>
+</li>
+<li>
+<p>updatePerson(toEdit, edited): <code>edited</code> Person is used to replace <code>toEdit</code> Person in <code>AddressBook</code>.</p>
 </li>
 </ol>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This current implementation of <code>edit</code> command is by courtesy of the original AddressBook application. The W15B1 team is only responsible for adapting the implementation into <code>rate</code> command.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.3.2. Design Considerations</a></h4>
 <div class="paragraph">
-<p>Since all fields of the <code>Person</code> class are immutable, we need to use <code>edited</code> Person to replace the <code>toEdit</code> Person.</p>
+<p>This section showcases some of the alternative designs for the implementation of <code>rate</code> and <code>edit</code> command.</p>
 </div>
 <div class="paragraph">
-<p>The details of implementation are as follow:</p>
+<p>There are 2 ways to update information regarding a <code>Person</code> object.<br></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p><code>Parser</code> extracts the new information for each field from user input.</p>
+<p>Alternative 1 (current implementation): Creates a new <code>Person</code> object that contains the new information to replace the old <code>Person</code> object</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: data integrity is guaranteed, higher cohesion (all modifications on data must be done through <code>Model</code>)</p>
 </li>
 <li>
-<p><code>EditPersonDescriptor</code> is used to record which field(s) will be changed and the respective new value.</p>
+<p>Cons: implementation is more complicated</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><code>edited</code> Person will be created, by obtaining the new value for modified fields from <code>EditPersonDescriptor</code>. The value of unmodified field(s) are obtained from <code>toEdit</code> Person.</p>
+<p>Alternative 2: Uses setter methods on the <code>Person</code> object</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: implementation is simple</p>
 </li>
 <li>
-<p><code>edited</code> Person is used to replace <code>toEdit</code> Person in <code>AddressBook</code>.</p>
+<p>Cons: data integrity is compromised (the <code>Person</code> object can be modified by any entity), more coupling</p>
 </li>
-</ol>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1024,7 +1107,7 @@ The old <code>Review</code> value is obtained from <code>Person</code> <em>perso
 <div class="sect2">
 <h3 id="calendars-and-operations-on-calendars"><a class="link" href="#calendars-and-operations-on-calendars">4.6. Calendars and Operations on Calendars</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">4.6.1. Current Implementation</a></h4>
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.6.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>To implement the calendars for employees, a third party source has been used which is Google Calendar API, it allows to manage google
 calendars on desktop applications. The commands that relating to calendars are <code>addEvent</code>, <code>deleteEvent</code>, <code>todoList</code> and <code>authenET</code>.
@@ -1034,7 +1117,7 @@ Below is the overall design:</p>
 <div class="content">
 <img src="images/calendarsystem.png" alt="calendarsystem" width="800">
 </div>
-<div class="title">Figure 11. Overall design relating to calendars</div>
+<div class="title">Figure 12. Overall design relating to calendars</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1115,7 +1198,7 @@ on the main calendar. After that, it will post an event to request to open a tod
 <div class="content">
 <img src="images/todolist_seq.png" alt="todolist seq" width="800">
 </div>
-<div class="title">Figure 12. Sequence diagram of <code>todoList</code></div>
+<div class="title">Figure 13. Sequence diagram of <code>todoList</code></div>
 </div>
 </div>
 <div class="sect4">
@@ -1131,7 +1214,7 @@ Then they will just sent request through the API service and all other things wi
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.6.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.6.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-where-to-place-the-todo-list-window"><a class="link" href="#aspect-where-to-place-the-todo-list-window">Aspect: Where to place the todo-list window</a></h5>
 <div class="ulist">
@@ -1205,7 +1288,7 @@ response time per command will be longer.</p>
 <div class="sect2">
 <h3 id="lock-and-unlock-system"><a class="link" href="#lock-and-unlock-system">4.7. Lock and Unlock system</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.7.1. Current Implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">4.7.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The Lock and Unlock system is facilitated by maintaining a password inside <code>LogicManager</code> at runtime, and also maintaining
 the password in storage when application is closed. It allows to lock the application (hiding information) while keeping the application
@@ -1222,7 +1305,7 @@ is launched and kept at <code>LogicManager</code> in which the password can be h
 <div class="content">
 <img src="images/lockunlocksystem.png" alt="lockunlocksystem" width="800">
 </div>
-<div class="title">Figure 13. Overall design of lock and unlock system</div>
+<div class="title">Figure 14. Overall design of lock and unlock system</div>
 </div>
 <div class="sect4">
 <h5 id="implementation-of-code-lock-code-command"><a class="link" href="#implementation-of-code-lock-code-command">Implementation of <code>lock</code> command</a></h5>
@@ -1299,7 +1382,7 @@ this step is removed for clearer viewing and without messing up the diagram.
 <div class="content">
 <img src="images/lock_seq.jpg" alt="lock seq" width="800">
 </div>
-<div class="title">Figure 14. Sequence Diagram for Lock Command</div>
+<div class="title">Figure 15. Sequence Diagram for Lock Command</div>
 </div>
 </div>
 <div class="sect4">
@@ -1386,7 +1469,7 @@ blue activation bar in the diagram, and the interaction with <code>EventsCenter<
 <div class="content">
 <img src="images/unlock_seq.jpg" alt="unlock seq" width="800">
 </div>
-<div class="title">Figure 15. Sequence Diagram for Unlock Command</div>
+<div class="title">Figure 16. Sequence Diagram for Unlock Command</div>
 </div>
 </div>
 <div class="sect4">
@@ -1438,7 +1521,7 @@ compare the old password with the application&#8217;s current unlock password to
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.7.2. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.7.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-to-input-password-values"><a class="link" href="#aspect-how-to-input-password-values">Aspect: How to input password values</a></h5>
 <div class="ulist">
@@ -1545,7 +1628,7 @@ Also need to keep the encryption key somewhere secret.</p>
 <div class="sect2">
 <h3 id="add-photo-to-employees"><a class="link" href="#add-photo-to-employees">4.8. Add photo to employees</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">4.8.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">4.8.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Command <code>addPhoto</code> mainly copy the local photo files chosen by users to the data folder of E.T., and employees will be assigned with these
 photos which matches to their fields for photo.</p>
@@ -1578,11 +1661,11 @@ person and pass to <code>ModelManager</code>.</p>
 <div class="content">
 <img src="images/addphotoclassdia.png" alt="addphotoclassdia" width="800">
 </div>
-<div class="title">Figure 16. Class diagram of <code>addPhoto</code> command</div>
+<div class="title">Figure 17. Class diagram of <code>addPhoto</code> command</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.8.2. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.8.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-to-maintain-the-photos"><a class="link" href="#aspect-how-to-maintain-the-photos">Aspect: How to maintain the photos</a></h5>
 <div class="ulist">
@@ -1675,7 +1758,7 @@ at data folder. It will finally write the employees' information to that file.</
 </div>
 </div>
 <div class="sect2">
-<h3 id="show-notifications-about-expired-events"><a class="link" href="#show-notifications-about-expired-events">4.10. Show notifications about expired events</a></h3>
+<h3 id="notification-system"><a class="link" href="#notification-system">4.10. Notification System</a></h3>
 <div class="paragraph">
 <p>This section discusses about the implementation of the notification feature of Employees Tracker.</p>
 </div>
@@ -1694,64 +1777,108 @@ e.g. BaseEvent, AddressBookChangedEvent.
 </table>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">4.10.1. Current Implementation</a></h4>
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">4.10.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>In the current implementation, the <code>AddressBook</code> class saves a list of <code>Notification</code>.</p>
+<p>This section shows how the Notification System is implemented in the current version of ET.</p>
 </div>
+<div class="sect4">
+<h5 id="introduction-2"><a class="link" href="#introduction-2">Introduction</a></h5>
 <div class="paragraph">
-<p>When adding a new <code>Notification</code>:</p>
+<p>In the current implementation, the major classes and objects of the notification system includes:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>An <code>Event</code> is created.</p>
-</li>
-<li>
-<p><code>ModelManager</code> to add the <code>Notification</code> into the <code>Notifications</code> list in <code>AddressBook</code>.</p>
-</li>
-<li>
-<p><code>Model Manager</code> raises a <code>AddressBookChangedEvent</code> and <code>NotificationAddedEvent</code> after adding the Notification.</p>
-</li>
-<li>
-<p><code>AddressBookChangedEvent</code> and <code>NotificationAddedEvent</code> are handled:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>Storage Manager</code> handles the <code>AddressBookChangedEvent</code> and saves the new list of Notifications.</p>
+<p>The <code>Notification</code> class that stores of essential information for each <code>Event</code>.</p>
 </li>
 <li>
-<p><code>Logic Manager</code> handles the  <code>TimetableEntryAddedEvent</code> by adding a new <code>TimerTask</code> into its HashMap of <code>scheduledTimerTasks</code>.</p>
+<p>The LinkedList of <code>Notification</code> in the <code>AddressBook</code> class that stores all <code>Notification</code> objects.</p>
+</li>
+<li>
+<p>The <code>NotificationCard</code> class, which is a graphical representation of <code>Notification</code>.</p>
+</li>
+<li>
+<p>The <code>Notification Center</code> class that stores all the <code>NotificationCard</code> objects.</p>
+</li>
+<li>
+<p>The <code>MainWindow</code> class that is involved in showing <code>NotificationCard</code> objects on the GUI.</p>
+</li>
+<li>
+<p>The <code>Model</code> class that initiates the add notifications and delete notifications operations.</p>
 </li>
 </ul>
 </div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
-<p>When showing a <code>Notification Card</code> in UI:</p>
+<p>Please refer to the class diagram below for the association between them.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Notification%20System.png" alt="Notification System" width="">
+</div>
+<div class="title">Figure 18. Class diagram of the Notification System</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="initialization-of-the-notification-system"><a class="link" href="#initialization-of-the-notification-system">Initialization of the Notification System</a></h5>
+<div class="paragraph">
+<p>For every time the app starts, the following initialization operations will be carried out:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <code>TimerTask</code> associated with the <code>Notification</code> expires.</p>
+<p><code>AddressBook</code> and LinkedList of <code>Notification</code> is read from storage.</p>
 </li>
 <li>
-<p><code>LogicManager</code> raises a <code>ShowNotificationEvent</code> and <code>RequestToDeleteTimeTableEvent</code>.</p>
+<p><code>MainWindow</code> is created.</p>
 </li>
 <li>
-<p>UiManager handles the <code>ShowNotificationEvent</code> by showing the notification to user.</p>
+<p><code>MainWindow</code> creates a <code>NotificationCenter</code>.</p>
 </li>
 <li>
-<p><code>ModelManager</code> handles the <code>RequestToDeleteTimeTableEvent</code> by removing the corresponding <code>Notification</code> from the list of Notifications in <code>AddressBook</code>.</p>
-</li>
-<li>
-<p><code>Model Manager</code> raises a <code>AddressBookChangedEvent</code> and <code>NotificationAddedEvent</code> after adding the Notification.</p>
-</li>
-<li>
-<p><code>Storage Manager</code> handles the <code>AddressBookChanged</code> event and saves the new list of Notifications.</p>
+<p><code>MainWindow</code> passes the <code>NotificationCenter</code> to <code>Model</code> through <code>Logic</code>.</p>
 </li>
 </ol>
 </div>
+</div>
+<div class="sect4">
+<h5 id="add-notification-operation"><a class="link" href="#add-notification-operation">Add-Notification Operation</a></h5>
+<div class="paragraph">
+<p>The following steps show how a Notification is added to the Notification System:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A <code>Notification</code> is created.</p>
+</li>
+<li>
+<p><code>Model</code> to add the <code>Notification</code> into the <code>Notifications</code> list in <code>AddressBook</code>.</p>
+</li>
+<li>
+<p><code>Model</code> raises a <code>AddressBookChangedEvent</code> and <code>NotificationAddedEvent</code> after adding the Notification.</p>
+</li>
+<li>
+<p><code>Storage</code> handles the <code>AddressBookChangedEvent</code> and saves the new list of Notifications.</p>
+</li>
+<li>
+<p><code>Logic</code> handles the  <code>NotificationAddedEvent</code> and decides when to show the notification.</p>
+</li>
+<li>
+<p>When it is time to show the notification, <code>Logic</code> will request <code>Ui</code> to show a notification.</p>
+</li>
+<li>
+<p><code>Ui</code> will instruct <code>MainWindow</code> to show a notification.</p>
+</li>
+<li>
+<p><code>MainWindow</code> will create a <code>NotificationCard</code> and shows it to user on-screen.</p>
+</li>
+<li>
+<p><code>MainWindow</code> will create another copy of the same <code>NotificationCard</code> and stores it in the <code>NotificationCenter</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="find-owner-name-operation"><a class="link" href="#find-owner-name-operation">Find-owner-name operation</a></h5>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1765,12 +1892,14 @@ Each <code>Event</code> is assigned (and thus) to an employee. In the following 
 </table>
 </div>
 <div class="paragraph">
-<p>In order to support <code>email</code> and <code>whatsapp</code> command, as well as displaying the <code>owner</code> 's name on the <code>Notification Card</code>, we need access some information of its <code>owner</code>. This is done through the <code>searchEmployeeById</code> mechanism:</p>
+<p>Note that the <code>Notification</code> class only contains a field called <code>ownerId</code> instead of the name, email, etc. of its <code>owner</code>.
+The information of the owner of a notification is retrieved through the <code>findPersonById</code> mechanism.
+The following are the details of the mechanism:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p><code>addressBook</code> object has a <code>nextId</code> integer field.</p>
+<p><code>AddressBook</code> class has a <code>nextId</code> integer field.</p>
 </li>
 <li>
 <p>Whenever an employee is added, <code>addressBook</code> assigns the <code>nextId</code> to him and increment the <code>nextId</code> field.</p>
@@ -1782,13 +1911,116 @@ Each <code>Event</code> is assigned (and thus) to an employee. In the following 
 <p>When a <code>Notification</code> is created, it has a <code>ownerId</code> field that stores the <code>id</code> of its <code>owner</code>.</p>
 </li>
 <li>
-<p>When the <code>TimerTask</code> associated with the <code>TimetableEntry</code> expires, it will extract the name (and other fields) of the owner using the <code>getNameById()</code> method in <code>ModelManager</code>.</p>
+<p>To retrieve the owner of a <code>Notification</code>, call <code>findPersonById(ownerId)</code> to obtain the <code>Person</code> owner. Then, use getter methods to obtain relevant information.</p>
 </li>
-</ol>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="delete-notification-operation"><a class="link" href="#delete-notification-operation">Delete-notification operation</a></h5>
+<div class="paragraph">
+<p>Delete-notification operation has a simpler implementation compared to Add-notification operation. Please refer to <em>Figure 19</em> below for the flow of the operation.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Delete%20Notification.png" alt="Delete Notification" width="">
+</div>
+<div class="title">Figure 19. Activity Diagram for deleting notification</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deleting with <code>eventId</code> and <strong>not</strong> <code>deleteFromAddressBookOnly</code> is usally invoked by <code>deleteEvent</code> command.</p>
+</li>
+<li>
+<p>Deleting with <code>eventId</code> and <code>deleteFromAddressBookOnly</code> is usually invoked by <code>Logic</code>, when it is yet to add a <code>NotificationCard</code> to the <code>NotificationCenter</code> but finds out that the <code>owner</code> has already been deleted.</p>
+</li>
+<li>
+<p>Deleting with <code>eventId</code> is usually invoked by <code>delete</code> command, where <code>Notification</code> and <code>Person</code> are deleted together.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="add-notifications-at-startup-operation"><a class="link" href="#add-notifications-at-startup-operation">Add-notifications-at-startup operation</a></h5>
+<div class="paragraph">
+<p>At each startup, after initializing the Notification System, ET will then go through the LinkedList of <code>Notification</code> in <code>AddressBook</code>.
+For each <code>Notification</code> in the LinkedList, <code>NotificationAddedEvent</code> will be called.
+That said, this may result in multiple threads attempting to make GUI operations at the same time through <code>MainWindow.showNewNotification</code>.
+This will result in concurrent modification issues. Thus, <code>Semaphore</code> is used to prevent those issues. Please refer to the simplified code of <code>MainWindow.showNewNotification</code> at below.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>//current implementation only allows 1 thread to enter showNewNotification() at the same time.
+Semaphore = new Semaphore(1);</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>/**
+   * Show in-app notification
+   */
+  public void showNewNotification(ShowNotificationEvent event) {
+      logger.info("Preparing in app notification");
+      //...metadata update
+      //hides notificationCard away from screen
+      notificationCard.setTranslateX(NOTIFICATION_CARD_WIDTH);
+      try {
+          semaphore.acquire();
+      } catch (InterruptedException e) {
+          e.printStackTrace();
+      }
+      notificationCard.setTranslateY(UP * shownNotificationCards.size() * NOTIFICATION_CARD_HEIGHT);
+      shownNotificationCards.add(notificationCard);
+      semaphore.release();
+      //enter animation
+      Platform.runLater(new Runnable() {
+          @Override
+          public void run() {
+              mainStage.getChildren().add(notificationCard);
+              animateHorizontally(notificationCard, NOTIFICATION_CARD_WIDTH, ENTER);
+              Timer timer = new Timer();
+              TimerTask timerTask = new TimerTask() {
+                  @Override
+                  public void run() {
+                      //it should be the first notification card to exit first
+                      try {
+                          semaphore.acquire();
+                      } catch (InterruptedException e) {
+                          e.printStackTrace();
+                      }
+                      Region firstNotificationCard = shownNotificationCards.removeFirst();
+                      //cards are reused later in notification center
+                      animateHorizontally(firstNotificationCard, NOTIFICATION_CARD_WIDTH, EXIT);
+                      moveAllNotificationCardsDown();
+                      semaphore.release();
+                  }
+              };
+              timer.schedule(timerTask, NOTIFICATION_CARD_SHOW_TIME);
+          }
+      });
+  }</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.10.2. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">4.10.2. Design Considerations</a></h4>
 <div class="paragraph">
 <p>There are a couple of aspects with regards to <code>Notification</code> that can be implemented in alternative designs.</p>
 </div>
@@ -1889,7 +2121,7 @@ Each <code>Event</code> is assigned (and thus) to an employee. In the following 
 <div class="sect2">
 <h3 id="sort-existing-employees"><a class="link" href="#sort-existing-employees">4.11. Sort existing employees</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">4.11.1. Current Implementation</a></h4>
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">4.11.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The implementation of <code>sort</code> command involves following objects:<br></p>
 </div>
@@ -1932,11 +2164,11 @@ Each <code>Event</code> is assigned (and thus) to an employee. In the following 
 <div class="content">
 <img src="images/SortCommandSeqDia.png" alt="SortCommandSeqDia" width="800">
 </div>
-<div class="title">Figure 17. Sequence diagram of <code>sort</code> command</div>
+<div class="title">Figure 20. Sequence diagram of <code>sort</code> command</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">4.11.2. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">4.11.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-implementation-of-code-sortcomand-code"><a class="link" href="#aspect-implementation-of-code-sortcomand-code">Aspect: Implementation of <code>SortComand</code></a></h5>
 <div class="ulist">
@@ -2027,7 +2259,7 @@ Each <code>Event</code> is assigned (and thus) to an employee. In the following 
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 4.14, &#8220;Configuration&#8221;</a>).</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">[Implementation-Configuration]</a>).</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level.</p>
@@ -2055,12 +2287,6 @@ Each <code>Event</code> is assigned (and thus) to an employee. In the following 
 <p><code>FINE</code> : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size.</p>
 </li>
 </ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">4.14. Configuration</a></h3>
-<div class="paragraph">
-<p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
 </div>
 </div>
@@ -2127,7 +2353,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 18. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 21. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 </div>
@@ -4452,7 +4678,7 @@ Copy and paste it in the command box and execute</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 11:47:17 UTC
+Last updated 2018-04-15 12:08:38 UTC
 </div>
 </div>
 </body>
