@@ -979,7 +979,7 @@ Each of the fields is used to contain the corresponding <strong>new</strong> val
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Rate%20Command%20Sequence%20Diagram.png" alt="Rate Command Sequence Diagram" width="800">
+<img src="images/Rate%20Command%20Sequence%20Diagram.png" alt="Rate Command Sequence Diagram" width="500">
 </div>
 <div class="title">Figure 11. Sequence diagram of Rate Command execution</div>
 </div>
@@ -1935,7 +1935,7 @@ e.g. BaseEvent, AddressBookChangedEvent.
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Notification%20System.png" alt="Notification System" width="">
+<img src="images/Notification%20System.png" alt="Notification System" width="500">
 </div>
 <div class="title">Figure 19. Class diagram of the Notification System</div>
 </div>
@@ -2087,12 +2087,8 @@ This will result in concurrent modification issues. Thus, <code>Semaphore</code>
 <div class="literalblock">
 <div class="content">
 <pre>//current implementation only allows 1 thread to enter showNewNotification() at the same time.
-Semaphore = new Semaphore(1);</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>/**
+Semaphore = new Semaphore(1);
+/**
    * Show in-app notification
    */
   public void showNewNotification(ShowNotificationEvent event) {
@@ -2108,32 +2104,7 @@ Semaphore = new Semaphore(1);</pre>
       notificationCard.setTranslateY(UP * shownNotificationCards.size() * NOTIFICATION_CARD_HEIGHT);
       shownNotificationCards.add(notificationCard);
       semaphore.release();
-      //enter animation
-      Platform.runLater(new Runnable() {
-          @Override
-          public void run() {
-              mainStage.getChildren().add(notificationCard);
-              animateHorizontally(notificationCard, NOTIFICATION_CARD_WIDTH, ENTER);
-              Timer timer = new Timer();
-              TimerTask timerTask = new TimerTask() {
-                  @Override
-                  public void run() {
-                      //it should be the first notification card to exit first
-                      try {
-                          semaphore.acquire();
-                      } catch (InterruptedException e) {
-                          e.printStackTrace();
-                      }
-                      Region firstNotificationCard = shownNotificationCards.removeFirst();
-                      //cards are reused later in notification center
-                      animateHorizontally(firstNotificationCard, NOTIFICATION_CARD_WIDTH, EXIT);
-                      moveAllNotificationCardsDown();
-                      semaphore.release();
-                  }
-              };
-              timer.schedule(timerTask, NOTIFICATION_CARD_SHOW_TIME);
-          }
-      });
+      //..animations
   }</pre>
 </div>
 </div>
@@ -4794,7 +4765,7 @@ Copy and paste it in the command box and execute</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 15:03:12 UTC
+Last updated 2018-04-15 15:19:40 UTC
 </div>
 </div>
 </body>

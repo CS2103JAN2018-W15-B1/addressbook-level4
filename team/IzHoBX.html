@@ -5,16 +5,23 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>Ho Bing Xuan - Project Portfolio</title>
+<title>IzHoBX - Project Portfolio</title>
 <link rel="stylesheet" href="../stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>Ho Bing Xuan - Project Portfolio</h1>
+<h1>IzHoBX - Project Portfolio</h1>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This project portfolio showcases my contributions to all the projects that I was involved in.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="project-et-employees-tracker"><a class="link" href="#project-et-employees-tracker">PROJECT: ET - Employees Tracker</a></h2>
 <div class="sectionbody">
@@ -26,12 +33,14 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Employees Tracker (ET) is a human resource management software. It aims to provide a one-stop solution for managers to manage their subordinates.
-Two of its major selling points are employees profile management as well as task tracking.
-Since most managers can type fast, ET is designed to have a Command Line Interface (CLI) as to allow its users to carry out operations efficiently without having to switch between the keyboard and mouse.
-Nonetheless, ET has a Graphical User Interface (GUI) to allow more direct visual feedbacks.</p>
+Its two major selling points are employees profile management and task tracking.</p>
 </div>
 <div class="paragraph">
-<p>ET is developed using JAVA 8, and JavaFX and has about 10 kLoC.</p>
+<p>Since most managers can type fast, ET is designed to have a Command Line Interface (CLI) as to allow its users to carry out operations efficiently without having to switch between a keyboard and a mouse.
+Nonetheless, ET has a Graphical User Interface (GUI) to provide more direct visual feedback.</p>
+</div>
+<div class="paragraph">
+<p>ET is developed using JAVA 8 and JavaFX, and has about 10 kLoC.</p>
 </div>
 </div>
 </div>
@@ -48,12 +57,12 @@ Nonetheless, ET has a Graphical User Interface (GUI) to allow more direct visual
 <p>What it does: It shows notification cards to users to remind them about the expiry of the tasks that they have assigned to their subordinates.</p>
 </li>
 <li>
-<p>Justification: Life as a manager is busy. It is very difficult for them to keep track of all the tasks being carried out in his team. This feature alleviates their pain by removing the need for them to remember the details of each task.</p>
+<p>Justification: Managers usually have to managed quite a number of subordinates and it is very difficult for them to keep track of all the tasks being carried out in his team. This feature alleviates their pain by removing the need for them to remember the details of each task.</p>
 </li>
 <li>
 <p>Highlights: This features requires a seamless integration with all other components of the app, from UI to Logic and even storage, in order to work properly.
-That said, when designing the interface between the Notification System and each other components, one has to know what is the best design choice, considering the constraints of the component.
-Nonetheless, in order to present notifications in an elegant way that doesn&#8217;t confuses the users, a considerable amount of insights into UX and UI designs is required.</p>
+That said, when designing the interface between the Notification System and each other components, one has to be aware of the constraints of the component and choose the best design accordingly.
+Nonetheless, in order to present notifications in an elegant way that doesn&#8217;t confuse users, a considerable amount of insights into UX and UI designs is required.</p>
 </li>
 </ul>
 </div>
@@ -89,16 +98,6 @@ Nonetheless, in order to present notifications in an elegant way that doesn&#821
 </div>
 </li>
 <li>
-<p>Documentation:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Did cosmetic tweaks to existing contents of the User Guide: <a href="https://github.com">#14</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
 <p>Community:</p>
 <div class="ulist">
 <ul>
@@ -116,7 +115,7 @@ Nonetheless, in order to present notifications in an elegant way that doesn&#821
 <div class="ulist">
 <ul>
 <li>
-<p>Integrated a third party library (emoji=java) to the project (<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/53/commits/b8fd616f4b40d442d5dee77c1ad77bf86ca1f96e">#53</a>)</p>
+<p>Integrated a third party library (emoji-java) to the project (<a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/53/commits/b8fd616f4b40d442d5dee77c1ad77bf86ca1f96e">#53</a>)</p>
 </li>
 </ul>
 </div>
@@ -141,202 +140,6 @@ Nonetheless, in order to present notifications in an elegant way that doesn&#821
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="quick-start"><a class="link" href="#quick-start">Quick Start</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This section contains essential information and instructions to help you to start using E.T. quickly.</p>
-</div>
-<div class="sect2">
-<h3 id="setting-up"><a class="link" href="#setting-up">Setting up</a></h3>
-<div class="paragraph">
-<p>If you are using E.T. for the first time, please set up E.T. by following the instructions below carefully:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Ensure you have Java version <code>1.8.0_60</code> or later installed in your computer.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Having any Java 8 version is not enough.<br>
-This app will not work with earlier versions of Java 8.
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Ensure that you have access to the internet.</p>
-</li>
-<li>
-<p>Download the latest <code>et-employeestracker.jar</code> <a href="{repoURL}/releases">here</a>.</p>
-</li>
-<li>
-<p>Copy the file to the folder you want to use as the home folder for your E.T.</p>
-</li>
-<li>
-<p>Double-click the file to start the app. The user interface should appear in a few seconds, as shown in <em>Figure 1</em>.</p>
-<div class="imageblock">
-<div class="content">
-<img src="../images/Ui_locked.png" alt="Ui locked" width="790">
-</div>
-<div class="title">Figure 1. User Interface.</div>
-</div>
-</li>
-<li>
-<p>Type <code>unlock</code> in E.T. and press <kbd>Enter</kbd> to unlock E.T. You will be greeted by a pop-up window as shown in <em>Figure 2</em>.</p>
-<div class="imageblock">
-<div class="content">
-<img src="../images/password_box.png" alt="password box" width="790">
-</div>
-<div class="title">Figure 2. Pop-up window on top of E.T.</div>
-</div>
-</li>
-<li>
-<p>Type the default password <code>admin</code> in the pop-up window and press <kbd>Enter</kbd> or left-click on the <code>Unlock</code> button at the bottom right corner of the pop-up window. The pop-up window will then disappear.</p>
-</li>
-<li>
-<p>Type <code>authenET</code> in E.T. and press <kbd>Enter</kbd> to authorize E.T. You will be directed to an authorization web page as shown in <em>Figure 3</em>.</p>
-<div class="imageblock">
-<div class="content">
-<img src="../images/authorize_ET.png" alt="authorize ET" width="790">
-</div>
-<div class="title">Figure 3. Authorization web page.</div>
-</div>
-</li>
-<li>
-<p>Click on <code>allow</code> at the bottom right corner.</p>
-</li>
-<li>
-<p>Close your browser and return to E.T. once you see a web page with a confirmation message similar to that in <em>Figure 4</em>.</p>
-<div class="imageblock">
-<div class="content">
-<img src="../images/login_done.png" alt="login done" width="790">
-</div>
-<div class="title">Figure 4. Confirmation message.</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The above instructions are only for first-time users. However, because E.T. is locked by default for security purposes, you will need to follow step 4, 5, 6 for every time you open E.T. in the future. Of course, if you have changed your password, then you will need to execute step 6 with your new password.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>After setting up, you can start using E.T. by typing commands and press <kbd>Enter</kbd> to execute it.<br>
-e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph">
-<p>Some example commands you can try:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-lists all employees.</p>
-</li>
-<li>
-<p><code>add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code><br>
-adds an employee named <code>John Doe</code> to E.T.</p>
-</li>
-<li>
-<p><code>delete 3</code><br>
-deletes the 3<sup>rd</sup> contact shown in the current list.</p>
-</li>
-<li>
-<p><code>exit</code><br>
-exits the app.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Refer to <a href="#Commands">[Commands]</a> for more details on commands.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="knowing-the-user-interface"><a class="link" href="#knowing-the-user-interface">Knowing the User Interface</a></h3>
-<div class="paragraph">
-<p>The User Interface will be the application’s interface that you will interact with. E.T. has a Graphical User Interface (GUI) instead of a Command Line Interface (CLI).</p>
-</div>
-<div class="paragraph">
-<p><em>Figure 5</em> shows the 5 major components of the GUI of E.T. :</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Command Box</strong>: where you type in commands.</p>
-</li>
-<li>
-<p><strong>Result Display Box</strong>: where E.T. shows text result to you.</p>
-</li>
-<li>
-<p><strong>Employees List Panel</strong>: where the list of all employees is shown.</p>
-</li>
-<li>
-<p><strong>Employee&#8217;s Profile Panel</strong>: where the details of the selected employee is shown.</p>
-</li>
-<li>
-<p><strong>Notification cards</strong>: where E.T. reminds you about events.</p>
-</li>
-</ul>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UiLabelled.png" alt="UiLabelled" width="800">
-</div>
-<div class="title">Figure 5. Graphical User Interface (GUI).</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="reading-the-result-display-box"><a class="link" href="#reading-the-result-display-box">Reading the result display box</a></h3>
-<div class="paragraph">
-<p>The result display box shows 3 types of information:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Error messages in <span class="red">red</span> if the command you entered does not exists or does not match the pre-defined format.</p>
-</li>
-<li>
-<p>Hints about the format and usage of the command in <span class="maroon">maroon</span>.</p>
-</li>
-<li>
-<p>Status of E.T. in <span class="maroon">maroon</span> if your command is processed successfully.</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Whenever you type keyword of a command in the <code>Command Box</code>, E.T. will provide <span class="maroon">hints</span> about its usage.
-</td>
-</tr>
-</table>
-</div>
-</div>
 <div class="sect2">
 <h3 id="understanding-the-notifications"><a class="link" href="#understanding-the-notifications">Understanding the notifications</a></h3>
 <div class="paragraph">
@@ -356,16 +159,16 @@ Whenever you type keyword of a command in the <code>Command Box</code>, E.T. wil
 <div class="content">
 <img src="../images/card_blue.png" alt="card blue" width="">
 </div>
-<div class="title">Figure 6. First phase notification card.</div>
+<div class="title">Figure 1. First phase notification card.</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/card_red.png" alt="card red" width="">
 </div>
-<div class="title">Figure 7. Second phase notification card.</div>
+<div class="title">Figure 2. Second phase notification card.</div>
 </div>
 <div class="paragraph">
-<p>For example, suppose you have assigned a task to Alex which will due on 15<sup>th</sup> Apr 2018 0032 hrs. When you open E.T. for the first time in the morning of 15<sup>th</sup> Apr 2018, you will be notified that Alex has a task that will due on <strong>today</strong> in a <span class="blue">blue</span> notification card. Later at 0032 hrs of 15<sup>th</sup> Apr 2018, you will receive the second phase notification in <span class="red">red</span>, informing you that Alex should have finished the task by <strong>now</strong>.</p>
+<p>For example, suppose you have assigned a task to Jane which will due on 15<sup>th</sup> Apr 2018 0032 hrs. When you open E.T. for the first time in the morning of 15<sup>th</sup> Apr 2018, you will be notified that Jane has a task that will due on <strong>today</strong> in a <span class="blue">blue</span> notification card. Later at 0032 hrs of 15<sup>th</sup> Apr 2018, you will receive the second phase notification in <span class="red">red</span>, informing you that Jane should have finished the task by <strong>now</strong>.</p>
 </div>
 <div class="paragraph">
 <p>Notification cards will disappear from the screen after 5 seconds and will be stored in the <code>Notification Center</code>. If you want to refer to them later, use <code>noti</code> command or double press <kbd>Shift</kbd> to open the <code>Notification Center</code>.</p>
@@ -377,155 +180,7 @@ Whenever you type keyword of a command in the <code>Command Box</code>, E.T. wil
 <div class="content">
 <img src="../images/card_windows.png" alt="card windows" width="">
 </div>
-<div class="title">Figure 8. E.T. shows notification card about event expiry even if you are using other programs.</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="rating-an-employee-code-rate-code"><a class="link" href="#rating-an-employee-code-rate-code">Rating an employee : <code>rate</code></a></h3>
-<div class="paragraph">
-<p>Updates the rating of an existing employee in E.T.<br>
-Format: <code>rate INDEX RATING</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>The index refers to the index number shown in the last employees listing.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>Both INDEX and RATING must be provided.</p>
-</li>
-<li>
-<p>Existing rating will be updated to the input RATING.</p>
-</li>
-<li>
-<p>RATING must be a positive integer between 1 and 5, i.e. 1, 2, 3, 4, or 5.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>An employee will have a null rating (shown as <code>-</code>) by default upon added. This implies that the employee is yet to be rated.</p>
-</li>
-<li>
-<p>You cannot assign null rating to an employee.</p>
-</li>
-</ul>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-<code>rate 1 5</code><br>
-Gives the 1<sup>st</sup> employee in the last employees listing a 5-stars rating.</p>
-</li>
-<li>
-<p><code>find Alex</code><br>
-<code>rate 2 2</code><br>
-Gives the 2<sup>nd</sup> employee in the list of Alex(s) a 2-stars rating.
-=== Toggling the notification center : <code>noti</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Shows the notification center if it is hidden or hides the notification center if it is shown.<br>
-Format: <code>noti</code></p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Alternatively, you can <strong>double press</strong> <kbd>SHIFT</kbd> to toggle the notification center.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="dismissing-a-notification-card-code-dismiss-code"><a class="link" href="#dismissing-a-notification-card-code-dismiss-code">Dismissing a notification card : <code>dismiss</code></a></h3>
-<div class="paragraph">
-<p>Dismisses the notification card identified by the index number.<br>
-Format: <code>dismiss INDEX</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="reminding-an-employee-through-email-code-email-code"><a class="link" href="#reminding-an-employee-through-email-code-email-code">Reminding an employee through email : <code>email</code></a></h3>
-<div class="paragraph">
-<p>Opens up the email app of the computer to send a reminder email about the notification identified by the index number used in notification cards.<br>
-Format: <code>email INDEX</code></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>You will be brought straight to the email composing interface of your email app.</p>
-</li>
-<li>
-<p>The recipient of the email will be set to the email address of the employee who was assigned the event.</p>
-</li>
-</ul>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="reminding-an-employee-through-whatsapp-code-emailall-code"><a class="link" href="#reminding-an-employee-through-whatsapp-code-emailall-code">Reminding an employee through WhatsApp : <code>emailall</code></a></h3>
-<div class="paragraph">
-<p>Opens up the email app of the computer to send a reminder email to all persons who has a task ended.<br>
-Format: <code>emailall INDEX</code></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>You will be brought straight to the email composing interface of your email app.</p>
-</li>
-<li>
-<p>The recipient of the email will be set to the email address of all employees who has task(s) ended.</p>
-</li>
-</ul>
-</div>
-</td>
-</tr>
-</table>
+<div class="title">Figure 3. E.T. shows notification card about event expiry even if you are using other programs.</div>
 </div>
 </div>
 </div>
@@ -595,9 +250,9 @@ Each of the fields is used to contain the corresponding <strong>new</strong> val
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/Rate%20Command%20Sequence%20Diagram.png" alt="Rate Command Sequence Diagram" width="800">
+<img src="../images/Rate%20Command%20Sequence%20Diagram.png" alt="Rate Command Sequence Diagram" width="500">
 </div>
-<div class="title">Figure 9. Sequence diagram of Rate Command execution</div>
+<div class="title">Figure 4. Sequence diagram of Rate Command execution</div>
 </div>
 <div class="paragraph">
 <p>The important method calls during the execution of <code>edit</code> and <code>rate</code> command includes:</p>
@@ -665,14 +320,19 @@ This current implementation of <code>edit</code> command is by courtesy of the o
 <p>Pros: implementation is simple</p>
 </li>
 <li>
-<p>Cons: data integrity is compromised (the <code>Person</code> object can be modified by any entity), more coupling
-=== Notification System
-This section discusses about the implementation of the notification feature of Employees Tracker.</p>
+<p>Cons: data integrity is compromised (the <code>Person</code> object can be modified by any entity), more coupling</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="notification-system"><a class="link" href="#notification-system">Notification System</a></h3>
+<div class="paragraph">
+<p>This section discusses about the implementation of the notification feature of Employees Tracker.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -687,7 +347,6 @@ e.g. BaseEvent, AddressBookChangedEvent.
 </td>
 </tr>
 </table>
-</div>
 </div>
 <div class="sect3">
 <h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current Implementation</a></h4>
@@ -726,9 +385,9 @@ e.g. BaseEvent, AddressBookChangedEvent.
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/Notification%20System.png" alt="Notification System" width="">
+<img src="../images/Notification%20System.png" alt="Notification System" width="500">
 </div>
-<div class="title">Figure 10. Class diagram of the Notification System</div>
+<div class="title">Figure 5. Class diagram of the Notification System</div>
 </div>
 </div>
 <div class="sect4">
@@ -754,118 +413,6 @@ e.g. BaseEvent, AddressBookChangedEvent.
 </div>
 </div>
 <div class="sect4">
-<h5 id="add-notification-operation"><a class="link" href="#add-notification-operation">Add-Notification Operation</a></h5>
-<div class="paragraph">
-<p>The following steps show how a Notification is added to the Notification System:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>A <code>Notification</code> is created.</p>
-</li>
-<li>
-<p><code>Model</code> to add the <code>Notification</code> into the <code>Notifications</code> list in <code>AddressBook</code>.</p>
-</li>
-<li>
-<p><code>Model</code> raises a <code>AddressBookChangedEvent</code> and <code>NotificationAddedEvent</code> after adding the Notification.</p>
-</li>
-<li>
-<p><code>Storage</code> handles the <code>AddressBookChangedEvent</code> and saves the new list of Notifications.</p>
-</li>
-<li>
-<p><code>Logic</code> handles the  <code>NotificationAddedEvent</code> and decides when to show the notification.</p>
-</li>
-<li>
-<p>When it is time to show the notification, <code>Logic</code> will request <code>Ui</code> to show a notification.</p>
-</li>
-<li>
-<p><code>Ui</code> will instruct <code>MainWindow</code> to show a notification.</p>
-</li>
-<li>
-<p><code>MainWindow</code> will create a <code>NotificationCard</code> and shows it to user on-screen.</p>
-</li>
-<li>
-<p><code>MainWindow</code> will create another copy of the same <code>NotificationCard</code> and stores it in the <code>NotificationCenter</code></p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect4">
-<h5 id="find-owner-name-operation"><a class="link" href="#find-owner-name-operation">Find-owner-name operation</a></h5>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Each <code>Event</code> is assigned (and thus) to an employee. In the following discussions, we will use the phrase <code>owner</code> to refer to the employee who is assigned to the <code>Event</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Note that the <code>Notification</code> class only contains a field called <code>ownerId</code> instead of the name, email, etc. of its <code>owner</code>.
-The information of the owner of a notification is retrieved through the <code>findPersonById</code> mechanism.
-The following are the details of the mechanism:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>AddressBook</code> class has a <code>nextId</code> integer field.</p>
-</li>
-<li>
-<p>Whenever an employee is added, <code>addressBook</code> assigns the <code>nextId</code> to him and increment the <code>nextId</code> field.</p>
-</li>
-<li>
-<p>The <code>Person</code> class has an <code>id</code> field to store the id.</p>
-</li>
-<li>
-<p>When a <code>Notification</code> is created, it has a <code>ownerId</code> field that stores the <code>id</code> of its <code>owner</code>.</p>
-</li>
-<li>
-<p>To retrieve the owner of a <code>Notification</code>, call <code>findPersonById(ownerId)</code> to obtain the <code>Person</code> owner. Then, use getter methods to obtain relevant information.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="delete-notification-operation"><a class="link" href="#delete-notification-operation">Delete-notification operation</a></h5>
-<div class="paragraph">
-<p>Delete-notification operation has a simpler implementation compared to Add-notification operation. Please refer to <em>Figure 19</em> below for the flow of the operation.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/Delete%20Notification.png" alt="Delete Notification" width="">
-</div>
-<div class="title">Figure 11. Activity Diagram for deleting notification</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Deleting with <code>eventId</code> and <strong>not</strong> <code>deleteFromAddressBookOnly</code> is usally invoked by <code>deleteEvent</code> command.</p>
-</li>
-<li>
-<p>Deleting with <code>eventId</code> and <code>deleteFromAddressBookOnly</code> is usually invoked by <code>Logic</code>, when it is yet to add a <code>NotificationCard</code> to the <code>NotificationCenter</code> but finds out that the <code>owner</code> has already been deleted.</p>
-</li>
-<li>
-<p>Deleting with <code>eventId</code> is usually invoked by <code>delete</code> command, where <code>Notification</code> and <code>Person</code> are deleted together.</p>
-</li>
-</ul>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect4">
 <h5 id="add-notifications-at-startup-operation"><a class="link" href="#add-notifications-at-startup-operation">Add-notifications-at-startup operation</a></h5>
 <div class="paragraph">
 <p>At each startup, after initializing the Notification System, ET will then go through the LinkedList of <code>Notification</code> in <code>AddressBook</code>.
@@ -878,12 +425,8 @@ This will result in concurrent modification issues. Thus, <code>Semaphore</code>
 <div class="literalblock">
 <div class="content">
 <pre>//current implementation only allows 1 thread to enter showNewNotification() at the same time.
-Semaphore = new Semaphore(1);</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>/**
+Semaphore = new Semaphore(1);
+/**
    * Show in-app notification
    */
   public void showNewNotification(ShowNotificationEvent event) {
@@ -899,32 +442,7 @@ Semaphore = new Semaphore(1);</pre>
       notificationCard.setTranslateY(UP * shownNotificationCards.size() * NOTIFICATION_CARD_HEIGHT);
       shownNotificationCards.add(notificationCard);
       semaphore.release();
-      //enter animation
-      Platform.runLater(new Runnable() {
-          @Override
-          public void run() {
-              mainStage.getChildren().add(notificationCard);
-              animateHorizontally(notificationCard, NOTIFICATION_CARD_WIDTH, ENTER);
-              Timer timer = new Timer();
-              TimerTask timerTask = new TimerTask() {
-                  @Override
-                  public void run() {
-                      //it should be the first notification card to exit first
-                      try {
-                          semaphore.acquire();
-                      } catch (InterruptedException e) {
-                          e.printStackTrace();
-                      }
-                      Region firstNotificationCard = shownNotificationCards.removeFirst();
-                      //cards are reused later in notification center
-                      animateHorizontally(firstNotificationCard, NOTIFICATION_CARD_WIDTH, EXIT);
-                      moveAllNotificationCardsDown();
-                      semaphore.release();
-                  }
-              };
-              timer.schedule(timerTask, NOTIFICATION_CARD_SHOW_TIME);
-          }
-      });
+      //..animations
   }</pre>
 </div>
 </div>
@@ -1036,7 +554,7 @@ Semaphore = new Semaphore(1);</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 15:03:12 UTC
+Last updated 2018-04-15 15:19:40 UTC
 </div>
 </div>
 </body>
