@@ -5,14 +5,14 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>John Doe - Project Portfolio</title>
+<title>Gilbert Emerson - Project Portfolio</title>
 <link rel="stylesheet" href="../stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>John Doe - Project Portfolio</h1>
+<h1>Gilbert Emerson - Project Portfolio</h1>
 </div>
 <div id="content">
 <div class="sect1">
@@ -25,7 +25,14 @@
 <h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Employees Tracker (E.T.) is a Human Resource Manager application that helps managers to manage their subordinates. Its has 2 main functionalities: providing information about employees, as well as helping in tracking the tasks assigned to each employee.</p>
+<p>Ever feels overwhelmed in managing all your employees?
+Ever wants to keep track of all the tasks you have assigned to your employees?</p>
+</div>
+<div class="paragraph">
+<p>Employees Tracker (E.T.) comes to the rescue!</p>
+</div>
+<div class="paragraph">
+<p>Employees Tracker is a Human Resource Manager application that helps managers to manage their subordinates. It has 2 main functionalities: providing information about employees, as well as helping in tracking the tasks assigned to each employee.</p>
 </div>
 </div>
 </div>
@@ -39,7 +46,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: allows the user to review employee. A review is tied to a reviewer. It is planned in V2.0 a reviewer can only review once to an employee.</p>
+<p>What it does: Allows the user to review employee. A review is tied to a reviewer. It is planned in V2.0 a reviewer can only review once to an employee.</p>
 </li>
 <li>
 <p>Justification: This feature improves the product significantly because a user will be able to review an employee and hence can track and analyse the performance of an employee.</p>
@@ -55,7 +62,7 @@
 <p>What it does: Before the enhancement, find command can only search by name using a single keyword. The enhancement allows find command to find by multiple fields such as name, tags, and rating using keyphrase. Find command is also enhanced to be able to find using multiple criteria.</p>
 </li>
 <li>
-<p>Justification: Searching employee by multiple fields and also multiple criteria will allow a more powerful search feature for user.</p>
+<p>Justification: Searching employee by multiple fields and criteria will allow a more powerful search feature for user.</p>
 </li>
 </ul>
 </div>
@@ -72,7 +79,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Managed releases <code>v1.2</code> - <code>v1.4qa</code> (4 releases) on GitHub</p>
+<p>Managed releases <code>v1.2</code> - <code>v1.5rc</code> (5 releases) on GitHub.</p>
+</li>
+<li>
+<p>Set up Travis CI for the team repo.</p>
 </li>
 </ul>
 </div>
@@ -88,11 +98,21 @@
 </div>
 </li>
 <li>
+<p>Contribution to code quality:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Periodically refactor code to reduce coupling <a href="https://github.com/CS2103JAN2018-T09-B1/main/issues/111">1</a>, maintain consistency <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/223">2</a>, and introduce more meaningful naming <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/149">3</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
 <p>Documentation:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Maintain consistency in terminology used in documentation.</p>
+<p>Maintain consistency in terminology used in documentation <a href="https://github.com/CS2103JAN2018-W15-B1/main/pull/168">1</a>.</p>
 </li>
 </ul>
 </div>
@@ -127,6 +147,132 @@
 </tr>
 </tbody>
 </table>
+<div class="sect2">
+<h3 id="searching-for-employees-code-find-code"><a class="link" href="#searching-for-employees-code-find-code">Searching for employees: <code>find</code></a></h3>
+<div class="paragraph">
+<p>Finds employees whose name, tags, rating, or all of those contain any of the given keyphrases.<br>
+Format: <code>find (n/NAME_KEYPHRASE | t/TAG_KEYPHRASE | r/RATING_KEYPHRASE)  [n/NAME_KEYPHRASE]&#8230;&#8203; [t/TAG_KEYPHRASE]&#8230;&#8203; [r/RATING_KEYPHRASE]&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case insensitive, e.g. <code>n/hANs</code> will match <code>Hans</code></p>
+</li>
+<li>
+<p>The order of the keyphrase does not matter, e.g. <code>n/Hans Bo</code> will match <code>Bo Hans</code></p>
+</li>
+<li>
+<p>The search does not match exactly all the words in a phrase in sequential order, but only finds any phrase that contains the specified keyphrase&#8217;s words without sequential order, e.g. <code>n/Hans Bo</code> will match <code>Jonathan Bo Hans</code></p>
+</li>
+<li>
+<p>The search only matches full word, e.g. <code>n/Han</code> will not match <code>Hans</code></p>
+</li>
+<li>
+<p>Searching by multiple criteria will yield the result of employees that match all of them, e.g.<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>n/Hans Bo t/Sales</code> will match <code>Hans Bo</code> with tag <code>Sales</code> but not <code>Hans Bo</code> with tag <code>Marketing</code> or <code>John Doe</code> with tag <code>Sales</code><br></p>
+</li>
+<li>
+<p><code>n/Hans Bo n/John Doe t/Sales t/Marketing</code> will match only <code>Hans Bo | Sales</code> or <code>Hans Bo | Marketing</code> or <code>John Doe | Sales</code> or <code>John Doe | Marketing</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find n/John</code><br>
+Returns all employees having name <code>John</code>.<br>
+e.g. <code>john</code> and <code>John Doe</code></p>
+</li>
+<li>
+<p><code>find n/Betsy Tim John</code><br>
+Returns all employees with name that contains <code>Betsy Tim John</code> without any sequential order.<br>
+e.g. <code>Caroline John Tim Betsy</code> and <code>Betsy Tim John</code></p>
+</li>
+<li>
+<p><code>find n/Betsy n/Tim n/John</code><br>
+Returns all employees with name that contains either <code>Betsy</code>, <code>Tim</code>, or <code>John</code><br>
+e.g. <code>Betsy</code>, <code>Tim</code>, <code>John</code>, <code>Betsy Toe</code>, <code>John Cook</code>, and <code>Tim John</code></p>
+</li>
+<li>
+<p><code>find n/John t/Developer iOS r/3</code><br>
+Returns all employees with name <code>John</code>, both tags <code>Developer</code> and <code>iOS</code>, and rating of 3<br>
+e.g. <code>John | Developer, iOS | 3</code></p>
+</li>
+<li>
+<p><code>find n/John t/Sales t/Associate</code><br>
+Returns all employees having both names <code>John</code> and either tags <code>Sales</code> or <code>Associate</code><br>
+e.g. <code>John Doe | Sales</code>, <code>John Dick| Associate</code>, <code>John | Friends, Associate</code>, and <code>John Dare | Sales, Associate, Newbie</code>
+=== Reviewing an employee : <code>review</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Assigns a review to an existing employee in E.T.<br>
+Format: <code>review INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The index refers to the index number shown in the last employees listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong>, i.e. 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The reviewer must be a valid email address.</p>
+</li>
+<li>
+<p>The review can contain any character without length limitation.</p>
+</li>
+<li>
+<p>A review will be tied to a single reviewer.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>review 1</code><br>
+Gives the 1<sup>st</sup> employee in the last employees listing a review.<br></p>
+</li>
+<li>
+<p><code>find n/Alex</code><br>
+<code>review 2</code><br>
+Gives the 2<sup>nd</sup> employee in the list of Alex(s) a review.<br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A pop-up window will appear after user executes the <code>review</code> command as shown in <em>Figure 15</em>. The window will prompts user to enter user&#8217;s email (as a reviewer) and the review.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/review_dialog.png" alt="review dialog" width="">
+</div>
+<div class="title">Figure 1. Review pop-up window.</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -143,27 +289,23 @@
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="review-system"><a class="link" href="#review-system">Review system</a></h3>
+<h3 id="review-feature"><a class="link" href="#review-feature">Review feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
 <p>A <code>Review</code> consists of the <em>review</em> content itself and the <em>reviewer</em>. <em>Review</em> and <em>reviewer</em> are separated by a single newline character.</p>
 </div>
 <div class="paragraph">
-<p>A person by default upon creation will have a list of <code>Review</code>-s with one null <code>Review</code> indicated to be <code>-</code> for both <em>reviewer</em> and <em>review</em> by default. This indicate that the person is yet to be reviewed.</p>
+<p><em>Review</em> content itself has no restriction on the content, it accepts all characters with no length limitation). <em>Reviewer</em> must be a valid email format. A new empty <code>Review</code> will be instantiated with null value of <code>-</code> for both <em>review</em> and <em>reviewer</em>, signifying that both fields are empty.</p>
 </div>
 <div class="paragraph">
-<p>A person can be assigned a <code>Review</code> through the command of <code>review</code>. <code>Review</code> does not have any restriction on the <em>review</em> content (alphanumeric and symbols without any length restriction).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="review-a-person"><a class="link" href="#review-a-person">Review a person</a></h3>
-<div class="paragraph">
-<p>Currently <code>review</code> command and <code>rate</code> command are implemented in a similar manner, and hence <code>review</code> command and <code>edit</code> command are also implemented in a similar manner.</p>
+<p>Each <code>Person</code> has a <code>UniqueReviewList</code>, that is a unique list of <code>Review(s)</code>. A new <code>Person</code> upon creation will have an empty <code>UniqueReviewList</code>. A <code>Person</code> can be assigned <code>Review(s)</code> through <code>review</code> command.</p>
 </div>
 <div class="paragraph">
-<p>The implementation basically mirrors what has already been documented in <code>3.3. Editing and rating a person</code>, so the implementation below is basically the iteration of the said part, with some modification.</p>
+<p><code>review</code> command and <code>review</code> command are implemented in a similar manner. They both involve modifying the field(s) of a <code>Person</code>. The only difference is that <code>review</code> can only change the <code>Review</code> field, but <code>edit</code> can be used to change any field except <code>Review</code>. Hence, the implementation may be very similar to <a href="#Edit and rate a person">[Edit and rate a person]</a>.</p>
 </div>
 <div class="paragraph">
-<p>The implementation of <code>edit</code> and <code>review</code> command in the Logic component involves 4 objects:<br></p>
+<p>The implementation of <code>review</code> and <code>edit</code> command in the Logic component involves 4 objects:<br></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -185,18 +327,24 @@
 <p>Since all fields of the <code>Person</code> class are immutable, we need to use <code>Person</code> <em>editedPerson</em> to replace the <code>Person</code> <em>personToEdit</em>.</p>
 </div>
 <div class="paragraph">
+<p>Additionally, the implementation also involves <code>ReviewDialog</code> in the UI component and <code>ShowReviewDialogEvent</code> in Common component to show the pop-up review dialog for user to input <em>reviewer</em> and <em>review</em>.</p>
+</div>
+<div class="paragraph">
 <p>The details of implementation are as follow:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>Parser</code> extracts the new information for each field from user input.</p>
+<p><code>Parser</code> extracts <code>Index</code> from user input and validates it.</p>
 </li>
 <li>
-<p><code>EditPersonDescriptor</code> is used to record which field(s) will be changed and the respective new value.</p>
+<p><code>Parser</code> posts <code>ShowReviewDialogEvent</code> to show the review pop-up dialog for user to input the <em>reviewer</em> and <em>review</em>.</p>
 </li>
 <li>
-<p><code>Person</code> <em>editedPerson</em> will be created, by obtaining the new <code>Review</code> value from <code>EditPersonDescriptor</code> together with the old <code>Review</code> value.<br>
+<p><code>EditPersonDescriptor</code> is used to record the new <code>Review</code> value.</p>
+</li>
+<li>
+<p><code>Person</code> <em>editedPerson</em> will be created by obtaining the new <code>Review</code> value from <code>EditPersonDescriptor</code> together with the old <code>Review</code> value.<br>
 The old <code>Review</code> value is obtained from <code>Person</code> <em>personToEdit</em>.</p>
 </li>
 <li>
@@ -205,7 +353,107 @@ The old <code>Review</code> value is obtained from <code>Person</code> <em>perso
 </ol>
 </div>
 <div class="paragraph">
-<p><code>Review</code> uses JavaFX&#8217;s <code>Dialog</code> to get the review input from the user instead of from command box.</p>
+<p>Given below in <em>Figure 11</em> is the partial sequence diagram of Review Command. <code>LogicManager</code> and how <code>ReviewCommand</code> executes are omitted as they are similar to <em>Figure 8</em>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/review_seq.png" alt="review seq" width="800">
+</div>
+<div class="title">Figure 2. Sequence Diagram for Review Command</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ReviewCommandParser</span> <span class="directive">implements</span> <span class="predefined-type">Parser</span>&lt;ReviewCommand&gt; {
+
+    <span class="directive">public</span> ReviewCommand parse(<span class="predefined-type">String</span> args) <span class="directive">throws</span> <span class="exception">ParseException</span> {
+        <span class="comment">// ... get Index from args and validates it to be positive</span>
+        <span class="comment">// ... post events for the review dialog</span>
+        <span class="keyword">try</span> {
+            <span class="comment">// ... create Review from the input from review dialog ...</span>
+            <span class="comment">// ... create EditPersonDescriptor based on the Review ...</span>
+            <span class="keyword">return</span> <span class="keyword">new</span> ReviewCommand(index, editPersonDescriptor);
+        } <span class="keyword">catch</span> (IllegalValueException ive) {
+            <span class="comment">// ... throw exception ...</span>
+        }
+    }
+
+    <span class="annotation">@Subscribe</span>
+    <span class="directive">private</span> <span class="type">void</span> getReviewInput(ReviewInputEvent event) {
+        <span class="comment">// ... get reviewer and review content from the review dialog ...</span>
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-to-get-the-review-input-from-user"><a class="link" href="#aspect-how-to-get-the-review-input-from-user">Aspect: How to get the review input from user</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Use JavaFX&#8217;s Dialog for a pop-up window.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More comfortable and convenient for user to type longer review and also easier for them to edit.</p>
+</li>
+<li>
+<p>Cons: Harder to implement and user may not necessarily want a pop-up window.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Use CommandBox.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easier to implement and user can directly type to the CommandBox, which may be more efficient.</p>
+</li>
+<li>
+<p>Cons: May be restrictive for user to enter a long review or to edit what they have typed.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-way-of-showing-the-review-dialog"><a class="link" href="#aspect-way-of-showing-the-review-dialog">Aspect: Way of showing the review dialog</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Post an event to request MainWindow to show the Dialog.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Good to comply with the Events-Driven nature of the application&#8217;s design, making the design more cohesive and less coupling.</p>
+</li>
+<li>
+<p>Cons: Events-Driven design is routine-less. Need to put extra effort to control the events. As the application grows, there are more events posted
+and it is necessary to control these events well to prevent events messing up.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Just add a static method in MainWindow that will show the Dialog.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Simpler implementation than current one, no need extra effort for event controlling.</p>
+</li>
+<li>
+<p>Cons: The static method could not use the non-static attributes in MainWindow, as a result, need extra effort to deal with referencing non-static variables.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -213,7 +461,7 @@ The old <code>Review</code> value is obtained from <code>Person</code> <em>perso
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 13:45:22 UTC
+Last updated 2018-04-15 13:55:06 UTC
 </div>
 </div>
 </body>
